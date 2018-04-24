@@ -146,7 +146,7 @@ namespace TransactionImporter.BLL
                             if (cRng.Value != null)
                             {
                                 string transactionId = cRng.Value.ToString();
-                                Transaction trans = new Transaction(transactionId);
+                                Transaction trans = new Transaction(transactionId, gateway);
                                 //Add the value of the row (i) from Column (rngResult) to the List string array columnValue on Index (index)
                                 columnValue[index].Add(cRng.Value.ToString());
                                 Console.WriteLine((i + " ") + cRng.Value.ToString());
@@ -168,59 +168,146 @@ namespace TransactionImporter.BLL
 
         }
 
+//        public void ImportExcelIntoDatabase()
+//        {
+//            int index = 0;
+//            foreach (var item in IdentifyColumns())
+//            {
+//                foreach (string type in TransactionTypes())
+//                {
+//                    if (item == type)
+//                    {
+//                        int currentRow = 1;
+//                        Range currentRange = null;
+//                        Console.WriteLine("Succes!" + index);
+//                        Console.WriteLine(item + type);
+//                        Range usedRange = xlWorksheet.UsedRange;
+//                        foreach (Range row in usedRange.Rows)
+//                        {
+//                            currentRange = xlWorksheet.Cells[currentRow, index] as Range;
+//                            string transId = currentRange.Value2.ToString();
+//                            Console.WriteLine(transId);
+//                            Transaction trans = new Transaction(transId);
+//                            transactions.Add(trans);
+//                            currentRow++;
+//                        }
+//
+//                    }
+//
+//                    index++;
+//                }
+//            }
+//
+//        }
+
         public void ImportExcelIntoDatabase()
         {
-            int index = 0;
-            foreach (var item in IdentifyColumns())
+            Range usedRange = xlWorksheet.UsedRange;
+            Range currentRange = null;
+            for (int i = 1; i < usedRange.Rows.Count; i++)
             {
-                foreach (string type in TransactionTypes())
+                string transobject = null;
+                string gatewayobject = null;
+                for (int j = 1; j < usedRange.Columns.Count; j++)
                 {
-                    if (item == type)
+                    
+                    if (isHeaderPartOfTransactions(j))
                     {
-                        int currentRow = 1;
-                        Range currentRange = null;
-                        Console.WriteLine("Succes!" + index);
-                        Console.WriteLine(item + type);
-                        Range usedRange = xlWorksheet.UsedRange;
-                        foreach (Range row in usedRange.Rows)
+                        if (getHeaderName(j) == "Transaction ID")
                         {
-                            currentRange = xlWorksheet.Cells[currentRow, index] as Range;
-                            string transId = currentRange.Value2.ToString();
-                            Console.WriteLine(transId);
-                            Transaction trans = new Transaction(transId);
-                            transactions.Add(trans);
-                            currentRow++;
+                            transobject = usedRange.Cells[i, j].Value2.ToString();
+                        } else if (getHeaderName(j) == "Gateway")
+                        {
+                            gatewayobject = usedRange.Cells[i, j].Value2.ToString();
                         }
-
+                        
                     }
+                    
+                }
 
-                    index++;
+                if (transobject != null && gatewayobject != null)
+                {
+                    Transaction trans = new Transaction(transobject, gatewayobject);
+                    transactions.Add(trans);
+
                 }
             }
 
         }
 
-        public List<string> TransactionTypes()
-        {
-            List<string> types = new List<string>
-            {
-                "Transaction ID",
-                "Gateway"
-            };
-            return types;
-        }
-
-        public string[] IdentifyColumns()
+        public string getHeaderName(int column)
         {
             Range usedRange = xlWorksheet.UsedRange;
-            String[] header = new string[usedRange.Columns.Count];
-            for (int i = 1; i < usedRange.Columns.Count; i++)
-            {
-                header[i] = usedRange.Cells[1, i].Value2.ToString();
-            }
-
+            Range result = null;
+            result = xlWorksheet.Cells[1, column] as Range;
+            string header = result.Value2.ToString();
             return header;
         }
+
+        public bool isHeaderPartOfTransactions(int column)
+        {
+            Range usedRange = xlWorksheet.UsedRange;
+            Range result = null;
+            result = xlWorksheet.Cells[1, column] as Range;
+            string placeholder = result.Value2.ToString();
+            if (placeholder == "Transaction ID" || placeholder == "Gateway")
+            {
+                Console.WriteLine("Succes! We did it!!");
+                return true;
+            }
+            Console.WriteLine("Negative! We couldn't find the objective.");
+            return false;
+        }
+
+        public void checkHeader()
+        {
+            Range usedRange = xlWorksheet.UsedRange;
+            Range header = xlWorksheet.Rows[1];
+            for (int i = 0; i < xlWorksheet.Columns.Count; i++)
+            {
+                foreach (Range item in header.Columns)
+                {
+                    Console.WriteLine(
+                        item.Value2.ToString());
+                    if (item.Value2.ToString() == "Transaction ID")
+                    {
+                        
+                    }
+               }
+            }
+        }
+
+        public void CreateTransactionObject(int row, int column)
+        {
+            Range usedRange = xlWorksheet.UsedRange;
+            Range result = null;
+            string transactionId;
+            string gateway;
+                result = xlWorksheet.Cells[row, column] as Range;
+                transactionId = result.Value2.ToString();
+        }
+
+//        public List<string> TransactionTypes()
+//        {
+//            List<string> types = new List<string>
+//            {
+//                "Transaction ID",
+//                "Gateway"
+//            };
+//            return types;
+//        }
+//
+//        public string[] IdentifyColumns()
+//        {
+//            Range usedRange = xlWorksheet.UsedRange;
+//            String[] header = new string[usedRange.Columns.Count];
+//            for (int i = 1; i < usedRange.Rows.Count; i++)
+//            {
+//                header[i] = usedRange.Cells[1, i].Value2.ToString();
+//            }
+//
+//            return header;
+//        }
 
         public List<Transaction> GetTransactions()
         {

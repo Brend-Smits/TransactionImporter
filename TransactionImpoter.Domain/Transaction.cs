@@ -17,11 +17,11 @@ namespace TransactionImpoter.Domain
         private CustomerInfo CustomerInfo;
         public List<Product> Products = new List<Product>();
 
-        public Transaction(string transactionId)
+        public Transaction(string transactionId, string gateway)
         {
             TransactionId = transactionId;
 //            Amount = amount;
-//            Gateway = gateway;
+            Gateway = gateway;
 //            Status = status;
 //            Date = date;
 //            User = user;
