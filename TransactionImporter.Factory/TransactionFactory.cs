@@ -14,5 +14,7 @@ namespace TransactionImporter.Factory
         {
             return new TransactionLogic(new TransactionRepository(new TransactionSqlContext()));
         }
+
+
     }
 }

@@ -24,8 +24,8 @@ namespace TransactionImporter.BLL
         Worksheet xlWorksheet;
         private Workbooks wbs;
         private Workbook wb;
-
-
+        private int rowCount;
+        private int columnCount;
 
 
         public void UploadFile()
@@ -97,14 +97,15 @@ namespace TransactionImporter.BLL
         {
             if (OldFilePath != null)
             {
-                List<string> header = new List<string>
-                {
-                    "Transaction Id"
-                };
-                foreach (var item in header)
-                {
-                    RetrieveColumnByHeader(xlWorksheet, item);
-                }
+                //                List<string> header = new List<string>
+                //                {
+                //                    "Transaction Id"
+                //                };
+                //                foreach (var item in header)
+                //                {
+                //                    RetrieveColumnByHeader(xlWorksheet, item);
+                //                }
+                ImportExcelIntoDatabase();
             }
             else
             {
@@ -167,10 +168,92 @@ namespace TransactionImporter.BLL
 
         }
 
+        public void ImportExcelIntoDatabase()
+        {
+            int index = 0;
+            foreach (var item in IdentifyColumns())
+            {
+                foreach (string type in TransactionTypes())
+                {
+                    if (item == type)
+                    {
+                        int currentRow = 1;
+                        Range currentRange = null;
+                        Console.WriteLine("Succes!" + index);
+                        Console.WriteLine(item + type);
+                        Range usedRange = xlWorksheet.UsedRange;
+                        foreach (Range row in usedRange.Rows)
+                        {
+                            currentRange = xlWorksheet.Cells[currentRow, index] as Range;
+                            string transId = currentRange.Value2.ToString();
+                            Console.WriteLine(transId);
+                            Transaction trans = new Transaction(transId);
+                            transactions.Add(trans);
+                            currentRow++;
+                        }
+
+                    }
+
+                    index++;
+                }
+            }
+
+        }
+
+        public List<string> TransactionTypes()
+        {
+            List<string> types = new List<string>
+            {
+                "Transaction ID",
+                "Gateway"
+            };
+            return types;
+        }
+
+        public string[] IdentifyColumns()
+        {
+            Range usedRange = xlWorksheet.UsedRange;
+            String[] header = new string[usedRange.Columns.Count];
+            for (int i = 1; i < usedRange.Columns.Count; i++)
+            {
+                header[i] = usedRange.Cells[1, i].Value2.ToString();
+            }
+
+            return header;
+        }
+
         public List<Transaction> GetTransactions()
         {
-
             return transactions;
+        }
+
+
+        public void ReadRows()
+        {
+            Range usedRange = xlWorksheet.UsedRange;
+            foreach (Range row in usedRange.Rows)
+            {
+                String[] rowData = new string[row.Columns.Count];
+                for (int i = 0; i < row.Columns.Count; i++)
+                {
+                    rowData[i] = row.Cells[1, i + 1].ToString();
+                }
+            }
+        }
+
+        public void CreateTransactionObject()
+        {
+
+        }
+
+        public void CreaterCustomerInfoObject()
+        {
+
+        }
+
+        public void AddTransObjectToTransactionList()
+        {
+
         }
 
     }
