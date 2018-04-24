@@ -5,12 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TransactionImporter.UI"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="350" Width="848.904">
     <Grid>
         <Button x:Name="btnUploadFile" Content="Upload FIle" HorizontalAlignment="Left" Margin="30,240,0,0" VerticalAlignment="Top" Width="150" Height="53" Click="btnUploadFile_Click"/>
         <Button x:Name="btnRetrieveData" Content="Retrieve Data" HorizontalAlignment="Left" Margin="19,27,0,0" VerticalAlignment="Top" Width="144" Height="55" Click="btnRetrieveData_Click"/>
         <ListBox x:Name="lbTransactions" HorizontalAlignment="Left" Height="198" Margin="189,27,0,0" VerticalAlignment="Top" Width="321"/>
         <Button x:Name="btnRefresh" Content="Refresh Listbox" HorizontalAlignment="Left" Margin="314,240,0,0" VerticalAlignment="Top" Width="196" Height="53" Click="btnRefresh_Click"/>
+        <Label Content="Columns" HorizontalAlignment="Left" Margin="634,9,0,0" VerticalAlignment="Top" Width="165"/>
+        <ListBox x:Name="lbColumns" HorizontalAlignment="Left" Height="100" Margin="634,125,0,0" VerticalAlignment="Top" Width="200"/>
+        <TextBox x:Name="tbInput" HorizontalAlignment="Left" Height="23" Margin="634,40,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="btnAddInput" Content="Add Column" HorizontalAlignment="Left" Margin="634,79,0,0" VerticalAlignment="Top" Width="200" Height="24" Click="btnAddInput_Click"/>
+        <Button x:Name="btnPopulate" Content="Populate List" HorizontalAlignment="Left" Margin="634,240,0,0" VerticalAlignment="Top" Width="75" Click="btnPopulate_Click"/>
 
     </Grid>
 </Window>
