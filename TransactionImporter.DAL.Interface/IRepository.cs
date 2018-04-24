@@ -1,12 +1,12 @@
-﻿using System;
+﻿sing System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TransactionImpoter.Domain
+namespace TransactionImporter.DAL.Interface
 {
-    public class Class1
+    interface IRepository
     {
     }
 }

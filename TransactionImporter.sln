@@ -3,7 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TransactionImpoter.Domain", "TransactionImpoter.Domain\TransactionImpoter.Domain.csproj", "{E58E1A50-B7F9-4DEE-A662-3EC36AB5113A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TransactionImporter.Domain", "TransactionImpoter.Domain\TransactionImporter.Domain.csproj", "{E58E1A50-B7F9-4DEE-A662-3EC36AB5113A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TransactionImporter.DAL", "TransactionImporter.DAL\TransactionImporter.DAL.csproj", "{3D706CEB-03FE-4CF9-84B9-0230E09B70AF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TransactionImporter.BLL", "TransactionImporter.BLL\TransactionImporter.BLL.csproj", "{74C86FF4-F309-48D4-9790-27ADBDFBF7DB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TransactionImporter.UI", "TransactionImporter.UI\TransactionImporter.UI.csproj", "{C6958329-7B7D-4C32-94C1-FD9DCF09C1C0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TransactionImporter.Factory", "TransactionImporter.Factory\TransactionImporter.Factory.csproj", "{4C8257CD-AF9D-4863-87F5-8B8E8FB07F78}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TransactionImporter.BLL.Interfaces", "TransactionImporter.BLL.Interfaces\TransactionImporter.BLL.Interfaces.csproj", "{F41405A9-AA8B-4E1D-A8E7-831405F546B2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +25,26 @@ Global
 		{E58E1A50-B7F9-4DEE-A662-3EC36AB5113A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E58E1A50-B7F9-4DEE-A662-3EC36AB5113A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E58E1A50-B7F9-4DEE-A662-3EC36AB5113A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D706CEB-03FE-4CF9-84B9-0230E09B70AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D706CEB-03FE-4CF9-84B9-0230E09B70AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D706CEB-03FE-4CF9-84B9-0230E09B70AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D706CEB-03FE-4CF9-84B9-0230E09B70AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74C86FF4-F309-48D4-9790-27ADBDFBF7DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74C86FF4-F309-48D4-9790-27ADBDFBF7DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74C86FF4-F309-48D4-9790-27ADBDFBF7DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74C86FF4-F309-48D4-9790-27ADBDFBF7DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6958329-7B7D-4C32-94C1-FD9DCF09C1C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6958329-7B7D-4C32-94C1-FD9DCF09C1C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6958329-7B7D-4C32-94C1-FD9DCF09C1C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6958329-7B7D-4C32-94C1-FD9DCF09C1C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C8257CD-AF9D-4863-87F5-8B8E8FB07F78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C8257CD-AF9D-4863-87F5-8B8E8FB07F78}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C8257CD-AF9D-4863-87F5-8B8E8FB07F78}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C8257CD-AF9D-4863-87F5-8B8E8FB07F78}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F41405A9-AA8B-4E1D-A8E7-831405F546B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F41405A9-AA8B-4E1D-A8E7-831405F546B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F41405A9-AA8B-4E1D-A8E7-831405F546B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F41405A9-AA8B-4E1D-A8E7-831405F546B2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
