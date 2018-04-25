@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{74C86FF4-F309-48D4-9790-27ADBDFBF7DB}</ProjectGuid>
+    <ProjectGuid>{6C811E78-9238-4E7C-B578-FD34FC7B8E15}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TransactionImporter.BLL</RootNamespace>
-    <AssemblyName>TransactionImporter.BLL</AssemblyName>
+    <RootNamespace>TransactionImporter.DAL.Interfaces</RootNamespace>
+    <AssemblyName>TransactionImporter.DAL.Interfaces</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,14 +30,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-      <HintPath>..\packages\Microsoft.Office.Interop.Excel.15.0.4795.1000\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -46,30 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CategoryLogic.cs" />
-    <Compile Include="CustomerInfo.cs" />
-    <Compile Include="ImporterExcel.cs" />
-    <Compile Include="ProductLogic.cs" />
+    <Compile Include="Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UserLogic.cs" />
-    <Compile Include="TransactionLogic.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\TransactionImporter.BLL.Interfaces\TransactionImporter.BLL.Interfaces.csproj">
-      <Project>{f41405a9-aa8b-4e1d-a8e7-831405f546b2}</Project>
-      <Name>TransactionImporter.BLL.Interfaces</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\TransactionImporter.DAL\TransactionImporter.DAL.csproj">
-      <Project>{3d706ceb-03fe-4cf9-84b9-0230e09b70af}</Project>
-      <Name>TransactionImporter.DAL</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\TransactionImpoter.Domain\TransactionImporter.Domain.csproj">
-      <Project>{e58e1a50-b7f9-4dee-a662-3ec36ab5113a}</Project>
-      <Name>TransactionImporter.Domain</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
