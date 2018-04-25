@@ -14,15 +14,15 @@ namespace TransactionImpoter.Domain
         public string Status { get; set; }
         public DateTime Date { get; set; }
         public User User;
-        private CustomerInfo CustomerInfo;
+        public CustomerInfo CustomerInfo { get; set; }
         public List<Product> Products = new List<Product>();
 
-        public Transaction(string transactionId, string gateway)
+        public Transaction(string transactionId, string gateway, double amount, string status)
         {
             TransactionId = transactionId;
-//            Amount = amount;
+            Amount = amount;
             Gateway = gateway;
-//            Status = status;
+            Status = status;
 //            Date = date;
 //            User = user;
         }
