@@ -16,6 +16,7 @@ namespace TransactionImporter.BLL
     public class ImporterExcel : IImporterExcel
     {
         public List<Transaction> transactions = new List<Transaction>();
+        public List<CustomerInfo> customers = new List<CustomerInfo>();
         private string transactionId;
         private string gateway;
         private string OldFilePath;
@@ -114,6 +115,7 @@ namespace TransactionImporter.BLL
             for (int row = 2; row < usedRange.Rows.Count; row++)
             {
                 transactions.Add(CreateTransactionObject(usedRange, row));
+                customers.Add(CreateCustomerInfoObject(usedRange, row));
             }
         }
 
@@ -137,6 +139,29 @@ namespace TransactionImporter.BLL
             }
 
             return new Transaction(transactionValues["Transaction ID"], transactionValues["Gateway"], Convert.ToDouble(transactionValues["Price"]), transactionValues["Status"]);
+        }
+        private TransactionImpoter.Domain.CustomerInfo CreateCustomerInfoObject(Range usedRange, int row)
+        {
+            Dictionary<string, string> customerValues = new Dictionary<string, string>
+            {
+                {"Email", null},
+                {"Username", null},
+                {"Name", null},
+                {"Ip", null},
+                {"Country", null}
+
+            };
+
+            for (int column = 1; column < usedRange.Columns.Count; column++)
+            {
+                if (customerValues.ContainsKey(GetHeaderName(column)))
+                {
+                    customerValues[GetHeaderName(column)] = GetCellValue(row, column);
+                }
+
+            }
+
+            return new TransactionImpoter.Domain.CustomerInfo(customerValues["Email"], customerValues["Username"], customerValues["Ip"], customerValues["Name"], customerValues["Country"]);
         }
 
         private string GetCellValue(int row, int column)

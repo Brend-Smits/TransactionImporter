@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace TransactionImporter.BLL
 {
-    class CustomerInfo:ICustomerInfoLogic
+    public class CustomerInfoLogic:ICustomerInfoLogic
     {
+
         public void AddCustomers()  
         {
             throw new NotImplementedException();

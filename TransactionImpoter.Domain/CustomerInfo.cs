@@ -14,16 +14,17 @@ namespace TransactionImpoter.Domain
         public string Ip { get; set; }
         public string FirstName { get; set; }
         public string SurName { get; set; }
+
+        public string Name { get; set; }
         public string Country { get; set; }
         private List<Transaction> Transactions = new List<Transaction>();
 
-        public CustomerInfo(string email, string username, string ip, string firstName, string surName, string country)
+        public CustomerInfo(string email, string username, string name, string ip, string country)
         {
             Email = email;
             Username = username;
+            Name = name;
             Ip = ip;
-            FirstName = firstName;
-            SurName = surName;
             Country = country;
         }
     }
