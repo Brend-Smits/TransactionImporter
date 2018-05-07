@@ -30,14 +30,14 @@ namespace TransactionImporter.BLL
             return _importer.GetTransactions();
         }
 
-        public Transaction AddTransaction()
+        public void AddTransaction(Transaction trans)
         {
-            return _Repo.AddTransaction();
+            _Repo.AddTransaction(trans);
         }
 
-        public List<Transaction> AddTransactionList()
+        public void AddTransactionList(List<Transaction> transactions)
         {
-            throw new NotImplementedException();
+            _Repo.AddTransactionList(transactions);
         }
     }
 }

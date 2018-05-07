@@ -16,14 +16,14 @@ namespace TransactionImporter.BLL
             _Repo = _customerInfoRepo;
         }
 
-        public CustomerInfo AddCustomer()
+        public void AddCustomer(CustomerInfo customer)
         {
-            return _Repo.AddCustomer();
+            _Repo.AddCustomer(customer);
         }
 
-        public List<CustomerInfo> AddCustomerList()
+        public void AddCustomerList(List<CustomerInfo> customers)
         {
-            throw new NotImplementedException();
+            _Repo.AddCustomerList(customers);
         }
     }
 }

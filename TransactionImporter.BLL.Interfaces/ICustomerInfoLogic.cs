@@ -9,7 +9,7 @@ namespace TransactionImporter.BLL
 {
     public interface ICustomerInfoLogic
     {
-        CustomerInfo AddCustomer();
-        List<CustomerInfo> AddCustomerList();
+        void AddCustomer(CustomerInfo customer);
+        void AddCustomerList(List<CustomerInfo> customers);
     }
 }

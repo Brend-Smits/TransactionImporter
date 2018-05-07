@@ -9,7 +9,7 @@ namespace TransactionImporter.DAL
 {
     public interface ICustomerInfoRepository
     {
-        CustomerInfo AddCustomer();
-        List<CustomerInfo> AddCustomerList();
+        void AddCustomer(CustomerInfo customer);
+        void AddCustomerList(List<CustomerInfo> customers);
     }
 }
