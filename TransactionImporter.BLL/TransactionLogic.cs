@@ -29,5 +29,10 @@ namespace TransactionImporter.BLL
         {
             return _importer.GetTransactions();
         }
+
+        public Transaction AddTransaction()
+        {
+            return _Repo.AddTransaction();
+        }
     }
 }
