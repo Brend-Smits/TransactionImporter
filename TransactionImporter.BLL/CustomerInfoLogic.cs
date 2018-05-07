@@ -16,7 +16,12 @@ namespace TransactionImporter.BLL
             _Repo = _customerInfoRepo;
         }
 
-        public CustomerInfo AddCustomer()  
+        public CustomerInfo AddCustomer()
+        {
+            return _Repo.AddCustomer();
+        }
+
+        public List<CustomerInfo> AddCustomerList()
         {
             throw new NotImplementedException();
         }

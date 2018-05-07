@@ -34,5 +34,10 @@ namespace TransactionImporter.BLL
         {
             return _Repo.AddTransaction();
         }
+
+        public List<Transaction> AddTransactionList()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

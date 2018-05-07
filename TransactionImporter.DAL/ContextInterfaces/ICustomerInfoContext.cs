@@ -9,6 +9,7 @@ namespace TransactionImporter.DAL.ContextInterfaces
 {
     interface ICustomerInfoContext
     {
-        CustomerInfo AddCustomers();
+        CustomerInfo AddCustomer();
+        List<CustomerInfo> AddCustomerList();
     }
 }

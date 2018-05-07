@@ -15,5 +15,6 @@ namespace TransactionImporter.BLL
         List<Transaction> GetTransactions();
 
         Transaction AddTransaction();
+        List<Transaction> AddTransactionList();
     }
 }

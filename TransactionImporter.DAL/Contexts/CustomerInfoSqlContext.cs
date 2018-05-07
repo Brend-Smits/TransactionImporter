@@ -10,7 +10,7 @@ namespace TransactionImporter.DAL.Contexts
 {
     class CustomerInfoSqlContext:ICustomerInfoContext
     {
-        public CustomerInfo AddCustomers()
+        public CustomerInfo AddCustomer()
         {
             throw new NotImplementedException();
         }
