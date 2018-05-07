@@ -54,26 +54,27 @@ namespace TransactionImporter.DAL
 
         public void AddTransactionList(List<Transaction> transactions)
         {
-            foreach (Transaction item in transactions)
-            {
                 try
                 {
                     using (SqlConnection connection = Database.GetConnectionString())
                     {
-                        using (SqlCommand InsertTransaction =
-                            new SqlCommand(
-                                "INSERT INTO [Transaction] (@TransactionId, @CustomerId, @Gateway, @Amount, @Status)",
-                                connection))
+                        foreach (Transaction item in transactions)
                         {
-//                            InsertTransaction.Parameters.AddWithValue("UserId", item.User.Id);
-                            InsertTransaction.Parameters.AddWithValue("TransactionId", item.TransactionId);
-//                            InsertTransaction.Parameters.AddWithValue("CustomerId", item.CustomerInfo.Id);
-                            InsertTransaction.Parameters.AddWithValue("Gateway", item.Gateway);
-                            InsertTransaction.Parameters.AddWithValue("Amount", item.Amount);
-                            InsertTransaction.Parameters.AddWithValue("Status", item.Status);
-//                            InsertTransaction.Parameters.AddWithValue("Date", item.Date);
-                            connection.Open();
-                            InsertTransaction.ExecuteNonQuery();
+                            using (SqlCommand InsertTransaction =
+                                                new SqlCommand(
+                                                    "INSERT INTO [Transaction] (@TransactionId, @Gateway, @Amount, @Status, @date)",
+                                                    connection))
+                            {
+                                //InsertTransaction.Parameters.AddWithValue("UserId", item.User.Id);
+                                InsertTransaction.Parameters.AddWithValue("TransactionId", item.TransactionId);
+                                //InsertTransaction.Parameters.AddWithValue("CustomerId", item.CustomerInfo.Id);
+                                InsertTransaction.Parameters.AddWithValue("Gateway", item.Gateway);
+                                InsertTransaction.Parameters.AddWithValue("Amount", item.Amount);
+                                InsertTransaction.Parameters.AddWithValue("Status", item.Status);
+                                //InsertTransaction.Parameters.AddWithValue("Date", item.Date);
+                                connection.Open();
+                                InsertTransaction.ExecuteNonQuery();
+                            } 
                         }
                     }
                 }
@@ -82,7 +83,6 @@ namespace TransactionImporter.DAL
                     Console.WriteLine(exception);
                     throw;
                 }
-            }
         }
     }
 }
