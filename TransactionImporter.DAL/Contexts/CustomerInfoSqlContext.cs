@@ -14,5 +14,10 @@ namespace TransactionImporter.DAL.Contexts
         {
             throw new NotImplementedException();
         }
+
+        public List<CustomerInfo> AddCustomerList()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

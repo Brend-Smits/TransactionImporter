@@ -48,7 +48,6 @@
     <Compile Include="Contexts\CustomerInfoSqlContext.cs" />
     <Compile Include="Contexts\ProductSqlContext.cs" />
     <Compile Include="Contexts\UserSqlContext.cs" />
-    <Compile Include="DbInitialisation.cs" />
     <Compile Include="ICategoryRepository.cs" />
     <Compile Include="ICustomerInfoRepository.cs" />
     <Compile Include="IProductRepository.cs" />

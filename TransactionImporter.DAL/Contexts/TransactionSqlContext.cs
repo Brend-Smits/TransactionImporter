@@ -9,11 +9,9 @@ namespace TransactionImporter.DAL
 {
     public class TransactionSqlContext:ITransactionContext
     {
-        DbInitialisation dbInitialisation = new DbInitialisation();
         // TODO: Implement GetAllTransactions() in SQL Context
         public List<Transaction> GetAllTransactions()
         {
-            dbInitialisation.setupTables();
             // SELECT * FROM Transaction
             throw new NotImplementedException();
         }
