@@ -26,10 +26,14 @@ namespace TransactionImporter.DAL
             throw new NotImplementedException();
         }
 
-        public void SetupTables()
+        public void AddTransaction(Transaction trans)
         {
-            DbInitialisation dbInitialisation = new DbInitialisation();
-            dbInitialisation.setupTables();
+            _transactionContext.AddTransaction(trans);
+        }
+
+        public void AddTransactionList(List<Transaction> transactions)
+        {
+            _transactionContext.AddTransactionList(transactions);
         }
     }
 }

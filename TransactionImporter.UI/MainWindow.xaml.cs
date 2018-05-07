@@ -34,14 +34,7 @@ namespace TransactionImporter.UI
 
         private void btnRefresh_Click(object sender, RoutedEventArgs e)
         {
-            int index = 0;
-            foreach (var trans in importerLogic.GetTransactions())
-            {
-                index++;
-                ListBoxItem item = new ListBoxItem();
-                item.Content = index + ". " + trans.TransactionId;
-                lbTransactions.Items.Add(item);
-            }
+            transactionLogic.AddTransactionList(importerLogic.GetTransactions());
         }
 
     }

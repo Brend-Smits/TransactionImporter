@@ -26,7 +26,7 @@ namespace TransactionImporter.DAL
         {
             try
             {
-                using (SqlConnection connection = new SqlConnection(Database.GetConnectionString()))
+                using (SqlConnection connection = Database.GetConnectionString())
                 {
                     using (SqlCommand InsertTransaction =
                         new SqlCommand(
@@ -54,7 +54,35 @@ namespace TransactionImporter.DAL
 
         public void AddTransactionList(List<Transaction> transactions)
         {
-            throw new NotImplementedException();
+            foreach (Transaction item in transactions)
+            {
+                try
+                {
+                    using (SqlConnection connection = Database.GetConnectionString())
+                    {
+                        using (SqlCommand InsertTransaction =
+                            new SqlCommand(
+                                "INSERT INTO [Transaction] (@TransactionId, @CustomerId, @Gateway, @Amount, @Status)",
+                                connection))
+                        {
+//                            InsertTransaction.Parameters.AddWithValue("UserId", item.User.Id);
+                            InsertTransaction.Parameters.AddWithValue("TransactionId", item.TransactionId);
+//                            InsertTransaction.Parameters.AddWithValue("CustomerId", item.CustomerInfo.Id);
+                            InsertTransaction.Parameters.AddWithValue("Gateway", item.Gateway);
+                            InsertTransaction.Parameters.AddWithValue("Amount", item.Amount);
+                            InsertTransaction.Parameters.AddWithValue("Status", item.Status);
+//                            InsertTransaction.Parameters.AddWithValue("Date", item.Date);
+                            connection.Open();
+                            InsertTransaction.ExecuteNonQuery();
+                        }
+                    }
+                }
+                catch (Exception exception)
+                {
+                    Console.WriteLine(exception);
+                    throw;
+                }
+            }
         }
     }
 }

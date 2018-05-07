@@ -10,7 +10,7 @@ namespace TransactionImporter.DAL
     public class Database
     {
         static ConnectionBuilder connectionBuilder = new ConnectionBuilder();
-        public static string GetConnectionString()
+        public static SqlConnection GetConnectionString()
         {
             return connectionBuilder.ConnectionString();
         }
