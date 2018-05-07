@@ -140,7 +140,7 @@ namespace TransactionImporter.BLL
 
             return new Transaction(transactionValues["Transaction ID"], transactionValues["Gateway"], Convert.ToDouble(transactionValues["Price"]), transactionValues["Status"]);
         }
-        private TransactionImpoter.Domain.CustomerInfo CreateCustomerInfoObject(Range usedRange, int row)
+        private CustomerInfo CreateCustomerInfoObject(Range usedRange, int row)
         {
             Dictionary<string, string> customerValues = new Dictionary<string, string>
             {
@@ -161,12 +161,17 @@ namespace TransactionImporter.BLL
 
             }
 
-            return new TransactionImpoter.Domain.CustomerInfo(customerValues["Email"], customerValues["Username"], customerValues["Ip"], customerValues["Name"], customerValues["Country"]);
+            return new CustomerInfo(customerValues["Email"], customerValues["Username"], customerValues["Ip"], customerValues["Name"], customerValues["Country"]);
         }
 
         private string GetCellValue(int row, int column)
         {
             Range usedRange = xlWorksheet.UsedRange;
+            if (usedRange.Cells[row, column].Value2 == null)
+            {
+                return "";
+            }
+
             return usedRange.Cells[row, column].Value2.ToString();
         }
 
