@@ -15,8 +15,8 @@ namespace TransactionImporter.BLL
 {
     public class ImporterExcel : IImporterExcel
     {
-        public List<Transaction> transactions = new List<Transaction>();
-        public List<CustomerInfo> customers = new List<CustomerInfo>();
+        private List<Transaction> transactions = new List<Transaction>();
+        private List<CustomerInfo> customers = new List<CustomerInfo>();
         private string transactionId;
         private string gateway;
         private string OldFilePath;
