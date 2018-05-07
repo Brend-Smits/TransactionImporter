@@ -10,9 +10,9 @@ namespace TransactionImporter.DAL
     // TODO: Initialize database.
     // TODO: Setup tables.
     // TODO: Setup mock data.
-    class DbInitialisation
+    public class DbInitialisation
     {
-        public DbInitialisation()
+        public void setupTables()
         {
             try
             {
@@ -46,7 +46,7 @@ namespace TransactionImporter.DAL
                     createUserTable.ExecuteNonQuery();
                 }
             }
-            catch(Exception exception)
+            catch (Exception exception)
             {
                 Console.WriteLine(exception);
                 throw;

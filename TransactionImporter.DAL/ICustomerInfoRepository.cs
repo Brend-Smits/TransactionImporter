@@ -9,6 +9,6 @@ namespace TransactionImporter.DAL
 {
     public interface ICustomerInfoRepository
     {
-        void AddCustomers();
+        CustomerInfo AddCustomers();
     }
 }

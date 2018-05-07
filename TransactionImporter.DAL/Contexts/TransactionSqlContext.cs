@@ -22,5 +22,10 @@ namespace TransactionImporter.DAL
         {
             throw new NotImplementedException();
         }
+
+        public Transaction AddTransaction()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

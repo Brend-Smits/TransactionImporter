@@ -25,5 +25,11 @@ namespace TransactionImporter.DAL
         {
             throw new NotImplementedException();
         }
+
+        public void SetupTables()
+        {
+            DbInitialisation dbInitialisation = new DbInitialisation();
+            dbInitialisation.setupTables();
+        }
     }
 }

@@ -11,5 +11,6 @@ namespace TransactionImporter.DAL
     {
         List<Transaction> GetAllTransactions();
         List<Transaction> FilterTransactions();
+        Transaction AddTransaction();
     }
 }
