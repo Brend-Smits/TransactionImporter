@@ -9,6 +9,7 @@ namespace TransactionImporter.BLL
 {
     public class TransactionLogic : ITransactionLogic
     {
+        //todo: remove this comment too.
         private ITransactionRepository _Repo;
         private IImporterExcel _importer = new ImporterExcel();
         public TransactionLogic(ITransactionRepository _transRepo)
