@@ -4,6 +4,7 @@ using TransactionImporter.BLL.Interfaces;
 using TransactionImporter.DAL;
 using TransactionImpoter.Domain;
 
+//todo remove this comment
 namespace TransactionImporter.BLL
 {
     public class TransactionLogic : ITransactionLogic
