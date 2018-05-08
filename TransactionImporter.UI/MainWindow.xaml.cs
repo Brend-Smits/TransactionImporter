@@ -16,6 +16,7 @@ namespace TransactionImporter.UI
 
         private ITransactionLogic transactionLogic = TransactionFactory.CreateLogic();
         private IImporterExcel importerLogic = ImporterExcelFactory.CreateLogic();
+        private ICustomerInfoLogic customerInfoLogic = CustomerInfoFactory.CreateLogic();
 
         public MainWindow()
         {
@@ -34,6 +35,7 @@ namespace TransactionImporter.UI
 
         private void btnRefresh_Click(object sender, RoutedEventArgs e)
         {
+            customerInfoLogic.AddCustomerList(importerLogic.GetCustomerInfo());
             transactionLogic.AddTransactionList(importerLogic.GetTransactions());
         }
 

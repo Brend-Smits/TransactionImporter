@@ -4,11 +4,12 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TransactionImporter.DAL.Repositories;
 using TransactionImpoter.Domain;
 
 namespace TransactionImporter.DAL
 {
-    public class TransactionSqlContext:ITransactionContext
+    public class TransactionSqlContext : ITransactionContext
     {
         // TODO: Implement GetAllTransactions() in SQL Context
         public List<Transaction> GetAllTransactions()
@@ -54,35 +55,35 @@ namespace TransactionImporter.DAL
 
         public void AddTransactionList(List<Transaction> transactions)
         {
-                try
+            try
+            {
+                using (SqlConnection connection = Database.GetConnectionString())
                 {
-                    using (SqlConnection connection = Database.GetConnectionString())
+                    foreach (Transaction item in transactions)
                     {
-                        foreach (Transaction item in transactions)
+                        using (SqlCommand InsertTransaction =
+                            new SqlCommand(
+                                "INSERT INTO [Transaction] (UserId, TransactionId, CustomerId, Gateway, Status) VALUES (@UserId, @TransactionId, @CustomerId, @Gateway, @Status)",
+                                connection))
                         {
-                            using (SqlCommand InsertTransaction =
-                                                new SqlCommand(
-                                                    "INSERT INTO [Transaction] (@TransactionId, @Gateway, @Amount, @Status)",
-                                                    connection))
-                            {
-                                //InsertTransaction.Parameters.AddWithValue("UserId", item.User.Id);
-                                InsertTransaction.Parameters.AddWithValue("TransactionId", item.TransactionId);
-                                //InsertTransaction.Parameters.AddWithValue("CustomerId", item.CustomerInfo.Id);
-                                InsertTransaction.Parameters.AddWithValue("Gateway", item.Gateway);
-                                InsertTransaction.Parameters.AddWithValue("Amount", item.Amount);
-                                InsertTransaction.Parameters.AddWithValue("Status", item.Status);
-                                //InsertTransaction.Parameters.AddWithValue("Date", item.Date);
-                                connection.Open();
-                                InsertTransaction.ExecuteNonQuery();
-                            } 
+                            InsertTransaction.Parameters.AddWithValue("UserId", 1);
+                            InsertTransaction.Parameters.AddWithValue("TransactionId", item.TransactionId);
+                            InsertTransaction.Parameters.AddWithValue("CustomerId", item.GetCustomerId(item.CustomerInfo));
+                            InsertTransaction.Parameters.AddWithValue("Gateway", item.Gateway);
+                            //InsertTransaction.Parameters.AddWithValue("Amount", item.Amount);
+                            InsertTransaction.Parameters.AddWithValue("Status", item.Status);
+                            //InsertTransaction.Parameters.AddWithValue("Date", item.Date);
+                            connection.Open();
+                            InsertTransaction.ExecuteNonQuery();
                         }
                     }
                 }
-                catch (SqlException exception)
-                {
-                    Console.WriteLine(exception);
-                    throw;
-                }
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception);
+                throw;
+            }
         }
     }
 }

@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TransactionImpoter.Domain
 {
@@ -16,6 +13,11 @@ namespace TransactionImpoter.Domain
         public User User;
         public CustomerInfo CustomerInfo { get; set; }
         public List<Product> Products = new List<Product>();
+
+        public int GetCustomerId(CustomerInfo customer)
+        {
+            return customer.Id;
+        }
 
         public Transaction(string transactionId, string gateway, double amount, string status)
         {

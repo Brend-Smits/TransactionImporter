@@ -11,8 +11,8 @@ namespace TransactionImporter.BLL.Interfaces
     {
         void UploadFile();
         void RetrieveData();
-
         List<Transaction> GetTransactions();
+        List<CustomerInfo> GetCustomerInfo();
 
     }
 }

@@ -114,8 +114,8 @@ namespace TransactionImporter.BLL
             Range usedRange = xlWorksheet.UsedRange;
             for (int row = 2; row < usedRange.Rows.Count; row++)
             {
-                transactions.Add(CreateTransactionObject(usedRange, row));
                 customers.Add(CreateCustomerInfoObject(usedRange, row));
+                transactions.Add(CreateTransactionObject(usedRange, row));
             }
         }
 
@@ -126,7 +126,7 @@ namespace TransactionImporter.BLL
                 {"Transaction ID", null},
                 {"Gateway", null},
                 {"Status", null},
-                {"Price", null}
+                {"Price", null},
             };
 
             for (int column = 1; column < usedRange.Columns.Count; column++)
@@ -148,7 +148,8 @@ namespace TransactionImporter.BLL
                 {"Username", null},
                 {"Name", null},
                 {"Ip", null},
-                {"Country", null}
+                {"Country", null},
+                {"Address", null}
 
             };
 
@@ -161,7 +162,7 @@ namespace TransactionImporter.BLL
 
             }
 
-            return new CustomerInfo(customerValues["Email"], customerValues["Username"], customerValues["Ip"], customerValues["Name"], customerValues["Country"]);
+            return new CustomerInfo(customerValues["Email"], customerValues["Username"], customerValues["Name"], customerValues["Ip"], customerValues["Country"], customerValues["Address"]);
         }
 
         private string GetCellValue(int row, int column)
@@ -184,6 +185,11 @@ namespace TransactionImporter.BLL
         public List<Transaction> GetTransactions()
         {
             return transactions;
+        }
+
+        public List<CustomerInfo> GetCustomerInfo()
+        {
+            return customers;
         }
     }
 }

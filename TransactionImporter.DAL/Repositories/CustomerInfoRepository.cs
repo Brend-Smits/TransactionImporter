@@ -3,12 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TransactionImporter.DAL.ContextInterfaces;
 using TransactionImpoter.Domain;
 
 namespace TransactionImporter.DAL.Repositories
 {
-    class CustomerInfoRepository:ICustomerInfoRepository
+    public class CustomerInfoRepository:ICustomerInfoRepository
     {
+
+        private readonly ICustomerInfoContext _customerInfoContext;
+
+        public CustomerInfoRepository(ICustomerInfoContext customerInfoSqlContext)
+        {
+            _customerInfoContext = customerInfoSqlContext;
+        }
 
         public void AddCustomer(CustomerInfo customer)
         {
@@ -17,7 +25,7 @@ namespace TransactionImporter.DAL.Repositories
 
         public void AddCustomerList(List<CustomerInfo> customers)
         {
-            throw new NotImplementedException();
+            _customerInfoContext.AddCustomerList(customers);
         }
     }
 }
