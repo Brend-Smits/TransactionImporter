@@ -62,7 +62,7 @@ namespace TransactionImporter.DAL
                         {
                             using (SqlCommand InsertTransaction =
                                                 new SqlCommand(
-                                                    "INSERT INTO [Transaction] (@TransactionId, @Gateway, @Amount, @Status, @date)",
+                                                    "INSERT INTO [Transaction] (@TransactionId, @Gateway, @Amount, @Status)",
                                                     connection))
                             {
                                 //InsertTransaction.Parameters.AddWithValue("UserId", item.User.Id);
@@ -78,7 +78,7 @@ namespace TransactionImporter.DAL
                         }
                     }
                 }
-                catch (Exception exception)
+                catch (SqlException exception)
                 {
                     Console.WriteLine(exception);
                     throw;
