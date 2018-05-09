@@ -10,6 +10,7 @@ namespace TransactionImpoter.Domain
         public string Gateway { get; private set; }
         public string Status { get; private set; }
         public DateTime Date { get; private set; }
+        public string Country { get; private set; }
         public User User;
         public CustomerInfo CustomerInfo { get; private set; }
         public List<Product> Products = new List<Product>();
@@ -19,12 +20,13 @@ namespace TransactionImpoter.Domain
             return customer.Id;
         }
 
-        public Transaction(string transactionId, string gateway, double amount, string status)
+        public Transaction(string transactionId, string gateway, double amount, string status, string country)
         {
             TransactionId = transactionId;
             Amount = amount;
             Gateway = gateway;
             Status = status;
+            Country = country;
 //            Date = date;
 //            User = user;
         }

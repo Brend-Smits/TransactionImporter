@@ -9,25 +9,23 @@ namespace TransactionImpoter.Domain
 {
     public class CustomerInfo
     {
-        public int Id { get; set; }
-        public string Email { get; set; }
-        public string Username { get; set; }
-        public string Ip { get; set; }
-        public string FirstName { get; set; }
-        public string SurName { get; set; }
+        public int Id { get; private set; }
+        public string Email { get; private set; }
+        public string Username { get; private set; }
+        public string Ip { get; private set; }
+        public string FirstName { get; private set; }
+        public string SurName { get; private set; }
 
-        public string Name { get; set; }
-        public string Country { get; set; }
-        public string Address { get; set; }
+        public string Name { get; private set; }
+        public string Address { get; private set; }
         private List<Transaction> Transactions = new List<Transaction>();
 
-        public CustomerInfo(string email, string username, string name, string ip, string country, string address)
+        public CustomerInfo(string email, string username, string name, string ip, string address)
         {
             Email = email;
             Username = username;
             Name = name;
             Ip = ip;
-            Country = country;
             Address = address;
         }
     }

@@ -63,7 +63,7 @@ namespace TransactionImporter.DAL
                     {
                         using (SqlCommand InsertTransaction =
                             new SqlCommand(
-                                "INSERT INTO [Transaction] (UserId, TransactionId, CustomerId, Gateway, Status) VALUES (@UserId, @TransactionId, @CustomerId, @Gateway, @Status)",
+                                "INSERT INTO [Transaction] (UserId, TransactionId, CustomerId, Gateway, Status, Country) VALUES (@UserId, @TransactionId, @CustomerId, @Gateway, @Status, @Country)",
                                 connection))
                         {
                             InsertTransaction.Parameters.AddWithValue("UserId", 1);
@@ -72,6 +72,7 @@ namespace TransactionImporter.DAL
                             InsertTransaction.Parameters.AddWithValue("Gateway", item.Gateway);
                             InsertTransaction.Parameters.AddWithValue("Amount", item.Amount);
                             InsertTransaction.Parameters.AddWithValue("Status", item.Status);
+                            InsertTransaction.Parameters.AddWithValue("Country", item.Country);
                             //InsertTransaction.Parameters.AddWithValue("Date", item.Date);
                             connection.Open();
                             InsertTransaction.ExecuteNonQuery();
