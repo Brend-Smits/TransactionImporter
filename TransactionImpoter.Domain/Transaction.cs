@@ -5,13 +5,13 @@ namespace TransactionImpoter.Domain
 {
     public class Transaction
     {
-        public string TransactionId { get; set; }
-        public double Amount { get; set; }
-        public string Gateway { get; set; }
-        public string Status { get; set; }
-        public DateTime Date { get; set; }
+        public string TransactionId { get; private set; }
+        public double Amount { get; private set; }
+        public string Gateway { get; private set; }
+        public string Status { get; private set; }
+        public DateTime Date { get; private set; }
         public User User;
-        public CustomerInfo CustomerInfo { get; set; }
+        public CustomerInfo CustomerInfo { get; private set; }
         public List<Product> Products = new List<Product>();
 
         public int GetCustomerId(CustomerInfo customer)

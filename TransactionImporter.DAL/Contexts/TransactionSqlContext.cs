@@ -70,7 +70,7 @@ namespace TransactionImporter.DAL
                             InsertTransaction.Parameters.AddWithValue("TransactionId", item.TransactionId);
                             InsertTransaction.Parameters.AddWithValue("CustomerId", item.GetCustomerId(item.CustomerInfo));
                             InsertTransaction.Parameters.AddWithValue("Gateway", item.Gateway);
-                            //InsertTransaction.Parameters.AddWithValue("Amount", item.Amount);
+                            InsertTransaction.Parameters.AddWithValue("Amount", item.Amount);
                             InsertTransaction.Parameters.AddWithValue("Status", item.Status);
                             //InsertTransaction.Parameters.AddWithValue("Date", item.Date);
                             connection.Open();
