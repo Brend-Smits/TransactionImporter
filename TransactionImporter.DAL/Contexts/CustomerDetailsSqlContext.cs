@@ -28,7 +28,7 @@ namespace TransactionImporter.DAL.Contexts
                     {
                         using (SqlCommand InsertCustomerDetails =
                             new SqlCommand(
-                                "INSERT INTO [CustomerDetails] (Username, IP) VALUES (@Username, @IP)",
+                                "INSERT INTO [OrderDetail] (Username, IP) VALUES (@Username, @IP)",
                                 connection))
                         {
                             InsertCustomerDetails.Parameters.AddWithValue("Username", item.Username);

@@ -214,5 +214,10 @@ namespace TransactionImporter.BLL
         {
             return customers;
         }
+
+        public List<CustomerDetails> GetCustomerDetails()
+        {
+            return customerDetails;
+        }
     }
 }

@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomerDetailsFactory.cs" />
     <Compile Include="ImporterExcelFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CustomerInfoFactory.cs" />
