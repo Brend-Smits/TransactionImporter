@@ -17,7 +17,6 @@ namespace TransactionImporter.BLL
     {
         private List<Transaction> transactions = new List<Transaction>();
         private List<CustomerInfo> customers = new List<CustomerInfo>();
-        private List<CustomerDetails> customerDetails = new List<CustomerDetails>();
         private string transactionId;
         private string gateway;
         private string OldFilePath;
@@ -116,7 +115,6 @@ namespace TransactionImporter.BLL
             for (int row = 2; row < usedRange.Rows.Count; row++)
             {
                 customers.Add(CreateCustomerInfoObject(usedRange, row));
-                customerDetails.Add(CreateCustomerDetailsObject(usedRange, row));
                 transactions.Add(CreateTransactionObject(usedRange, row));
             }
         }
@@ -165,27 +163,6 @@ namespace TransactionImporter.BLL
             }
 
             return new CustomerInfo(customerValues["Email"], customerValues["Username"], customerValues["Name"], customerValues["Ip"], customerValues["Address"]);
-        }
-        private CustomerDetails CreateCustomerDetailsObject(Range usedRange, int row)
-        {
-            Dictionary<string, string> customerdetailsValues = new Dictionary<string, string>
-            {
-                {"Ip", null},
-                {"Username", null}
-                
-
-            };
-
-            for (int column = 1; column < usedRange.Columns.Count; column++)
-            {
-                if (customerdetailsValues.ContainsKey(GetHeaderName(column)))
-                {
-                    customerdetailsValues[GetHeaderName(column)] = GetCellValue(row, column);
-                }
-
-            }
-
-            return new CustomerDetails(customerdetailsValues["Ip"], customerdetailsValues["Username"]);
         }
 
         private string GetCellValue(int row, int column)
