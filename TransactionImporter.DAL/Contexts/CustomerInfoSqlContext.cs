@@ -25,17 +25,32 @@ namespace TransactionImporter.DAL.Contexts
                     connection.Open();
                     foreach (CustomerInfo item in customers)
                     {
-                        using (SqlCommand InsertCustomerInfo =
-                            new SqlCommand(
-                                "INSERT INTO [CustomerInfo] (UUID, Email, FirstName, Address) VALUES (@UUID, @Email, @FirstName, @Address)",
-                                connection))
+                        bool doesUuidExist = false;
+                        using (SqlCommand SelectUuid = new SqlCommand("SELECT COUNT(*) FROM [CustomerInfo] WHERE uuid LIKE @Uuid", connection))
                         {
-                            InsertCustomerInfo.Parameters.AddWithValue("UUID", item.UUID);
-                            InsertCustomerInfo.Parameters.AddWithValue("Email", item.Email);
-                            InsertCustomerInfo.Parameters.AddWithValue("FirstName", item.Name);
-                            InsertCustomerInfo.Parameters.AddWithValue("Address", item.Address);
-                            InsertCustomerInfo.ExecuteNonQuery();
+                            SelectUuid.Parameters.AddWithValue("Uuid", item.Uuid);
+                            int userCount = (int)SelectUuid.ExecuteScalar();
+                            if (userCount > 0)
+                            {
+                                doesUuidExist = true;
+                            }
                         }
+                        if (doesUuidExist)
+                        {
+                            continue;
+                        }
+                            using (SqlCommand InsertCustomerInfo =
+                                new SqlCommand(
+                                    "INSERT INTO [CustomerInfo] (Uuid, Email, FirstName, Address) VALUES (@Uuid, @Email, @FirstName, @Address)",
+                                    connection))
+                            {
+                                InsertCustomerInfo.Parameters.AddWithValue("Uuid", item.Uuid);
+                                InsertCustomerInfo.Parameters.AddWithValue("Email", item.Email);
+                                InsertCustomerInfo.Parameters.AddWithValue("FirstName", item.Name);
+                                InsertCustomerInfo.Parameters.AddWithValue("Address", item.Address);
+                                InsertCustomerInfo.ExecuteNonQuery();
+                            }
+                        
                     }
                 }
             }

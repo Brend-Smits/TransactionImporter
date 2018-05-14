@@ -31,12 +31,12 @@ namespace TransactionImporter.DAL
                 {
                     using (SqlCommand InsertTransaction =
                         new SqlCommand(
-                            "INSERT INTO [Transaction] (@UserId, @TransactionId, @CustomerId, @Gateway, @Amount, @Status, @Date)",
+                            "INSERT INTO [Transaction] (@UserId, @TransactionId, @CustomerInfoUUID, @Gateway, @Amount, @Status, @Date)",
                             connection))
                     {
                         InsertTransaction.Parameters.AddWithValue("UserId", trans.User.Id);
                         InsertTransaction.Parameters.AddWithValue("TransactionId", trans.TransactionId);
-//                        InsertTransaction.Parameters.AddWithValue("CustomerId", trans.CustomerInfo.Id);
+                        InsertTransaction.Parameters.AddWithValue("CustomerInfoUUID", trans.Uuid);
                         InsertTransaction.Parameters.AddWithValue("Gateway", trans.Gateway);
                         InsertTransaction.Parameters.AddWithValue("Amount", trans.Amount);
                         InsertTransaction.Parameters.AddWithValue("Status", trans.Status);
@@ -63,17 +63,17 @@ namespace TransactionImporter.DAL
                     {
                         using (SqlCommand InsertTransaction =
                             new SqlCommand(
-                                "INSERT INTO [Transaction] (UserId, TransactionId, Gateway, Status, Country, IP, Username) VALUES (@UserId, @TransactionId, @Gateway, @Status, @Country, @IP, @Username)",
+                                "INSERT INTO [Transaction] (UserId, TransactionId, CustomerInfoUUID, Gateway, Status, Country, Ip, Username) VALUES (@UserId, @TransactionId, @CustomerInfoUUID, @Gateway, @Status, @Country, @Ip, @Username)",
                                 connection))
                         {
                             InsertTransaction.Parameters.AddWithValue("UserId", 1);
                             InsertTransaction.Parameters.AddWithValue("TransactionId", item.TransactionId);
-//                            InsertTransaction.Parameters.AddWithValue("CustomerId", item.GetCustomerId(item.CustomerInfo));
+                            InsertTransaction.Parameters.AddWithValue("CustomerInfoUUID", item.Uuid);
                             InsertTransaction.Parameters.AddWithValue("Gateway", item.Gateway);
                             InsertTransaction.Parameters.AddWithValue("Amount", item.Amount);
                             InsertTransaction.Parameters.AddWithValue("Status", item.Status);
                             InsertTransaction.Parameters.AddWithValue("Country", item.Country);
-                            InsertTransaction.Parameters.AddWithValue("IP", item.IP);
+                            InsertTransaction.Parameters.AddWithValue("Ip", item.Ip);
                             InsertTransaction.Parameters.AddWithValue("Username", item.Username);
                             //InsertTransaction.Parameters.AddWithValue("Date", item.Date);
                             connection.Open();

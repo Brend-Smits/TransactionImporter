@@ -128,8 +128,9 @@ namespace TransactionImporter.BLL
                 {"Status", null},
                 {"Price", null},
                 {"Country", null },
-                {"IP", null},
-                {"Username", null }
+                {"Ip", null},
+                {"Username", null },
+                {"Uuid", null }
             };
 
             for (int column = 1; column < usedRange.Columns.Count; column++)
@@ -141,13 +142,13 @@ namespace TransactionImporter.BLL
 
             }
 
-            return new Transaction(transactionValues["Transaction ID"], transactionValues["Gateway"], Convert.ToDouble(transactionValues["Price"]), transactionValues["Status"], transactionValues["Country"], transactionValues["IP"], transactionValues["Username"]);
+            return new Transaction(transactionValues["Transaction ID"], transactionValues["Gateway"], Convert.ToDouble(transactionValues["Price"]), transactionValues["Status"], transactionValues["Country"], transactionValues["Ip"], transactionValues["Username"], transactionValues["Uuid"]);
         }
         private CustomerInfo CreateCustomerInfoObject(Range usedRange, int row)
         {
             Dictionary<string, string> customerValues = new Dictionary<string, string>
             {
-                {"UUID", null },
+                {"Uuid", null },
                 {"Email", null},
                 {"Username", null},
                 {"Name", null},
@@ -165,7 +166,7 @@ namespace TransactionImporter.BLL
 
             }
 
-            return new CustomerInfo(customerValues["UUID"], customerValues["Email"], customerValues["Username"], customerValues["Name"], customerValues["Ip"], customerValues["Address"]);
+            return new CustomerInfo(customerValues["Uuid"], customerValues["Email"], customerValues["Username"], customerValues["Name"], customerValues["Ip"], customerValues["Address"]);
         }
 
         private string GetCellValue(int row, int column)
