@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ICategoryLogic.cs" />
+    <Compile Include="ICustomerDetailsLogic.cs" />
     <Compile Include="ICustomerInfoLogic.cs" />
     <Compile Include="IImporterExcel.cs" />
     <Compile Include="IProductLogic.cs" />
