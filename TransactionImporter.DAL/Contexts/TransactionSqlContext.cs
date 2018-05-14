@@ -36,7 +36,7 @@ namespace TransactionImporter.DAL
                     {
                         InsertTransaction.Parameters.AddWithValue("UserId", trans.User.Id);
                         InsertTransaction.Parameters.AddWithValue("TransactionId", trans.TransactionId);
-                        InsertTransaction.Parameters.AddWithValue("CustomerId", trans.CustomerInfo.Id);
+//                        InsertTransaction.Parameters.AddWithValue("CustomerId", trans.CustomerInfo.Id);
                         InsertTransaction.Parameters.AddWithValue("Gateway", trans.Gateway);
                         InsertTransaction.Parameters.AddWithValue("Amount", trans.Amount);
                         InsertTransaction.Parameters.AddWithValue("Status", trans.Status);
@@ -63,7 +63,7 @@ namespace TransactionImporter.DAL
                     {
                         using (SqlCommand InsertTransaction =
                             new SqlCommand(
-                                "INSERT INTO [Transaction] (UserId, TransactionId, Gateway, Status, Country) VALUES (@UserId, @TransactionId, @Gateway, @Status, @Country)",
+                                "INSERT INTO [Transaction] (UserId, TransactionId, Gateway, Status, Country, IP, Username) VALUES (@UserId, @TransactionId, @Gateway, @Status, @Country, @IP, @Username)",
                                 connection))
                         {
                             InsertTransaction.Parameters.AddWithValue("UserId", 1);
@@ -73,6 +73,8 @@ namespace TransactionImporter.DAL
                             InsertTransaction.Parameters.AddWithValue("Amount", item.Amount);
                             InsertTransaction.Parameters.AddWithValue("Status", item.Status);
                             InsertTransaction.Parameters.AddWithValue("Country", item.Country);
+                            InsertTransaction.Parameters.AddWithValue("IP", item.IP);
+                            InsertTransaction.Parameters.AddWithValue("Username", item.Username);
                             //InsertTransaction.Parameters.AddWithValue("Date", item.Date);
                             connection.Open();
                             InsertTransaction.ExecuteNonQuery();

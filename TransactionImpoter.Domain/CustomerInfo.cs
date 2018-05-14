@@ -9,7 +9,7 @@ namespace TransactionImpoter.Domain
 {
     public class CustomerInfo
     {
-        public int Id { get; private set; }
+        public string UUID { get; private set; }
         public string Email { get; private set; }
         public string Username { get; private set; }
         public string Ip { get; private set; }
@@ -20,8 +20,9 @@ namespace TransactionImpoter.Domain
         public string Address { get; private set; }
         private List<Transaction> Transactions = new List<Transaction>();
 
-        public CustomerInfo(string email, string username, string name, string ip, string address)
+        public CustomerInfo(string uuid, string email, string username, string name, string ip, string address)
         {
+            UUID = uuid;
             Email = email;
             Username = username;
             Name = name;

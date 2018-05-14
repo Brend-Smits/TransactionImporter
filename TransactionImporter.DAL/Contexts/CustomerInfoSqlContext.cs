@@ -27,12 +27,11 @@ namespace TransactionImporter.DAL.Contexts
                     {
                         using (SqlCommand InsertCustomerInfo =
                             new SqlCommand(
-                                "INSERT INTO [CustomerInfo] (Email, FirstName, Address) VALUES (@Email, @FirstName, @Address)",
+                                "INSERT INTO [CustomerInfo] (UUID, Email, FirstName, Address) VALUES (@UUID, @Email, @FirstName, @Address)",
                                 connection))
                         {
+                            InsertCustomerInfo.Parameters.AddWithValue("UUID", item.UUID);
                             InsertCustomerInfo.Parameters.AddWithValue("Email", item.Email);
-//                            InsertCustomerInfo.Parameters.AddWithValue("Username", item.Username);
-//                            InsertCustomerInfo.Parameters.AddWithValue("IP", item.Ip);
                             InsertCustomerInfo.Parameters.AddWithValue("FirstName", item.Name);
                             InsertCustomerInfo.Parameters.AddWithValue("Address", item.Address);
                             InsertCustomerInfo.ExecuteNonQuery();
