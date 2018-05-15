@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -28,7 +29,7 @@ namespace TransactionImporter.DAL
                 {
                     using (SqlCommand AddUser =
                         new SqlCommand(
-                            "INSERT INTO [User] (@Username, @Email, @Password, @Birthdate, @Country, @CreatedAt",
+                            "INSERT INTO [User] (Username, Email, Password, Birthdate, Country, CreatedAt) VALUES (@Username, @Email, @Password, @Birthdate, @Country, @CreatedAt)",
                             connection))
                     {
                         AddUser.Parameters.AddWithValue("Username", user.Username);
@@ -36,7 +37,7 @@ namespace TransactionImporter.DAL
                         AddUser.Parameters.AddWithValue("Password", user.Password);
                         AddUser.Parameters.AddWithValue("Birthdate", user.Birthdate);
                         AddUser.Parameters.AddWithValue("Country", user.Country);
-                        AddUser.Parameters.AddWithValue("CreatedAt", DateTime.Now);
+                        AddUser.Parameters.AddWithValue("CreatedAt", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
                         connection.Open();
                         AddUser.ExecuteNonQuery();
                     }
