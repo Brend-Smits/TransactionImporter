@@ -114,8 +114,8 @@ namespace TransactionImporter.BLL
             Range usedRange = xlWorksheet.UsedRange;
             for (int row = 2; row < usedRange.Rows.Count; row++)
             {
-                transactions.Add(CreateTransactionObject(usedRange, row));
                 customers.Add(CreateCustomerInfoObject(usedRange, row));
+                transactions.Add(CreateTransactionObject(usedRange, row));
             }
         }
 
@@ -126,7 +126,11 @@ namespace TransactionImporter.BLL
                 {"Transaction ID", null},
                 {"Gateway", null},
                 {"Status", null},
-                {"Price", null}
+                {"Price", null},
+                {"Country", null },
+                {"Ip", null},
+                {"Username", null },
+                {"Uuid", null }
             };
 
             for (int column = 1; column < usedRange.Columns.Count; column++)
@@ -138,17 +142,18 @@ namespace TransactionImporter.BLL
 
             }
 
-            return new Transaction(transactionValues["Transaction ID"], transactionValues["Gateway"], Convert.ToDouble(transactionValues["Price"]), transactionValues["Status"]);
+            return new Transaction(transactionValues["Transaction ID"], transactionValues["Gateway"], Convert.ToDouble(transactionValues["Price"]), transactionValues["Status"], transactionValues["Country"], transactionValues["Ip"], transactionValues["Username"], transactionValues["Uuid"]);
         }
         private CustomerInfo CreateCustomerInfoObject(Range usedRange, int row)
         {
             Dictionary<string, string> customerValues = new Dictionary<string, string>
             {
+                {"Uuid", null },
                 {"Email", null},
                 {"Username", null},
                 {"Name", null},
                 {"Ip", null},
-                {"Country", null}
+                {"Address", null}
 
             };
 
@@ -161,7 +166,7 @@ namespace TransactionImporter.BLL
 
             }
 
-            return new CustomerInfo(customerValues["Email"], customerValues["Username"], customerValues["Ip"], customerValues["Name"], customerValues["Country"]);
+            return new CustomerInfo(customerValues["Uuid"], customerValues["Email"], customerValues["Username"], customerValues["Name"], customerValues["Ip"], customerValues["Address"]);
         }
 
         private string GetCellValue(int row, int column)
@@ -184,6 +189,11 @@ namespace TransactionImporter.BLL
         public List<Transaction> GetTransactions()
         {
             return transactions;
+        }
+
+        public List<CustomerInfo> GetCustomerInfo()
+        {
+            return customers;
         }
     }
 }

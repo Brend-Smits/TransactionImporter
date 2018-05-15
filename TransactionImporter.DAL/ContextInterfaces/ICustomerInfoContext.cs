@@ -7,8 +7,9 @@ using TransactionImpoter.Domain;
 
 namespace TransactionImporter.DAL.ContextInterfaces
 {
-    interface ICustomerInfoContext
+    public interface ICustomerInfoContext
     {
-        CustomerInfo AddCustomers();
+        void AddCustomer(CustomerInfo customer);
+        void AddCustomerList(List<CustomerInfo> customers);
     }
 }

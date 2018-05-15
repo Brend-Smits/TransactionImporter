@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TransactionImporter.UI"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="535.598">
+        Title="MainWindow" Height="350" Width="739.953">
     <Grid>
         <Button x:Name="btnUploadFile" Content="Upload FIle" HorizontalAlignment="Left" Margin="30,240,0,0" VerticalAlignment="Top" Width="150" Height="53" Click="btnUploadFile_Click"/>
         <Button x:Name="btnRetrieveData" Content="Retrieve Data" HorizontalAlignment="Left" Margin="19,27,0,0" VerticalAlignment="Top" Width="144" Height="55" Click="btnRetrieveData_Click"/>

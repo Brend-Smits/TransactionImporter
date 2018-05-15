@@ -8,11 +8,11 @@ namespace TransactionImpoter.Domain
 {
     public class User
     {
-        public int Id { get; set; }
-        public string Username { get; set; }
-        public string Email { get; set; }
-        public string Password { get; set; }
-        public DateTime Birthdate { get; set; }
+        public int Id { get; private set; }
+        public string Username { get; private set; }
+        public string Email { get; private set; }
+        public string Password { get; private set; }
+        public DateTime Birthdate { get; private set; }
         public List<Transaction> Transactions = new List<Transaction>();
 
         public User(string username, string email, string password, DateTime birthdate)

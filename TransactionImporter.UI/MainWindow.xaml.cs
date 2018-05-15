@@ -16,6 +16,7 @@ namespace TransactionImporter.UI
 
         private ITransactionLogic transactionLogic = TransactionFactory.CreateLogic();
         private IImporterExcel importerLogic = ImporterExcelFactory.CreateLogic();
+        private ICustomerInfoLogic customerInfoLogic = CustomerInfoFactory.CreateLogic();
 
         public MainWindow()
         {
@@ -34,14 +35,8 @@ namespace TransactionImporter.UI
 
         private void btnRefresh_Click(object sender, RoutedEventArgs e)
         {
-            int index = 0;
-            foreach (var trans in importerLogic.GetTransactions())
-            {
-                index++;
-                ListBoxItem item = new ListBoxItem();
-                item.Content = index + ". " + trans.TransactionId;
-                lbTransactions.Items.Add(item);
-            }
+            customerInfoLogic.AddCustomerList(importerLogic.GetCustomerInfo());
+            transactionLogic.AddTransactionList(importerLogic.GetTransactions());
         }
 
     }

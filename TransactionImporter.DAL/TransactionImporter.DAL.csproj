@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConnectionBuilder.cs" />
     <Compile Include="ContextInterfaces\ICategoryContext.cs" />
     <Compile Include="ContextInterfaces\ICustomerInfoContext.cs" />
     <Compile Include="ContextInterfaces\IProductContext.cs" />
@@ -48,7 +49,7 @@
     <Compile Include="Contexts\CustomerInfoSqlContext.cs" />
     <Compile Include="Contexts\ProductSqlContext.cs" />
     <Compile Include="Contexts\UserSqlContext.cs" />
-    <Compile Include="DbInitialisation.cs" />
+    <Compile Include="Database.cs" />
     <Compile Include="ICategoryRepository.cs" />
     <Compile Include="ICustomerInfoRepository.cs" />
     <Compile Include="IProductRepository.cs" />

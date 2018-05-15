@@ -9,10 +9,8 @@ namespace TransactionImporter.DAL
 {
     class UserSqlContext:IUserContext
     {
-        DbInitialisation dbInitialisation = new DbInitialisation();
         public void UploadFile()
         {
-            dbInitialisation.setupTables();
             throw new NotImplementedException();
         }
 
