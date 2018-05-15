@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,7 +8,7 @@ using TransactionImpoter.Domain;
 
 namespace TransactionImporter.DAL
 {
-    class UserSqlContext:IUserContext
+    public class UserSqlContext:IUserContext
     {
         public void UploadFile()
         {
@@ -15,6 +16,45 @@ namespace TransactionImporter.DAL
         }
 
         public void CancelUpload()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CreateUser(User user)
+        {
+            try
+            {
+                using (SqlConnection connection = Database.GetConnectionString())
+                {
+                    using (SqlCommand AddUser =
+                        new SqlCommand(
+                            "INSERT INTO [User] (@Username, @Email, @Password, @Birthdate, @Country, @CreatedAt",
+                            connection))
+                    {
+                        AddUser.Parameters.AddWithValue("Username", user.Username);
+                        AddUser.Parameters.AddWithValue("Email", user.Email);
+                        AddUser.Parameters.AddWithValue("Password", user.Password);
+                        AddUser.Parameters.AddWithValue("Birthdate", user.Birthdate);
+                        AddUser.Parameters.AddWithValue("Country", user.Country);
+                        AddUser.Parameters.AddWithValue("CreatedAt", DateTime.Now);
+                        connection.Open();
+                        AddUser.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception);
+                throw;
+            }
+        }
+
+        public void EditUser()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeleteUser()
         {
             throw new NotImplementedException();
         }

@@ -11,5 +11,8 @@ namespace TransactionImporter.DAL
     {
         void UploadFile();
         void CancelUpload();
+        void CreateUser(User user);
+        void EditUser();
+        void DeleteUser();
     }
 }

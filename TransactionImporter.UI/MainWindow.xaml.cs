@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using TransactionImporter.BLL;
 using TransactionImporter.BLL.Interfaces;
 using TransactionImporter.Factory;
+using TransactionImpoter.Domain;
 
 namespace TransactionImporter.UI
 {
@@ -17,6 +18,7 @@ namespace TransactionImporter.UI
         private ITransactionLogic transactionLogic = TransactionFactory.CreateLogic();
         private IImporterExcel importerLogic = ImporterExcelFactory.CreateLogic();
         private ICustomerInfoLogic customerInfoLogic = CustomerInfoFactory.CreateLogic();
+        private IUserLogic userLogic = UserFactory.CreateLogic();
 
         public MainWindow()
         {
@@ -39,5 +41,10 @@ namespace TransactionImporter.UI
             transactionLogic.AddTransactionList(importerLogic.GetTransactions());
         }
 
+        private void btnAddUser_Click(object sender, RoutedEventArgs e)
+        {
+            User user = new User("Rubbertjuh", "brend_smits@hotmail.com", "123123", "23-01-1998", "Netherlands");
+            userLogic.CreateUser(user);
+        }
     }
     }
