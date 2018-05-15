@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using TransactionImporter.BLL.Interfaces;
 using TransactionImpoter.Domain;
@@ -17,91 +14,79 @@ namespace TransactionImporter.BLL
     {
         private List<Transaction> transactions = new List<Transaction>();
         private List<CustomerInfo> customers = new List<CustomerInfo>();
-        private string transactionId;
-        private string gateway;
-        private string OldFilePath;
+        private string filePath;
         Application xlApp = new Application();
         Workbook xlWorkbook;
         Worksheet xlWorksheet;
         private Workbooks wbs;
         private Workbook wb;
-        private int rowCount;
-        private int columnCount;
-
 
         public void UploadFile()
         {
-            OpenFileDialog openFileDialog1 = new OpenFileDialog();
-            Stream myStream;
-            openFileDialog1.Filter = "Excel files (*.csv;*.xlsx)|*.csv;*.xlsx";
-            openFileDialog1.InitialDirectory = "c:\\";
-            if ((openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK))
+            OpenFileDialog fileDialog = OpenMyFileDialog();
+            if (fileDialog.ShowDialog() == DialogResult.OK)
             {
                 try
                 {
-                    if ((myStream = openFileDialog1.OpenFile()) != null)
+                    Stream myStream = fileDialog.OpenFile();
+                    using (myStream)
                     {
-                        using (myStream)
-                        {
-                        }
-
-                        OldFilePath = openFileDialog1.FileName;
-                        xlWorkbook =
-                            xlApp.Workbooks.Open(ConvertFileIfNeeded(), 0,
-                                true, 5, "", "", true, XlPlatform.xlWindows, "\t", false, false, 0,
-                                true, 1, 0);
-                        xlWorksheet = xlWorkbook.Worksheets.Item[1] as Worksheet;
-                        Console.WriteLine(OldFilePath);
                     }
+
+                    filePath = fileDialog.FileName;
+                    xlWorkbook = xlApp.Workbooks.Open(ConvertFileIfNeeded(), 0, true, 5, "", "", true,
+                        XlPlatform.xlWindows, "\t", false, false, 0, true, 1, 0);
+                    xlWorksheet = xlWorkbook.Worksheets.Item[1] as Worksheet;
                 }
-                catch (Exception ex)
+                catch (Exception exception)
                 {
-                    MessageBox.Show("Error: Could not read file from disk. Original error: " + ex.Message);
+                    MessageBox.Show("Error: Could not read file from disk. Original error: " + exception.Message);
                 }
             }
+        }
+
+        public string ChangeFileExtension(string path, string extReplaceMe, string extReplaceWith)
+        {
+            string tempFilePath = Regex.Replace(path, extReplaceMe, extReplaceWith, RegexOptions.IgnoreCase);
+            wb.SaveAs(tempFilePath, XlFileFormat.xlOpenXMLWorkbook, Type.Missing, Type.Missing, Type.Missing,
+                Type.Missing, XlSaveAsAccessMode.xlExclusive, Type.Missing, Type.Missing, Type.Missing,
+                Type.Missing, Type.Missing);
+            return tempFilePath;
+        }
+
+        public OpenFileDialog OpenMyFileDialog()
+        {
+            OpenFileDialog fileDialog = new OpenFileDialog();
+            fileDialog.Filter = "Excel files (*.csv;*.xlsx)|*.csv;*.xlsx";
+            fileDialog.InitialDirectory = "c:\\";
+            return fileDialog;
         }
 
         private string ConvertFileIfNeeded()
         {
-            string NewFilePath;
-
-            if (File.Exists(OldFilePath))
+            if (File.Exists(filePath))
             {
-                if (Path.GetExtension(OldFilePath) == ".CSV" || Path.GetExtension(OldFilePath) == ".csv")
+                if (Path.GetExtension(filePath) == ".CSV" || Path.GetExtension(filePath) == ".csv")
                 {
-                    Application app = new Application();
-                    wbs = app.Workbooks;
-                    wb = wbs.Open(OldFilePath, Type.Missing, Type.Missing, Type.Missing,
-                        Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing,
-                        Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
-                    //Change extension in the OldFilePath from CSV to XLSX and ignore case and save it to NewFilePath
-                    NewFilePath = Regex.Replace(OldFilePath, ".CSV", ".xlsx", RegexOptions.IgnoreCase);
-                    //Save current workbook as new file with new extension.
-                    wb.SaveAs(NewFilePath, XlFileFormat.xlOpenXMLWorkbook, Type.Missing, Type.Missing, Type.Missing,
-                        Type.Missing, XlSaveAsAccessMode.xlExclusive, Type.Missing, Type.Missing, Type.Missing,
-                        Type.Missing, Type.Missing);
-                    //Close workbook and application.
-                    wb.Close();
-                    app.Quit();
-                    Console.WriteLine("Extension was" + OldFilePath + " and is now: " + NewFilePath);
-                    //Delete the old file.
-                    File.Delete(OldFilePath);
-                    return NewFilePath;
+                    wb = xlApp.Workbooks.Open(filePath);
+                    string tempFilePath = ChangeFileExtension(filePath, ".CSV", ".xlsx");
+                    Console.WriteLine("Extension was" + filePath + " and is now: " + tempFilePath);
+                    File.Delete(filePath);
+                    return tempFilePath;
                 }
 
                 Console.WriteLine("Conversion was not needed, file is already correct extension");
-                return OldFilePath;
+                return filePath;
             }
 
-            Console.WriteLine("Could not convert file for whatever reason.");
-            return Regex.Replace(OldFilePath, ".CSV", ".xlsx", RegexOptions.IgnoreCase);
+            return ChangeFileExtension(filePath, ".CSV", ".xlsx");
         }
 
         public void RetrieveData()
         {
-            if (OldFilePath != null)
+            if (filePath != null)
             {
-                ImportExcelIntoDatabase();
+                ReadExcelAndFillList();
             }
             else
             {
@@ -109,7 +94,7 @@ namespace TransactionImporter.BLL
             }
         }
 
-        private void ImportExcelIntoDatabase()
+        private void ReadExcelAndFillList()
         {
             Range usedRange = xlWorksheet.UsedRange;
             for (int row = 2; row < usedRange.Rows.Count; row++)
@@ -127,10 +112,10 @@ namespace TransactionImporter.BLL
                 {"Gateway", null},
                 {"Status", null},
                 {"Price", null},
-                {"Country", null },
+                {"Country", null},
                 {"Ip", null},
-                {"Username", null },
-                {"Uuid", null }
+                {"Username", null},
+                {"Uuid", null}
             };
 
             for (int column = 1; column < usedRange.Columns.Count; column++)
@@ -139,22 +124,23 @@ namespace TransactionImporter.BLL
                 {
                     transactionValues[GetHeaderName(column)] = GetCellValue(row, column);
                 }
-
             }
 
-            return new Transaction(transactionValues["Transaction ID"], transactionValues["Gateway"], Convert.ToDouble(transactionValues["Price"]), transactionValues["Status"], transactionValues["Country"], transactionValues["Ip"], transactionValues["Username"], transactionValues["Uuid"]);
+            return new Transaction(transactionValues["Transaction ID"], transactionValues["Gateway"],
+                Convert.ToDouble(transactionValues["Price"]), transactionValues["Status"], transactionValues["Country"],
+                transactionValues["Ip"], transactionValues["Username"], transactionValues["Uuid"]);
         }
+
         private CustomerInfo CreateCustomerInfoObject(Range usedRange, int row)
         {
             Dictionary<string, string> customerValues = new Dictionary<string, string>
             {
-                {"Uuid", null },
+                {"Uuid", null},
                 {"Email", null},
                 {"Username", null},
                 {"Name", null},
                 {"Ip", null},
                 {"Address", null}
-
             };
 
             for (int column = 1; column < usedRange.Columns.Count; column++)
@@ -163,10 +149,10 @@ namespace TransactionImporter.BLL
                 {
                     customerValues[GetHeaderName(column)] = GetCellValue(row, column);
                 }
-
             }
 
-            return new CustomerInfo(customerValues["Uuid"], customerValues["Email"], customerValues["Username"], customerValues["Name"], customerValues["Ip"], customerValues["Address"]);
+            return new CustomerInfo(customerValues["Uuid"], customerValues["Email"], customerValues["Username"],
+                customerValues["Name"], customerValues["Ip"], customerValues["Address"]);
         }
 
         private string GetCellValue(int row, int column)

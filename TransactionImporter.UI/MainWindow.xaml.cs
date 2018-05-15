@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Windows;
-using System.Windows.Controls;
+﻿using System.Windows;
 using TransactionImporter.BLL;
 using TransactionImporter.BLL.Interfaces;
 using TransactionImporter.Factory;
