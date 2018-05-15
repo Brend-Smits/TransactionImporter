@@ -26,31 +26,25 @@ namespace TransactionImporter.DAL.Contexts
                     foreach (CustomerInfo item in customers)
                     {
                         bool doesUuidExist = false;
-                        using (SqlCommand SelectUuid = new SqlCommand("SELECT COUNT(*) FROM [CustomerInfo] WHERE uuid LIKE @Uuid", connection))
-                        {
+                        SqlCommand SelectUuid = new SqlCommand("SELECT COUNT(*) FROM [CustomerInfo] WHERE uuid LIKE @Uuid", connection);
+                        
                             SelectUuid.Parameters.AddWithValue("Uuid", item.Uuid);
                             int userCount = (int)SelectUuid.ExecuteScalar();
                             if (userCount > 0)
                             {
                                 doesUuidExist = true;
                             }
-                        }
+                        
                         if (doesUuidExist)
                         {
                             continue;
                         }
-                            using (SqlCommand InsertCustomerInfo =
-                                new SqlCommand(
-                                    "INSERT INTO [CustomerInfo] (Uuid, Email, FirstName, Address) VALUES (@Uuid, @Email, @FirstName, @Address)",
-                                    connection))
-                            {
+                        SqlCommand InsertCustomerInfo = new SqlCommand("INSERT INTO [CustomerInfo] (Uuid, Email, FirstName, Address) VALUES (@Uuid, @Email, @FirstName, @Address)", connection);
                                 InsertCustomerInfo.Parameters.AddWithValue("Uuid", item.Uuid);
                                 InsertCustomerInfo.Parameters.AddWithValue("Email", item.Email);
                                 InsertCustomerInfo.Parameters.AddWithValue("FirstName", item.Name);
                                 InsertCustomerInfo.Parameters.AddWithValue("Address", item.Address);
                                 InsertCustomerInfo.ExecuteNonQuery();
-                            }
-                        
                     }
                 }
             }

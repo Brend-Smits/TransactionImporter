@@ -63,25 +63,20 @@ namespace TransactionImporter.DAL
                     foreach (Transaction item in transactions)
                     {
                         bool doesTransactionIdExist = false;
-                        using (SqlCommand SelectUuid = new SqlCommand("SELECT COUNT(*) FROM [Transaction] WHERE TransactionId LIKE @TransactionId", connection))
-                        {
+                        SqlCommand SelectUuid = new SqlCommand("SELECT COUNT(*) FROM [Transaction] WHERE TransactionId LIKE @TransactionId", connection);
+                        
                             SelectUuid.Parameters.AddWithValue("TransactionId", item.TransactionId);
-                            connection.Open();
                             int userCount = (int)SelectUuid.ExecuteScalar();
                             if (userCount > 0)
                             {
                                 doesTransactionIdExist = true;
                             }
-                        }
+                        
                         if (doesTransactionIdExist)
                         {
                             continue;
                         }
-                        using (SqlCommand InsertTransaction =
-                            new SqlCommand(
-                                "INSERT INTO [Transaction] (UserId, TransactionId, CustomerInfoUUID, Gateway, Status, Country, Ip, Username) VALUES (@UserId, @TransactionId, @CustomerInfoUUID, @Gateway, @Status, @Country, @Ip, @Username)",
-                                connection))
-                        {
+                        SqlCommand InsertTransaction = new SqlCommand("INSERT INTO [Transaction] (UserId, TransactionId, CustomerInfoUUID, Gateway, Status, Country, Ip, Username) VALUES (@UserId, @TransactionId, @CustomerInfoUUID, @Gateway, @Status, @Country, @Ip, @Username)", connection);
                             InsertTransaction.Parameters.AddWithValue("UserId", 1);
                             InsertTransaction.Parameters.AddWithValue("TransactionId", item.TransactionId);
                             InsertTransaction.Parameters.AddWithValue("CustomerInfoUUID", item.Uuid);
@@ -93,8 +88,6 @@ namespace TransactionImporter.DAL
                             InsertTransaction.Parameters.AddWithValue("Username", item.Username);
                             //InsertTransaction.Parameters.AddWithValue("Date", item.Date);
                             InsertTransaction.ExecuteNonQuery();
-                            connection.Close();
-                        }
                     }
                 }
             }
