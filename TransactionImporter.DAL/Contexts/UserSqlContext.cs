@@ -27,20 +27,28 @@ namespace TransactionImporter.DAL
             {
                 using (SqlConnection connection = Database.GetConnectionString())
                 {
-                    using (SqlCommand AddUser =
-                        new SqlCommand(
-                            "INSERT INTO [User] (Username, Email, Password, Birthdate, Country, CreatedAt) VALUES (@Username, @Email, @Password, @Birthdate, @Country, @CreatedAt)",
-                            connection))
+                    connection.Open();
+                    SqlCommand SelectUser = new SqlCommand("SELECT COUNT(*) FROM [User] WHERE Username LIKE @Username OR Email LIKE @Email", connection);
+                    SelectUser.Parameters.AddWithValue("Username", user.Username);
+                    SelectUser.Parameters.AddWithValue("Email", user.Email);
+                    int userCount = (int)SelectUser.ExecuteScalar();
+                    if (userCount == 0)
                     {
+                        SqlCommand AddUser = new SqlCommand(
+                            "INSERT INTO [User] (Username, Email, Password, Birthdate, Country, CreatedAt) VALUES (@Username, @Email, @Password, @Birthdate, @Country, @CreatedAt)",
+                            connection);
                         AddUser.Parameters.AddWithValue("Username", user.Username);
                         AddUser.Parameters.AddWithValue("Email", user.Email);
                         AddUser.Parameters.AddWithValue("Password", user.Password);
                         AddUser.Parameters.AddWithValue("Birthdate", user.Birthdate);
                         AddUser.Parameters.AddWithValue("Country", user.Country);
                         AddUser.Parameters.AddWithValue("CreatedAt", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
-                        connection.Open();
                         AddUser.ExecuteNonQuery();
+                    } else
+                    {
+                        Console.WriteLine("User with that Username or Email already exists.");
                     }
+                    
                 }
             }
             catch (Exception exception)
