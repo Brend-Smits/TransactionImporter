@@ -16,6 +16,7 @@ namespace TransactionImporter.UI
         private IImporterExcel importerLogic = ImporterExcelFactory.CreateLogic();
         private ICustomerInfoLogic customerInfoLogic = CustomerInfoFactory.CreateLogic();
         private IUserLogic userLogic = UserFactory.CreateLogic();
+        private IUploadDetailLogic uploadDetailLogic = UploadDetailFactory.CreateLogic();
 
         public MainWindow()
         {
@@ -25,6 +26,7 @@ namespace TransactionImporter.UI
         private void btnUploadFile_Click(object sender, RoutedEventArgs e)
         {
             importerLogic.UploadFile();
+            uploadDetailLogic.GetUploadDetails();
         }
 
         private void btnRetrieveData_Click(object sender, RoutedEventArgs e)

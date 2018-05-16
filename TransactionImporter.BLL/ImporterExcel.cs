@@ -33,6 +33,7 @@ namespace TransactionImporter.BLL
                     {
                     }
 
+                    
                     filePath = fileDialog.FileName;
                     xlWorkbook = xlApp.Workbooks.Open(ConvertFileIfNeeded(), 0, true, 5, "", "", true,
                         XlPlatform.xlWindows, "\t", false, false, 0, true, 1, 0);
@@ -182,6 +183,11 @@ namespace TransactionImporter.BLL
         public List<CustomerInfo> GetCustomerInfo()
         {
             return customers;
+        }
+
+        public string GetPath()
+        {
+            return filePath;
         }
     }
 }
