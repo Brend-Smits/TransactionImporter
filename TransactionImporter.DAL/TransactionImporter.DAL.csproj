@@ -53,6 +53,7 @@
     <Compile Include="ICategoryRepository.cs" />
     <Compile Include="ICustomerInfoRepository.cs" />
     <Compile Include="IProductRepository.cs" />
+    <Compile Include="IUploadDetailRepository.cs" />
     <Compile Include="IUserRepository.cs" />
     <Compile Include="ITransactionRepository.cs" />
     <Compile Include="ContextInterfaces\ITransactionContext.cs" />
