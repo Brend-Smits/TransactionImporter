@@ -56,9 +56,11 @@ namespace TransactionImporter.BLL
 
         public OpenFileDialog OpenMyFileDialog()
         {
-            OpenFileDialog fileDialog = new OpenFileDialog();
-            fileDialog.Filter = "Excel files (*.csv;*.xlsx)|*.csv;*.xlsx";
-            fileDialog.InitialDirectory = "c:\\";
+            OpenFileDialog fileDialog = new OpenFileDialog
+            {
+                Filter = "Excel files (*.csv;*.xlsx)|*.csv;*.xlsx",
+                InitialDirectory = "c:\\"
+            };
             return fileDialog;
         }
 
