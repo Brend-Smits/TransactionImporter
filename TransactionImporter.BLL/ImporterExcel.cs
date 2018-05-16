@@ -15,9 +15,9 @@ namespace TransactionImporter.BLL
         private List<Transaction> transactions = new List<Transaction>();
         private List<CustomerInfo> customers = new List<CustomerInfo>();
         private string filePath;
-        Application xlApp = new Application();
-        Workbook xlWorkbook;
-        Worksheet xlWorksheet;
+        private Application xlApp = new Application();
+        private Workbook xlWorkbook;
+        private Worksheet xlWorksheet;
         private Workbooks wbs;
         private Workbook wb;
 

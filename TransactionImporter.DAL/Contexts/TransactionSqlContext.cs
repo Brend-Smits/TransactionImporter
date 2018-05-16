@@ -7,10 +7,8 @@ namespace TransactionImporter.DAL
 {
     public class TransactionSqlContext : ITransactionContext
     {
-        // TODO: Implement GetAllTransactions() in SQL Context
         public List<Transaction> GetAllTransactions()
         {
-            // SELECT * FROM Transaction
             throw new NotImplementedException();
         }
 
