@@ -19,9 +19,9 @@ namespace TransactionImporter.BLL
         }
 
 
-        public void GetUploadDetails()
+        public void GetUploadDetails(string path)
         {
-            Console.WriteLine("File Size in Bytes: " + GetFileSize(_importer.GetPath()));
+            Console.WriteLine("File Size in Bytes: " + GetFileSize(path));
         }
 
         private Int64 GetFileSize(string filepath)

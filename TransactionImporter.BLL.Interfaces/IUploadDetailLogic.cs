@@ -5,7 +5,7 @@ namespace TransactionImporter.BLL
 {
     public interface IUploadDetailLogic
     {
-        void GetUploadDetails();
+        void GetUploadDetails(string path);
         void UploadDetail();
         void UploadDetails();
     }
