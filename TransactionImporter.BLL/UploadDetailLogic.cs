@@ -19,9 +19,12 @@ namespace TransactionImporter.BLL
         }
 
 
-        public void GetUploadDetails(string path)
+        public UploadDetail GetUploadDetails(string path)
         {
+            
+            Console.WriteLine("File name is: " + GetFileName(path));
             Console.WriteLine("File Size in Bytes: " + GetFileSize(path));
+            return new UploadDetail(DateTime.Now, DateTime.Now.AddHours(2), GetFileSize(path).ToString(), GetFileName(path));
         }
 
         private Int64 GetFileSize(string filepath)
@@ -31,14 +34,20 @@ namespace TransactionImporter.BLL
             return size;
         }
 
-        public void UploadDetail()
+        private string GetFileName(string filepath)
+        {
+            FileInfo fileInfo = new FileInfo(filepath);
+            return fileInfo.Name;
+        }
+
+        public void UploadDetailList()
         {
             throw new NotImplementedException();
         }
 
-        public void UploadDetails()
+        public void UploadDetails(string path)
         {
-            throw new NotImplementedException();
+            _Repo.UploadDetails(GetUploadDetails(path));
         }
     }
 }

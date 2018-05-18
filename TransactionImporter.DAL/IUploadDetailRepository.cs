@@ -5,7 +5,7 @@ namespace TransactionImporter.DAL
 {
     public interface IUploadDetailRepository
     {
-        void UploadDetail(UploadDetail detail);
-        void UploadDetails(List<UploadDetail> details);
+        void UploadDetails(UploadDetail detail);
+        void UploadDetailList();
     }
 }

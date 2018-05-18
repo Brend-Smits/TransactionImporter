@@ -13,12 +13,12 @@ namespace TransactionImporter.DAL.Repositories
             _uploadDetailContext = userContext;
         }
 
-        public void UploadDetail(UploadDetail detail)
+        public void UploadDetails(UploadDetail detail)
         {
-            throw new NotImplementedException();
+            return _uploadDetailContext.UploadDetails(detail);
         }
 
-        public void UploadDetails(List<UploadDetail> details)
+        public void UploadDetailList()
         {
             throw new NotImplementedException();
         }
