@@ -13,10 +13,9 @@ namespace TransactionImpoter.Domain
         public string _fileSize { get; private set; }
         public List<User> users = new List<User>();
 
-        public UploadDetail(DateTime startTimeUpload, DateTime endTimeUpload, string fileName, string fileSize)
+        public UploadDetail(DateTime startTimeUpload, string fileName, string fileSize)
         {
             _startTimeUpload = startTimeUpload;
-            _endTimeUpload = endTimeUpload;
             _fileName = fileName;
             _fileSize = fileSize;
 

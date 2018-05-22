@@ -15,14 +15,12 @@ namespace TransactionImporter.DAL
                 {
                     connection.Open();
                     SqlCommand AddUploadTime = new SqlCommand(
-                        "INSERT INTO [UploadDetail] (StartTimeUpload, EndTimeUpload, Filename, Filesize) VALUES (@StartTimeUpload, @EndTimeUpload, @Filename, @Filesize)",
+                        "INSERT INTO [UploadDetail] (StartTimeUpload, Filename, Filesize) VALUES (@StartTimeUpload, @Filename, @Filesize)",
                         connection);
                     AddUploadTime.Parameters.AddWithValue("StartTimeUpload", detail._startTimeUpload);
-                    AddUploadTime.Parameters.AddWithValue("EndTimeUpload", detail._endTimeUpload);
                     AddUploadTime.Parameters.AddWithValue("Filename", detail._fileName);
                     AddUploadTime.Parameters.AddWithValue("Filesize", detail._fileSize);
                     AddUploadTime.ExecuteNonQuery();
-
                 }
             }
             catch (Exception exception)

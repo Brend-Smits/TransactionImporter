@@ -11,6 +11,7 @@ namespace TransactionImporter.BLL
     {
         private IUploadDetailRepository _Repo;
         private IImporterExcel _importer = new ImporterExcel();
+        private int UploadId { get; set; }
         List<UploadDetail> uploadsDetails = new List<UploadDetail>();
 
         public UploadDetailLogic(IUploadDetailRepository _uploadDetailRepository)
@@ -18,13 +19,18 @@ namespace TransactionImporter.BLL
             _Repo = _uploadDetailRepository;
         }
 
-
         public UploadDetail GetUploadDetails(string path)
         {
-            
             Console.WriteLine("File name is: " + GetFileName(path));
             Console.WriteLine("File Size in Bytes: " + GetFileSize(path));
-            return new UploadDetail(DateTime.Now, DateTime.Now.AddHours(2), GetFileSize(path).ToString(), GetFileName(path));
+            return new UploadDetail(DateTime.Now, GetFileSize(path).ToString(), GetFileName(path));
+        }
+
+        public void UploadDetails(UploadDetail detail, string path)
+        {
+            UploadId++;
+            Console.WriteLine(UploadId);
+             _Repo.UploadDetails(GetUploadDetails(path));
         }
 
         private Int64 GetFileSize(string filepath)
@@ -45,9 +51,5 @@ namespace TransactionImporter.BLL
             throw new NotImplementedException();
         }
 
-        public void UploadDetails(string path)
-        {
-            _Repo.UploadDetails(GetUploadDetails(path));
-        }
     }
 }

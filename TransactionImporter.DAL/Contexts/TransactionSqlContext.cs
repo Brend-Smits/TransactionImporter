@@ -70,8 +70,7 @@ namespace TransactionImporter.DAL
                         {
                             continue;
                         }
-                        SqlCommand InsertTransaction = new SqlCommand("INSERT INTO [Transaction] (UserId, TransactionId, CustomerInfoUUID, Gateway, Status, Country, Ip, Username) VALUES (@UserId, @TransactionId, @CustomerInfoUUID, @Gateway, @Status, @Country, @Ip, @Username)", connection);
-                            InsertTransaction.Parameters.AddWithValue("UserId", 1);
+                        SqlCommand InsertTransaction = new SqlCommand("INSERT INTO [Transaction] (TransactionId, CustomerInfoUUID, Gateway, Status, Country, Ip, Username) VALUES (@TransactionId, @CustomerInfoUUID, @Gateway, @Status, @Country, @Ip, @Username)", connection);
                             InsertTransaction.Parameters.AddWithValue("TransactionId", item.TransactionId);
                             InsertTransaction.Parameters.AddWithValue("CustomerInfoUUID", item.Uuid);
                             InsertTransaction.Parameters.AddWithValue("Gateway", item.Gateway);

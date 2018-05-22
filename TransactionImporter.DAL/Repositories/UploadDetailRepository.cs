@@ -15,7 +15,7 @@ namespace TransactionImporter.DAL.Repositories
 
         public void UploadDetails(UploadDetail detail)
         {
-            return _uploadDetailContext.UploadDetails(detail);
+            _uploadDetailContext.UploadDetails(detail);
         }
 
         public void UploadDetailList()

@@ -26,7 +26,7 @@ namespace TransactionImporter.UI
         private void btnUploadFile_Click(object sender, RoutedEventArgs e)
         {
             importerLogic.UploadFile();
-            uploadDetailLogic.UploadDetails(importerLogic.GetPath());
+            uploadDetailLogic.GetUploadDetails(importerLogic.GetPath());
         }
 
         private void btnRetrieveData_Click(object sender, RoutedEventArgs e)
