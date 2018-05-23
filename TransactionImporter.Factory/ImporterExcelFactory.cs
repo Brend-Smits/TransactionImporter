@@ -5,7 +5,7 @@ namespace TransactionImporter.Factory
 {
     public class ImporterExcelFactory
     {
-        public static IExportTransaction CreateLogic()
+        public static IImporterExcel CreateLogic()
         {
             return new ImporterExcel();
         }

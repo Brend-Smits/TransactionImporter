@@ -13,7 +13,7 @@ namespace TransactionImporter.UI
     {
 
         private ITransactionLogic transactionLogic = TransactionFactory.CreateLogic();
-        private IExportTransaction importerLogic = ImporterExcelFactory.CreateLogic();
+        private IImporterExcel importerLogic = ImporterExcelFactory.CreateLogic();
         private ICustomerInfoLogic customerInfoLogic = CustomerInfoFactory.CreateLogic();
         private IUserLogic userLogic = UserFactory.CreateLogic();
         private IUploadDetailLogic uploadDetailLogic = UploadDetailFactory.CreateLogic();

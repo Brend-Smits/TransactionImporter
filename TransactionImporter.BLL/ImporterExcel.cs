@@ -10,7 +10,7 @@ using Application = Microsoft.Office.Interop.Excel.Application;
 
 namespace TransactionImporter.BLL
 {
-    public class ImporterExcel : IExportTransaction
+    public class ImporterExcel : IImporterExcel
     {
         private List<Transaction> transactions = new List<Transaction>();
         private List<CustomerInfo> customers = new List<CustomerInfo>();
