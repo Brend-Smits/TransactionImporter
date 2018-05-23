@@ -23,14 +23,14 @@ namespace TransactionImporter.DAL
             throw new NotImplementedException();
         }
 
-        public void AddTransaction(Transaction trans)
+        public void AddTransaction(int uploadId, Transaction trans)
         {
-            _transactionContext.AddTransaction(trans);
+            _transactionContext.AddTransaction(uploadId, trans);
         }
 
-        public void AddTransactionList(List<Transaction> transactions)
+        public void AddTransactionList(int uploadId, List<Transaction> transactions)
         {
-            _transactionContext.AddTransactionList(transactions);
+            _transactionContext.AddTransactionList(uploadId, transactions);
         }
     }
 }

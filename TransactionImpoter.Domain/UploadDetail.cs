@@ -5,7 +5,7 @@ namespace TransactionImpoter.Domain
 {
     public class UploadDetail
     {
-        public int uploadId { get; private set; }
+        public int _uploadId { get; private set; }
         public DateTime _startTimeUpload { get; private set; }
         public DateTime _endTimeUpload { get; private set; }
         public string URL { get; private set; }
@@ -13,8 +13,9 @@ namespace TransactionImpoter.Domain
         public string _fileSize { get; private set; }
         public List<User> users = new List<User>();
 
-        public UploadDetail(DateTime startTimeUpload, string fileName, string fileSize)
+        public UploadDetail(int uploadId, DateTime startTimeUpload, string fileName, string fileSize)
         {
+            _uploadId = uploadId;
             _startTimeUpload = startTimeUpload;
             _fileName = fileName;
             _fileSize = fileSize;

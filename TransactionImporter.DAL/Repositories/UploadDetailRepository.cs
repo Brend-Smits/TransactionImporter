@@ -13,6 +13,10 @@ namespace TransactionImporter.DAL.Repositories
             _uploadDetailContext = userContext;
         }
 
+        public UploadDetailRepository()
+        {
+        }
+
         public void UploadDetails(UploadDetail detail)
         {
             _uploadDetailContext.UploadDetails(detail);
@@ -21,6 +25,12 @@ namespace TransactionImporter.DAL.Repositories
         public void UploadDetailList()
         {
             throw new NotImplementedException();
+        }
+
+        public int GetUploadId()
+        {
+            IUploadDetailContext uploadDetailContext = new UploadDetailSqlContext();
+            return uploadDetailContext.GetUploadId();
         }
     }
 }

@@ -10,6 +10,7 @@ namespace TransactionImporter.BLL
     {
         private ITransactionRepository _Repo;
         private IImporterExcel _importer = new ImporterExcel();
+        private IUploadDetailLogic detailLogic = new UploadDetailLogic();
         public TransactionLogic(ITransactionRepository _transRepo)
         {
             _Repo = _transRepo;
@@ -32,12 +33,12 @@ namespace TransactionImporter.BLL
 
         public void AddTransaction(Transaction trans)
         {
-            _Repo.AddTransaction(trans);
+            _Repo.AddTransaction(detailLogic.GetUploadId(), trans);
         }
 
         public void AddTransactionList(List<Transaction> transactions)
         {
-            _Repo.AddTransactionList(transactions);
+            _Repo.AddTransactionList(detailLogic.GetUploadId(), transactions);
         }
     }
 }

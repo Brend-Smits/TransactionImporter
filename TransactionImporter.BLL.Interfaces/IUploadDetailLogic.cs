@@ -8,5 +8,6 @@ namespace TransactionImporter.BLL
         UploadDetail GetUploadDetails(string path);
         void UploadDetails(UploadDetail detail, string path);
         void UploadDetailList();
+        int GetUploadId();
     }
 }

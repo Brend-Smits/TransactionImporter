@@ -14,13 +14,15 @@ namespace TransactionImporter.DAL
                 using (SqlConnection connection = Database.GetConnectionString())
                 {
                     connection.Open();
-                    SqlCommand AddUploadTime = new SqlCommand(
-                        "INSERT INTO [UploadDetail] (StartTimeUpload, Filename, Filesize) VALUES (@StartTimeUpload, @Filename, @Filesize)",
+                    SqlCommand AddUploadDetails = new SqlCommand(
+                        "INSERT INTO [UploadDetail] (UploadId, StartTimeUpload, Filename, Filesize, UserId) VALUES (@UploadId, @StartTimeUpload, @Filename, @Filesize, @UserId)",
                         connection);
-                    AddUploadTime.Parameters.AddWithValue("StartTimeUpload", detail._startTimeUpload);
-                    AddUploadTime.Parameters.AddWithValue("Filename", detail._fileName);
-                    AddUploadTime.Parameters.AddWithValue("Filesize", detail._fileSize);
-                    AddUploadTime.ExecuteNonQuery();
+                    AddUploadDetails.Parameters.AddWithValue("UploadId", detail._uploadId);
+                    AddUploadDetails.Parameters.AddWithValue("StartTimeUpload", detail._startTimeUpload);
+                    AddUploadDetails.Parameters.AddWithValue("Filename", detail._fileName);
+                    AddUploadDetails.Parameters.AddWithValue("Filesize", detail._fileSize);
+                    AddUploadDetails.Parameters.AddWithValue("UserId", 1);
+                    AddUploadDetails.ExecuteNonQuery();
                 }
             }
             catch (Exception exception)
@@ -33,6 +35,25 @@ namespace TransactionImporter.DAL
         public void UploadDetailList(List<UploadDetail> details)
         {
             throw new NotImplementedException();
+        }
+
+        public int GetUploadId()
+        {
+            try
+            {
+                using (SqlConnection connection = Database.GetConnectionString())
+                {
+                    connection.Open();
+                    SqlCommand SelectMaxUploadId = new SqlCommand(
+                        "SELECT ISNULL(MAX(UploadId), 0) FROM [UploadDetail]", connection);
+                    return Convert.ToInt32(SelectMaxUploadId.ExecuteScalar());
+                }
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception);
+                throw;
+            }
         }
     }
 }

@@ -17,7 +17,7 @@ namespace TransactionImporter.DAL
             throw new NotImplementedException();
         }
 
-        public void AddTransaction(Transaction trans)
+        public void AddTransaction(int uploadId, Transaction trans)
         {
             try
             {
@@ -47,7 +47,7 @@ namespace TransactionImporter.DAL
             }
         }
 
-        public void AddTransactionList(List<Transaction> transactions)
+        public void AddTransactionList(int uploadId, List<Transaction> transactions)
         {
             try
             {
@@ -70,7 +70,8 @@ namespace TransactionImporter.DAL
                         {
                             continue;
                         }
-                        SqlCommand InsertTransaction = new SqlCommand("INSERT INTO [Transaction] (TransactionId, CustomerInfoUUID, Gateway, Status, Country, Ip, Username) VALUES (@TransactionId, @CustomerInfoUUID, @Gateway, @Status, @Country, @Ip, @Username)", connection);
+                        SqlCommand InsertTransaction = new SqlCommand("INSERT INTO [Transaction] (UploadId, TransactionId, CustomerInfoUUID, Gateway, Status, Country, Ip, Username) VALUES (@UploadId, @TransactionId, @CustomerInfoUUID, @Gateway, @Status, @Country, @Ip, @Username)", connection);
+                            InsertTransaction.Parameters.AddWithValue("UploadId", uploadId);
                             InsertTransaction.Parameters.AddWithValue("TransactionId", item.TransactionId);
                             InsertTransaction.Parameters.AddWithValue("CustomerInfoUUID", item.Uuid);
                             InsertTransaction.Parameters.AddWithValue("Gateway", item.Gateway);
