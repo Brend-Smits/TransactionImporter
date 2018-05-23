@@ -17,6 +17,7 @@ namespace TransactionImporter.UI
         private ICustomerInfoLogic customerInfoLogic = CustomerInfoFactory.CreateLogic();
         private IUserLogic userLogic = UserFactory.CreateLogic();
         private IUploadDetailLogic uploadDetailLogic = UploadDetailFactory.CreateLogic();
+        private IExportTransaction exportTransactionLogic = ExportTransactionFactory.CreateLogic();
 
         public MainWindow()
         {
@@ -45,6 +46,11 @@ namespace TransactionImporter.UI
         {
             User user = new User("Rubbertjuh", "brend_smits@hotmail.com", "123123", "1998-01-23", "Netherlands");
             userLogic.CreateUser(user);
+        }
+
+        private void btnDownload_Click(object sender, RoutedEventArgs e)
+        {
+            exportTransactionLogic.DownloadTransactions();
         }
     }
     }

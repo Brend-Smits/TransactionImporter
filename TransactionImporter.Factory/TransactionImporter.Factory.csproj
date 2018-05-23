@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="UploadDetailFactory.cs" />
+    <Compile Include="ExportTransactionFactory.cs" />
     <Compile Include="UserFactory.cs" />
     <Compile Include="ImporterExcelFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
