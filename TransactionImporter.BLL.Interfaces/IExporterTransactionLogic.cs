@@ -6,7 +6,7 @@ namespace TransactionImporter.BLL.Interfaces
 {
     public interface IExportTransaction
     {
-        void DownloadAsExcel();
+        void DownloadTransactions();
 
     }
 }

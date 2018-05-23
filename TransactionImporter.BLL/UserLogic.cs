@@ -1,15 +1,30 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TransactionImporter.DAL;
 using TransactionImpoter.Domain;
 
 namespace TransactionImporter.BLL
 {
-    class UserLogic : IUserLogic
+    public class UserLogic : IUserLogic
     {
         private IUserRepository _Repo;
+
+        public UserLogic(IUserRepository _userRepository)
+        {
+            _Repo = _userRepository;
+        }
+        public void CreateUser(User user)
+        {
+            _Repo.CreateUser(user);
+        }
+
+        public void DeleteUser()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void EditUser()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

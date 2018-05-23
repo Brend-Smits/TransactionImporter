@@ -45,6 +45,7 @@
     <Compile Include="IImporterExcel.cs" />
     <Compile Include="IProductLogic.cs" />
     <Compile Include="ITransactionLogic.cs" />
+    <Compile Include="IUploadDetailLogic.cs" />
     <Compile Include="IUserLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

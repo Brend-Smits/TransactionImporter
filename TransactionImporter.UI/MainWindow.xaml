@@ -9,8 +9,8 @@
     <Grid>
         <Button x:Name="btnUploadFile" Content="Upload FIle" HorizontalAlignment="Left" Margin="30,240,0,0" VerticalAlignment="Top" Width="150" Height="53" Click="btnUploadFile_Click"/>
         <Button x:Name="btnRetrieveData" Content="Retrieve Data" HorizontalAlignment="Left" Margin="19,27,0,0" VerticalAlignment="Top" Width="144" Height="55" Click="btnRetrieveData_Click"/>
-        <ListBox x:Name="lbTransactions" HorizontalAlignment="Left" Height="198" Margin="189,27,0,0" VerticalAlignment="Top" Width="321"/>
-        <Button x:Name="btnRefresh" Content="Refresh Listbox" HorizontalAlignment="Left" Margin="314,240,0,0" VerticalAlignment="Top" Width="196" Height="53" Click="btnRefresh_Click"/>
+        <Button x:Name="btnRefresh" Content="Upload to database" HorizontalAlignment="Left" Margin="229,240,0,0" VerticalAlignment="Top" Width="163" Height="53" Click="btnRefresh_Click"/>
+        <Button x:Name="btnAddUser" Content="Add User" HorizontalAlignment="Left" Margin="229,27,0,0" VerticalAlignment="Top" Width="163" Height="55" Click="btnAddUser_Click"/>
 
     </Grid>
 </Window>

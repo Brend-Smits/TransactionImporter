@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TransactionImporter.BLL;
+﻿using TransactionImporter.BLL;
 using TransactionImporter.DAL;
 
 namespace TransactionImporter.Factory
@@ -14,7 +9,6 @@ namespace TransactionImporter.Factory
         {
             return new TransactionLogic(new TransactionRepository(new TransactionSqlContext()));
         }
-
 
     }
 }

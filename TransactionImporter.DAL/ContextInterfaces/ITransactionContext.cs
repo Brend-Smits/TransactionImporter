@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using TransactionImpoter.Domain;
 
 namespace TransactionImporter.DAL
@@ -11,8 +7,8 @@ namespace TransactionImporter.DAL
     {
         List<Transaction> GetAllTransactions();
         List<Transaction> FilterTransactions();
-        void AddTransaction(Transaction trans);
-        void AddTransactionList(List<Transaction> transactions);
+        void AddTransaction(int uploadId, Transaction trans);
+        void AddTransactionList(int uploadId, List<Transaction> transactions);
 
     }
 }

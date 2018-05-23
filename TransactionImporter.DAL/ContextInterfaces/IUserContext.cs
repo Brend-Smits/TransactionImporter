@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TransactionImpoter.Domain;
+﻿using TransactionImpoter.Domain;
 
 namespace TransactionImporter.DAL
 {
@@ -11,5 +6,8 @@ namespace TransactionImporter.DAL
     {
         void UploadFile();
         void CancelUpload();
+        void CreateUser(User user);
+        void EditUser();
+        void DeleteUser();
     }
 }
