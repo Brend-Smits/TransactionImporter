@@ -1,16 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 using TransactionImpoter.Domain;
 
 namespace TransactionImporter.DAL
 {
     public class ExportTransactionSqlContext:IExportTransactionContext
     {
-        //TODO: Create Transaction objects from the reader data.
         public List<Transaction> GetTransaction()
         {
-            List<Transaction> columnData = new List<Transaction>();
+            List<Transaction> transactions = new List<Transaction>();
             try
             {
                 using (SqlConnection connection = Database.GetConnectionString())
@@ -22,24 +24,24 @@ namespace TransactionImporter.DAL
                     SelectTransactions.Parameters.AddWithValue("UploadId", 12);
                     using (SqlDataReader reader = SelectTransactions.ExecuteReader())
                     {
-                        while (reader.Read())
+                        DataTable dataTable = new DataTable();
+                        dataTable.Load(reader);
+                        foreach (DataRow dataRow in dataTable.Rows)
                         {
-                            for (int i = 0; i < (reader.FieldCount - 1); i++)
-                            {
-                                if (reader.IsDBNull(i))
-                                {
-                                    continue;
-                                }
-
-                                columnData.Add(CreateTransactionObject(reader, i));
-                                Console.WriteLine(reader.GetName(i));
-                                Console.WriteLine(reader.GetString(i));
-                            }
-//                            columnData.Add(reader.GetString(0));
+                            Transaction trans = new Transaction(
+                                (dataRow["TransactionId"].ToString() != "") ? dataRow["TransactionId"].ToString() : "",
+                                (dataRow["Gateway"].ToString() != "") ? dataRow["Gateway"].ToString() : "", 
+                                Convert.ToDouble((dataRow["Amount"] != DBNull.Value) ? dataRow["Amount"] : 0), 
+                                (dataRow["Status"].ToString() != "") ? dataRow["Status"].ToString() : "", 
+                                (dataRow["Country"].ToString() != "") ? dataRow["Country"].ToString() : "", 
+                                (dataRow["Ip"].ToString() != "") ? dataRow["Ip"].ToString() : "", 
+                                (dataRow["Username"].ToString() != "") ? dataRow["Username"].ToString() : "", 
+                                (dataRow["CustomerInfoUUID"].ToString() != "") ? dataRow["CustomerInfoUUID"].ToString() : "");
+                            transactions.Add(trans);
                         }
                     }
                 }
-                return columnData;
+                return transactions;
             }
             catch (Exception exception)
             {
@@ -47,6 +49,18 @@ namespace TransactionImporter.DAL
                 throw;
             }
         }
+
+        public static bool HasNull(DataTable table)
+        {
+            foreach (DataColumn column in table.Columns)
+            {
+                if (table.Rows.OfType<DataRow>().Any(r => r.IsNull(column)))
+                    return true;
+            }
+
+            return false;
+        }
+
         private Transaction CreateTransactionObject(SqlDataReader reader, int i)
         {
             Dictionary<string, string> transactionValues = new Dictionary<string, string>
@@ -60,11 +74,15 @@ namespace TransactionImporter.DAL
                 {"Username", null},
                 {"Uuid", null}
             };
-            
+
+            for (int j = i; j < reader.FieldCount; j++)
+            {
                 if (transactionValues.ContainsKey(reader.GetName(i)))
                 {
                     transactionValues[reader.GetName(i)] = reader.GetString(i);
+                    
                 }
+            }
 
             return new Transaction(transactionValues["Transaction ID"], transactionValues["Gateway"],
                 Convert.ToDouble(transactionValues["Price"]), transactionValues["Status"], transactionValues["Country"],
