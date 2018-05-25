@@ -5,6 +5,6 @@ namespace TransactionImporter.DAL
 {
     public interface IExportTransactionRepository
     {
-        void GetTransaction();
+        List<Transaction> GetTransaction();
     }
 }

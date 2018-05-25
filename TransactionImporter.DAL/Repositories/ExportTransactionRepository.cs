@@ -12,9 +12,9 @@ namespace TransactionImporter.DAL.Repositories
         {
             _exportContext = exportContext;
         }
-        public void GetTransaction()
+        public List<Transaction> GetTransaction()
         {
-            _exportContext.GetTransaction();
+            return _exportContext.GetTransaction();
         }
     }
 }

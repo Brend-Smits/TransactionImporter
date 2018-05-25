@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Forms;
 using TransactionImporter.BLL;
 using TransactionImporter.BLL.Interfaces;
 using TransactionImporter.Factory;
@@ -50,7 +51,12 @@ namespace TransactionImporter.UI
 
         private void btnDownload_Click(object sender, RoutedEventArgs e)
         {
-            exportTransactionLogic.DownloadTransactions();
+//            FolderBrowserDialog folderDialog = new FolderBrowserDialog();
+//            if (folderDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+//            {
+////                folderDialog.SelectedPath = exportTransactionLogic.GetSelectedPath();
+//                exportTransactionLogic.DownloadTransactions();
+//            }
         }
     }
     }
