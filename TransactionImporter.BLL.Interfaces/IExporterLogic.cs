@@ -4,7 +4,7 @@ using TransactionImpoter.Domain;
 
 namespace TransactionImporter.BLL.Interfaces
 {
-    public interface IExportTransaction
+    public interface IExporterLogic
     {
         void DownloadTransactions();
 

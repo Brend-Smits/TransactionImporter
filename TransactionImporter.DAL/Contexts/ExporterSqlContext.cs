@@ -8,7 +8,7 @@ using TransactionImpoter.Domain;
 
 namespace TransactionImporter.DAL
 {
-    public class ExportTransactionSqlContext:IExportTransactionContext
+    public class ExporterSqlContext:IExporterContext
     {
         public List<Transaction> GetTransaction()
         {

@@ -18,7 +18,7 @@ namespace TransactionImporter.UI
         private ICustomerInfoLogic customerInfoLogic = CustomerInfoFactory.CreateLogic();
         private IUserLogic userLogic = UserFactory.CreateLogic();
         private IUploadDetailLogic uploadDetailLogic = UploadDetailFactory.CreateLogic();
-        private IExportTransaction exportTransactionLogic = ExportTransactionFactory.CreateLogic();
+        private IExporterLogic exporterLogic = ExporterFactory.CreateLogic();
 
         public MainWindow()
         {
@@ -51,12 +51,14 @@ namespace TransactionImporter.UI
 
         private void btnDownload_Click(object sender, RoutedEventArgs e)
         {
-//            FolderBrowserDialog folderDialog = new FolderBrowserDialog();
-//            if (folderDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-//            {
-////                folderDialog.SelectedPath = exportTransactionLogic.GetSelectedPath();
-//                exportTransactionLogic.DownloadTransactions();
+            //            FolderBrowserDialog folderDialog = new FolderBrowserDialog();
+            //            if (folderDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            //            {
+            ////                folderDialog.SelectedPath = exportTransactionLogic.GetSelectedPath();
+            exporterLogic.DownloadTransactions();
 //            }
         }
+
+
     }
     }

@@ -39,6 +39,11 @@ namespace TransactionImpoter.Domain
 
             result.Add(TransactionId);
             result.Add(Gateway);
+            result.Add(Amount.ToString());
+            result.Add(Status);
+            result.Add(Country);
+            result.Add(Username);
+            result.Add(Uuid);
             return result;
         }
     }

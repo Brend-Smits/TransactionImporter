@@ -23,6 +23,7 @@ namespace TransactionImporter.BLL
 
         public void UploadFile()
         {
+            //TODO: Move OpenFileDialog to UI
             OpenFileDialog fileDialog = OpenMyFileDialog();
             if (fileDialog.ShowDialog() == DialogResult.OK)
             {

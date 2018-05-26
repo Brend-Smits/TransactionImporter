@@ -3,7 +3,7 @@ using TransactionImpoter.Domain;
 
 namespace TransactionImporter.DAL
 {
-    public interface IExportTransactionRepository
+    public interface IExporterContext
     {
         List<Transaction> GetTransaction();
     }

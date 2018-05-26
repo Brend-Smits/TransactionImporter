@@ -12,37 +12,38 @@ using Application = Microsoft.Office.Interop.Excel.Application;
 
 namespace TransactionImporter.BLL
 {
-    public class ExportTransactionLogic : IExportTransaction
+    public class ExporterLogic : IExporterLogic
     {
         private Application xlApp = new Application();
         private Worksheet xlWorksheet;
-        private IExportTransactionRepository _Repo;
+        private IExporterRepository _Repo;
         private IImporterExcel importerExcel = new ImporterExcel();
-        public ExportTransactionLogic(IExportTransactionRepository _exportRepo)
+        public ExporterLogic(IExporterRepository _exportRepo)
         {
             _Repo = _exportRepo;
         }
 
-        public ExportTransactionLogic()
+        public ExporterLogic()
         {
         }
         public void DownloadTransactions()
         {
+            FolderBrowserDialog folderDialog = new FolderBrowserDialog();
+            if (folderDialog.ShowDialog() == DialogResult.OK)
+            {
                 string randomFile = Guid.NewGuid().ToString().Replace("-", "");
-                string savePath = $"\\{randomFile}.xlsx";
+                string savePath = $"{folderDialog.SelectedPath}\\{randomFile}.xlsx";
                 Workbook xlWorkbook = xlApp.Workbooks.Add();
                 xlWorksheet = xlWorkbook.Worksheets.get_Item(1);
 
                 int row = 2;
                 foreach (Transaction trans in _Repo.GetTransaction())
                 {
-                    Console.WriteLine(trans.Amount);
-                    Console.WriteLine(trans.TransactionId);
 
-                    List<string> dataToAdd = trans.GetDataForThisExcelFile();
-                    for (int index = 1; index <= dataToAdd.Count; index++)
+                    List<string> transDataToAdd = trans.GetDataForThisExcelFile();
+                    for (int index = 1; index <= transDataToAdd.Count; index++)
                     {
-                        string data = dataToAdd[index - 1];
+                        string data = transDataToAdd[index - 1];
                         xlWorksheet.Cells[index][row] = data;
                     }
 
@@ -53,6 +54,7 @@ namespace TransactionImporter.BLL
                     Missing.Value, false, false, XlSaveAsAccessMode.xlNoChange,
                     XlSaveConflictResolution.xlUserResolution, true,
                     Missing.Value, Missing.Value, Missing.Value);
+            }
 
         }
 
