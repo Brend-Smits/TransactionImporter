@@ -35,20 +35,7 @@ namespace TransactionImporter.BLL
                 string savePath = $"{folderDialog.SelectedPath}\\{randomFile}.xlsx";
                 Workbook xlWorkbook = xlApp.Workbooks.Add();
                 xlWorksheet = xlWorkbook.Worksheets.get_Item(1);
-
-                int row = 2;
-                foreach (Transaction trans in _Repo.GetTransaction())
-                {
-
-                    List<string> transDataToAdd = trans.GetDataForThisExcelFile();
-                    for (int index = 1; index <= transDataToAdd.Count; index++)
-                    {
-                        string data = transDataToAdd[index - 1];
-                        xlWorksheet.Cells[index][row] = data;
-                    }
-
-                    row++;
-                }
+                AddTransactions();
 
                 xlWorkbook.SaveAs(savePath, XlFileFormat.xlOpenXMLWorkbook, Missing.Value,
                     Missing.Value, false, false, XlSaveAsAccessMode.xlNoChange,
@@ -56,6 +43,23 @@ namespace TransactionImporter.BLL
                     Missing.Value, Missing.Value, Missing.Value);
             }
 
+        }
+
+        private void AddTransactions()
+        {
+            int row = 2;
+            foreach (Transaction trans in _Repo.GetTransaction())
+            {
+
+                List<string> transDataToAdd = trans.GetDataForThisExcelFile();
+                for (int index = 1; index <= transDataToAdd.Count; index++)
+                {
+                    string data = transDataToAdd[index - 1];
+                    xlWorksheet.Cells[index][row] = data;
+                }
+
+                row++;
+            }
         }
 
 //        public string GetSelectedPath()

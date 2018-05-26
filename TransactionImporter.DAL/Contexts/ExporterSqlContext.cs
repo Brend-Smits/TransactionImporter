@@ -50,6 +50,11 @@ namespace TransactionImporter.DAL
             }
         }
 
+        public List<CustomerInfo> GetCustomers()
+        {
+            throw new NotImplementedException();
+        }
+
         public static bool HasNull(DataTable table)
         {
             foreach (DataColumn column in table.Columns)

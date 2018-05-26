@@ -16,5 +16,10 @@ namespace TransactionImporter.DAL.Repositories
         {
             return _exporterContext.GetTransaction();
         }
+
+        public List<CustomerInfo> GetCustomers()
+        {
+            return _exporterContext.GetCustomers();
+        }
     }
 }

@@ -6,5 +6,6 @@ namespace TransactionImporter.DAL
     public interface IExporterContext
     {
         List<Transaction> GetTransaction();
+        List<CustomerInfo> GetCustomers();
     }
 }
