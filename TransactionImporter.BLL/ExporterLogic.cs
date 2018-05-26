@@ -36,6 +36,7 @@ namespace TransactionImporter.BLL
                 Workbook xlWorkbook = xlApp.Workbooks.Add();
                 xlWorksheet = xlWorkbook.Worksheets.get_Item(1);
                 AddTransactions();
+                AddCustomers();
 
                 xlWorkbook.SaveAs(savePath, XlFileFormat.xlOpenXMLWorkbook, Missing.Value,
                     Missing.Value, false, false, XlSaveAsAccessMode.xlNoChange,
@@ -61,10 +62,30 @@ namespace TransactionImporter.BLL
                 row++;
             }
         }
+        private void AddCustomers()
+        {
+            Transaction trans = new Transaction();
+            int row = 2;
+            foreach (CustomerInfo customer in _Repo.GetCustomers())
+            {
 
-//        public string GetSelectedPath()
-//        {
-//            return exportTransaction.GetSelectedPath();
-//        }
+                List<string> customerDataToAdd = customer.GetDataForThisExcelFile();
+                for (int index = trans.GetDataForThisExcelFile().Count; index < (trans.GetDataForThisExcelFile().Count + customerDataToAdd.Count); index++)
+                {
+                    Console.WriteLine("Trans: " + trans.GetDataForThisExcelFile().Count);
+                    Console.WriteLine("For loop: " + index);
+                    Console.WriteLine("Customer Data: "  + (trans.GetDataForThisExcelFile().Count + customerDataToAdd.Count));
+                    string data = customerDataToAdd[index - trans.GetDataForThisExcelFile().Count];
+                    xlWorksheet.Cells[index][row] = data;
+                }
+
+                row++;
+            }
+        }
+
+        //        public string GetSelectedPath()
+        //        {
+        //            return exportTransaction.GetSelectedPath();
+        //        }
     }
 }

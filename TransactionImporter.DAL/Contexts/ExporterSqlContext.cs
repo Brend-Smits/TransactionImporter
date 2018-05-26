@@ -10,6 +10,7 @@ namespace TransactionImporter.DAL
 {
     public class ExporterSqlContext:IExporterContext
     {
+        private int uploadId = 12;
         public List<Transaction> GetTransaction()
         {
             List<Transaction> transactions = new List<Transaction>();
@@ -21,7 +22,7 @@ namespace TransactionImporter.DAL
                         SqlCommand SelectTransactions = new SqlCommand(
                             "SELECT * FROM [Transaction] WHERE (UploadId) LIKE (@UploadId)",
                             connection);
-                    SelectTransactions.Parameters.AddWithValue("UploadId", 12);
+                    SelectTransactions.Parameters.AddWithValue("UploadId", uploadId);
                     using (SqlDataReader reader = SelectTransactions.ExecuteReader())
                     {
                         DataTable dataTable = new DataTable();
@@ -52,18 +53,55 @@ namespace TransactionImporter.DAL
 
         public List<CustomerInfo> GetCustomers()
         {
-            throw new NotImplementedException();
-        }
-
-        public static bool HasNull(DataTable table)
-        {
-            foreach (DataColumn column in table.Columns)
+            List<CustomerInfo> customerList = new List<CustomerInfo>();
+            List<string> customerUUIDs = new List<string>();
+            try
             {
-                if (table.Rows.OfType<DataRow>().Any(r => r.IsNull(column)))
-                    return true;
-            }
+                using (SqlConnection connection = Database.GetConnectionString())
+                {
+                    connection.Open();
+                    SqlCommand SelectUuid = new SqlCommand("SELECT (CustomerInfoUUID) FROM [Transaction] WHERE (UploadId) LIKE @UploadId", connection);
+                    SelectUuid.Parameters.AddWithValue("UploadId", uploadId);
+                    using (SqlDataReader uuidReader = SelectUuid.ExecuteReader())
+                    {
+                        while (uuidReader.Read())
+                        {
+                            customerUUIDs.Add(uuidReader.GetString(0));
+                        }
+                        uuidReader.Close();
+                    }
 
-            return false;
+                    foreach (string UUID in customerUUIDs)
+                    {
+                        SqlCommand SelectCustomers = new SqlCommand(
+                            "SELECT * FROM [CustomerInfo] WHERE (Uuid) LIKE (@Uuid)",
+                            connection);
+                        SelectCustomers.Parameters.AddWithValue("Uuid", UUID);
+                        using (SqlDataReader customerReader = SelectCustomers.ExecuteReader())
+                        {
+                            DataTable dataTable = new DataTable();
+                            dataTable.Load(customerReader);
+                            foreach (DataRow dataRow in dataTable.Rows)
+                            {
+                                CustomerInfo customer = new CustomerInfo(
+                                    (dataRow["Uuid"].ToString() != "") ? dataRow["Uuid"].ToString() : "",
+                                    (dataRow["Email"].ToString() != "") ? dataRow["Email"].ToString() : "",
+                                    (dataRow["FirstName"].ToString() != "") ? dataRow["FirstName"].ToString() : "",
+                                    (dataRow["Address"].ToString() != "") ? dataRow["Address"].ToString() : "");
+                                    customerList.Add(customer);
+                            }
+                        }
+
+                    }
+                    
+                }
+                return customerList;
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception);
+                throw;
+            }
         }
 
         private Transaction CreateTransactionObject(SqlDataReader reader, int i)

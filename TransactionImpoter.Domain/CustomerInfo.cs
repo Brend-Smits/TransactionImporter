@@ -15,14 +15,24 @@ namespace TransactionImpoter.Domain
         public string Address { get; private set; }
         private List<Transaction> Transactions = new List<Transaction>();
 
-        public CustomerInfo(string uuid, string email, string username, string name, string ip, string address)
+        public CustomerInfo(string uuid, string email, string name, string address)
         {
             Uuid = uuid;
             Email = email;
-            Username = username;
             Name = name;
-            Ip = ip;
             Address = address;
+        }
+        public List<string> GetDataForThisExcelFile()
+        {
+            List<string> result = new List<string>();
+
+            result.Add(Uuid);
+            result.Add(Email);
+            result.Add(Username);
+            result.Add(Name);
+            result.Add(Ip);
+            result.Add(Address);
+            return result;
         }
     }
 }

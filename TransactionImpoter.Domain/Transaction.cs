@@ -33,6 +33,8 @@ namespace TransactionImpoter.Domain
 //            User = user;
         }
 
+        public Transaction() { }
+
         public List<string> GetDataForThisExcelFile()
         {
             List<string> result = new List<string>();

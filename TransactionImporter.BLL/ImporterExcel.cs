@@ -141,9 +141,7 @@ namespace TransactionImporter.BLL
             {
                 {"Uuid", null},
                 {"Email", null},
-                {"Username", null},
                 {"Name", null},
-                {"Ip", null},
                 {"Address", null}
             };
 
@@ -155,8 +153,8 @@ namespace TransactionImporter.BLL
                 }
             }
 
-            return new CustomerInfo(customerValues["Uuid"], customerValues["Email"], customerValues["Username"],
-                customerValues["Name"], customerValues["Ip"], customerValues["Address"]);
+            return new CustomerInfo(customerValues["Uuid"], customerValues["Email"],
+                customerValues["Name"], customerValues["Address"]);
         }
 
         private string GetCellValue(int row, int column)
