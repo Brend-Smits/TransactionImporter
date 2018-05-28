@@ -14,15 +14,15 @@ namespace TransactionImporter.DAL
                 using (SqlConnection connection = Database.GetConnectionString())
                 {
                     connection.Open();
-                    SqlCommand AddUploadDetails = new SqlCommand(
+                    SqlCommand addUploadDetails = new SqlCommand(
                         "INSERT INTO [UploadDetail] (UploadId, StartTimeUpload, Filename, Filesize, UserId) VALUES (@UploadId, @StartTimeUpload, @Filename, @Filesize, @UserId)",
                         connection);
-                    AddUploadDetails.Parameters.AddWithValue("UploadId", detail._uploadId);
-                    AddUploadDetails.Parameters.AddWithValue("StartTimeUpload", detail._startTimeUpload);
-                    AddUploadDetails.Parameters.AddWithValue("Filename", detail._fileName);
-                    AddUploadDetails.Parameters.AddWithValue("Filesize", detail._fileSize);
-                    AddUploadDetails.Parameters.AddWithValue("UserId", 1);
-                    AddUploadDetails.ExecuteNonQuery();
+                    addUploadDetails.Parameters.AddWithValue("UploadId", detail.UploadId);
+                    addUploadDetails.Parameters.AddWithValue("StartTimeUpload", detail.StartTimeUpload);
+                    addUploadDetails.Parameters.AddWithValue("Filename", detail.FileName);
+                    addUploadDetails.Parameters.AddWithValue("Filesize", detail.FileSize);
+                    addUploadDetails.Parameters.AddWithValue("UserId", 1);
+                    addUploadDetails.ExecuteNonQuery();
                 }
             }
             catch (Exception exception)
@@ -44,9 +44,9 @@ namespace TransactionImporter.DAL
                 using (SqlConnection connection = Database.GetConnectionString())
                 {
                     connection.Open();
-                    SqlCommand SelectMaxUploadId = new SqlCommand(
+                    SqlCommand selectMaxUploadId = new SqlCommand(
                         "SELECT ISNULL(MAX(UploadId), 0) FROM [UploadDetail]", connection);
-                    return Convert.ToInt32(SelectMaxUploadId.ExecuteScalar());
+                    return Convert.ToInt32(selectMaxUploadId.ExecuteScalar());
                 }
             }
             catch (Exception exception)

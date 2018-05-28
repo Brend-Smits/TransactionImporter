@@ -6,23 +6,35 @@ namespace TransactionImpoter.Domain
     {
         public string Uuid { get; private set; }
         public string Email { get; private set; }
-        public string Username { get; private set; }
         public string Ip { get; private set; }
-        public string FirstName { get; private set; }
-        public string SurName { get; private set; }
 
         public string Name { get; private set; }
         public string Address { get; private set; }
         private List<Transaction> Transactions = new List<Transaction>();
 
-        public CustomerInfo(string uuid, string email, string username, string name, string ip, string address)
+        public CustomerInfo(string uuid, string email, string name, string address)
         {
             Uuid = uuid;
             Email = email;
-            Username = username;
             Name = name;
-            Ip = ip;
             Address = address;
+        }
+
+        public CustomerInfo()
+        {
+        }
+
+        public List<string> GetDataForThisExcelFile()
+        {
+            List<string> result = new List<string>
+            {
+                Uuid,
+                Email,
+                Name,
+                Address
+            };
+
+            return result;
         }
     }
 }

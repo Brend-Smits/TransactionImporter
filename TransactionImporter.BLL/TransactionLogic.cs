@@ -11,9 +11,9 @@ namespace TransactionImporter.BLL
         private ITransactionRepository _Repo;
         private IImporterExcel _importer = new ImporterExcel();
         private IUploadDetailLogic detailLogic = new UploadDetailLogic();
-        public TransactionLogic(ITransactionRepository _transRepo)
+        public TransactionLogic(ITransactionRepository transRepo)
         {
-            _Repo = _transRepo;
+            _Repo = transRepo;
         }
 
         public List<Transaction> GetAllTransactions()

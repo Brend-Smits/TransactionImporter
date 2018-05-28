@@ -5,11 +5,11 @@ using TransactionImporter.DAL.Repositories;
 
 namespace TransactionImporter.Factory
 {
-    public class UploadDetailFactory
+    public class ExporterFactory
     {
-        public static IUploadDetailLogic CreateLogic()
+        public static IExporterLogic CreateLogic()
         {
-            return new UploadDetailLogic(new UploadDetailRepository(new UploadDetailSqlContext()));
+            return new ExporterLogic(new ExporterRepository(new ExporterSqlContext()));
         }
 
     }

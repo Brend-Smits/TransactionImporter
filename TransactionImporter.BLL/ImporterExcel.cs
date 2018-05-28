@@ -10,7 +10,7 @@ using Application = Microsoft.Office.Interop.Excel.Application;
 
 namespace TransactionImporter.BLL
 {
-    public class ImporterExcel : IExportTransaction
+    public class ImporterExcel : IImporterExcel
     {
         private List<Transaction> transactions = new List<Transaction>();
         private List<CustomerInfo> customers = new List<CustomerInfo>();
@@ -23,6 +23,7 @@ namespace TransactionImporter.BLL
 
         public void UploadFile()
         {
+            //TODO: Move OpenFileDialog to UI
             OpenFileDialog fileDialog = OpenMyFileDialog();
             if (fileDialog.ShowDialog() == DialogResult.OK)
             {
@@ -140,9 +141,7 @@ namespace TransactionImporter.BLL
             {
                 {"Uuid", null},
                 {"Email", null},
-                {"Username", null},
                 {"Name", null},
-                {"Ip", null},
                 {"Address", null}
             };
 
@@ -154,8 +153,8 @@ namespace TransactionImporter.BLL
                 }
             }
 
-            return new CustomerInfo(customerValues["Uuid"], customerValues["Email"], customerValues["Username"],
-                customerValues["Name"], customerValues["Ip"], customerValues["Address"]);
+            return new CustomerInfo(customerValues["Uuid"], customerValues["Email"],
+                customerValues["Name"], customerValues["Address"]);
         }
 
         private string GetCellValue(int row, int column)

@@ -5,11 +5,11 @@ namespace TransactionImporter.DAL.Repositories
 {
     public class UserRepository:IUserRepository
     {
-        private readonly IUserContext _userContext;
+        private readonly IUserContext userContext;
 
         public UserRepository(IUserContext userContext)
         {
-            _userContext = userContext;
+            this.userContext = userContext;
         }
         public void UploadFile()
         {
@@ -23,7 +23,7 @@ namespace TransactionImporter.DAL.Repositories
 
         public void CreateUser(User user)
         {
-            _userContext.CreateUser(user);
+            userContext.CreateUser(user);
         }
 
         public void EditUser()

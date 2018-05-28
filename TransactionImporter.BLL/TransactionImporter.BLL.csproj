@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="CategoryLogic.cs" />
     <Compile Include="CustomerInfoLogic.cs" />
+    <Compile Include="ExporterLogic.cs" />
     <Compile Include="ImporterExcel.cs" />
     <Compile Include="ProductLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

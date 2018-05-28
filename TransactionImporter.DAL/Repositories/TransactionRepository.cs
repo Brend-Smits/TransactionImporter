@@ -6,16 +6,16 @@ namespace TransactionImporter.DAL
 {
     public class TransactionRepository:ITransactionRepository
     {
-        private readonly ITransactionContext _transactionContext;
+        private readonly ITransactionContext transactionContext;
 
         public TransactionRepository(ITransactionContext transactionSqlContext)
         {
-            _transactionContext = transactionSqlContext;
+            transactionContext = transactionSqlContext;
         }
 
         public List<Transaction> GetAllTransactions()
         {
-            return _transactionContext.GetAllTransactions();
+            return transactionContext.GetAllTransactions();
         }
 
         public List<Transaction> FilterTransactions()
@@ -25,12 +25,12 @@ namespace TransactionImporter.DAL
 
         public void AddTransaction(int uploadId, Transaction trans)
         {
-            _transactionContext.AddTransaction(uploadId, trans);
+            transactionContext.AddTransaction(uploadId, trans);
         }
 
         public void AddTransactionList(int uploadId, List<Transaction> transactions)
         {
-            _transactionContext.AddTransactionList(uploadId, transactions);
+            transactionContext.AddTransactionList(uploadId, transactions);
         }
     }
 }

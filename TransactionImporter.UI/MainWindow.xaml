@@ -6,11 +6,12 @@
         xmlns:local="clr-namespace:TransactionImporter.UI"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="739.953">
-    <Grid>
-        <Button x:Name="btnUploadFile" Content="Upload FIle" HorizontalAlignment="Left" Margin="30,240,0,0" VerticalAlignment="Top" Width="150" Height="53" Click="btnUploadFile_Click"/>
-        <Button x:Name="btnRetrieveData" Content="Retrieve Data" HorizontalAlignment="Left" Margin="19,27,0,0" VerticalAlignment="Top" Width="144" Height="55" Click="btnRetrieveData_Click"/>
-        <Button x:Name="btnRefresh" Content="Upload to database" HorizontalAlignment="Left" Margin="229,240,0,0" VerticalAlignment="Top" Width="163" Height="53" Click="btnRefresh_Click"/>
-        <Button x:Name="btnAddUser" Content="Add User" HorizontalAlignment="Left" Margin="229,27,0,0" VerticalAlignment="Top" Width="163" Height="55" Click="btnAddUser_Click"/>
+    <Grid RenderTransformOrigin="-0.312,-0.244">
+        <Button x:Name="btnUploadFile" Content="Upload FIle" HorizontalAlignment="Left" Margin="226,242,0,0" VerticalAlignment="Top" Width="150" Height="53" Click="btnUploadFile_Click"/>
+        <Button x:Name="btnRetrieveData" Content="Retrieve Data" HorizontalAlignment="Left" Margin="426,240,0,0" VerticalAlignment="Top" Width="150" Height="55" Click="btnRetrieveData_Click"/>
+        <Button x:Name="btnRefresh" Content="Upload to database" HorizontalAlignment="Left" Margin="30,25,0,0" VerticalAlignment="Top" Width="150" Height="53" Click="btnRefresh_Click"/>
+        <Button x:Name="btnAddUser" Content="Add User" HorizontalAlignment="Left" Margin="30,242,0,0" VerticalAlignment="Top" Width="150" Height="55" Click="btnAddUser_Click"/>
+        <Button x:Name="btnDownload" Content="Download file" HorizontalAlignment="Left" Margin="226,26,0,0" VerticalAlignment="Top" Width="150" Height="50" Click="btnDownload_Click"/>
 
     </Grid>
 </Window>

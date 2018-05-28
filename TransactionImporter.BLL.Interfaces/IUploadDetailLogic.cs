@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
-using TransactionImpoter.Domain;
+﻿using TransactionImpoter.Domain;
 
-namespace TransactionImporter.BLL
+namespace TransactionImporter.BLL.Interfaces
 {
     public interface IUploadDetailLogic
     {

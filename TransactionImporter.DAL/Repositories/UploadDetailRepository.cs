@@ -1,16 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
 using TransactionImpoter.Domain;
 
 namespace TransactionImporter.DAL.Repositories
 {
     public class UploadDetailRepository : IUploadDetailRepository
     {
-        private readonly IUploadDetailContext _uploadDetailContext;
+        private readonly IUploadDetailContext uploadDetailContext;
 
         public UploadDetailRepository(IUploadDetailContext userContext)
         {
-            _uploadDetailContext = userContext;
+            uploadDetailContext = userContext;
         }
 
         public UploadDetailRepository()
@@ -19,7 +18,7 @@ namespace TransactionImporter.DAL.Repositories
 
         public void UploadDetails(UploadDetail detail)
         {
-            _uploadDetailContext.UploadDetails(detail);
+            uploadDetailContext.UploadDetails(detail);
         }
 
         public void UploadDetailList()

@@ -1,12 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using TransactionImpoter.Domain;
 
 namespace TransactionImporter.BLL.Interfaces
 {
-    public interface IExportTransaction
+    public interface IImporterExcel
     {
-        void DownloadAsExcel();
+        void UploadFile();
+        void RetrieveData();
+        List<Transaction> GetTransactions();
+        List<CustomerInfo> GetCustomerInfo();
+        string GetPath();
 
     }
 }

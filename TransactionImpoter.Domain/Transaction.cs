@@ -32,5 +32,24 @@ namespace TransactionImpoter.Domain
 //            Date = date;
 //            User = user;
         }
+
+        public Transaction() { }
+
+        public List<string> GetDataForThisExcelFile()
+        {
+            List<string> result = new List<string>
+            {
+                TransactionId,
+                Amount.ToString(),
+                Gateway,
+                Status,
+                Country,
+                Ip,
+                Username,
+                Uuid
+            };
+
+            return result;
+        }
     }
 }

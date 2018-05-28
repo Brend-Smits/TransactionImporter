@@ -1,4 +1,5 @@
 ﻿using System;
+using TransactionImporter.BLL.Interfaces;
 using TransactionImporter.DAL;
 using TransactionImpoter.Domain;
 
@@ -8,9 +9,9 @@ namespace TransactionImporter.BLL
     {
         private IUserRepository _Repo;
 
-        public UserLogic(IUserRepository _userRepository)
+        public UserLogic(IUserRepository userRepository)
         {
-            _Repo = _userRepository;
+            _Repo = userRepository;
         }
         public void CreateUser(User user)
         {
