@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using TransactionImpoter.Domain;
+﻿using TransactionImpoter.Domain;
 
 namespace TransactionImporter.DAL
 {

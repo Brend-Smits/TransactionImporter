@@ -37,16 +37,18 @@ namespace TransactionImpoter.Domain
 
         public List<string> GetDataForThisExcelFile()
         {
-            List<string> result = new List<string>();
+            List<string> result = new List<string>
+            {
+                TransactionId,
+                Amount.ToString(),
+                Gateway,
+                Status,
+                Country,
+                Ip,
+                Username,
+                Uuid
+            };
 
-            result.Add(TransactionId);
-            result.Add(Amount.ToString());
-            result.Add(Gateway);
-            result.Add(Status);
-            result.Add(Country);
-            result.Add(Ip);
-            result.Add(Username);
-            result.Add(Uuid);
             return result;
         }
     }

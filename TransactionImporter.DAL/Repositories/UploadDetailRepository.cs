@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using TransactionImpoter.Domain;
 
 namespace TransactionImporter.DAL.Repositories

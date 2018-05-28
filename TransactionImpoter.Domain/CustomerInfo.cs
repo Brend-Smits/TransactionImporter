@@ -29,12 +29,14 @@ namespace TransactionImpoter.Domain
 
         public List<string> GetDataForThisExcelFile()
         {
-            List<string> result = new List<string>();
+            List<string> result = new List<string>
+            {
+                Uuid,
+                Email,
+                Name,
+                Address
+            };
 
-            result.Add(Uuid);
-            result.Add(Email);
-            result.Add(Name);
-            result.Add(Address);
             return result;
         }
     }
