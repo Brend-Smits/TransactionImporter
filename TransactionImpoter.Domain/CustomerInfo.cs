@@ -22,15 +22,18 @@ namespace TransactionImpoter.Domain
             Name = name;
             Address = address;
         }
+
+        public CustomerInfo()
+        {
+        }
+
         public List<string> GetDataForThisExcelFile()
         {
             List<string> result = new List<string>();
 
             result.Add(Uuid);
             result.Add(Email);
-            result.Add(Username);
             result.Add(Name);
-            result.Add(Ip);
             result.Add(Address);
             return result;
         }

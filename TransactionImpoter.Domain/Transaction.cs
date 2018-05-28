@@ -40,10 +40,11 @@ namespace TransactionImpoter.Domain
             List<string> result = new List<string>();
 
             result.Add(TransactionId);
-            result.Add(Gateway);
             result.Add(Amount.ToString());
+            result.Add(Gateway);
             result.Add(Status);
             result.Add(Country);
+            result.Add(Ip);
             result.Add(Username);
             result.Add(Uuid);
             return result;

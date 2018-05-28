@@ -30,14 +30,14 @@ namespace TransactionImporter.DAL
                         foreach (DataRow dataRow in dataTable.Rows)
                         {
                             Transaction trans = new Transaction(
-                                (dataRow["TransactionId"].ToString() != "") ? dataRow["TransactionId"].ToString() : "",
-                                (dataRow["Gateway"].ToString() != "") ? dataRow["Gateway"].ToString() : "", 
+                                (dataRow["TransactionId"].ToString() != "") ? dataRow["TransactionId"].ToString() : "-",
+                                (dataRow["Gateway"].ToString() != "") ? dataRow["Gateway"].ToString() : "-", 
                                 Convert.ToDouble((dataRow["Amount"] != DBNull.Value) ? dataRow["Amount"] : 0), 
-                                (dataRow["Status"].ToString() != "") ? dataRow["Status"].ToString() : "", 
-                                (dataRow["Country"].ToString() != "") ? dataRow["Country"].ToString() : "", 
-                                (dataRow["Ip"].ToString() != "") ? dataRow["Ip"].ToString() : "", 
-                                (dataRow["Username"].ToString() != "") ? dataRow["Username"].ToString() : "", 
-                                (dataRow["CustomerInfoUUID"].ToString() != "") ? dataRow["CustomerInfoUUID"].ToString() : "");
+                                (dataRow["Status"].ToString() != "") ? dataRow["Status"].ToString() : "-", 
+                                (dataRow["Country"].ToString() != "") ? dataRow["Country"].ToString() : "-", 
+                                (dataRow["Ip"].ToString() != "") ? dataRow["Ip"].ToString() : "-", 
+                                (dataRow["Username"].ToString() != "") ? dataRow["Username"].ToString() : "-", 
+                                (dataRow["CustomerInfoUUID"].ToString() != "") ? dataRow["CustomerInfoUUID"].ToString() : "-");
                             transactions.Add(trans);
                         }
                     }
@@ -84,10 +84,10 @@ namespace TransactionImporter.DAL
                             foreach (DataRow dataRow in dataTable.Rows)
                             {
                                 CustomerInfo customer = new CustomerInfo(
-                                    (dataRow["Uuid"].ToString() != "") ? dataRow["Uuid"].ToString() : "",
-                                    (dataRow["Email"].ToString() != "") ? dataRow["Email"].ToString() : "",
-                                    (dataRow["FirstName"].ToString() != "") ? dataRow["FirstName"].ToString() : "",
-                                    (dataRow["Address"].ToString() != "") ? dataRow["Address"].ToString() : "");
+                                    (dataRow["Uuid"].ToString() != "") ? dataRow["Uuid"].ToString() : "-",
+                                    (dataRow["Email"].ToString() != "") ? dataRow["Email"].ToString() : "-",
+                                    (dataRow["FirstName"].ToString() != "") ? dataRow["FirstName"].ToString() : "-",
+                                    (dataRow["Address"].ToString() != "") ? dataRow["Address"].ToString() : "-");
                                     customerList.Add(customer);
                             }
                         }

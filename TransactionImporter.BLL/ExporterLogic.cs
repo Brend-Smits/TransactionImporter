@@ -18,6 +18,7 @@ namespace TransactionImporter.BLL
         private Worksheet xlWorksheet;
         private IExporterRepository _Repo;
         private IImporterExcel importerExcel = new ImporterExcel();
+
         public ExporterLogic(IExporterRepository _exportRepo)
         {
             _Repo = _exportRepo;
@@ -26,6 +27,7 @@ namespace TransactionImporter.BLL
         public ExporterLogic()
         {
         }
+
         public void DownloadTransactions()
         {
             FolderBrowserDialog folderDialog = new FolderBrowserDialog();
@@ -35,6 +37,7 @@ namespace TransactionImporter.BLL
                 string savePath = $"{folderDialog.SelectedPath}\\{randomFile}.xlsx";
                 Workbook xlWorkbook = xlApp.Workbooks.Add();
                 xlWorksheet = xlWorkbook.Worksheets.get_Item(1);
+                AddHeaders();
                 AddTransactions();
                 AddCustomers();
 
@@ -43,7 +46,30 @@ namespace TransactionImporter.BLL
                     XlSaveConflictResolution.xlUserResolution, true,
                     Missing.Value, Missing.Value, Missing.Value);
             }
+        }
 
+        private void AddHeaders()
+        {
+            List<string> headers = new List<string>
+            {
+                "Transaction ID",
+                "Amount",
+                "Gateway",
+                "Status",
+                "Country",
+                "Ip",
+                "Username",
+                "Uuid",
+                "Email",
+                "Name",
+                "Address"
+            };
+            int col = 1;
+            foreach (var header in headers)
+            {
+                xlWorksheet.Cells[1, col] = header;
+                col++;
+            }
         }
 
         private void AddTransactions()
@@ -51,7 +77,6 @@ namespace TransactionImporter.BLL
             int row = 2;
             foreach (Transaction trans in _Repo.GetTransaction())
             {
-
                 List<string> transDataToAdd = trans.GetDataForThisExcelFile();
                 for (int index = 1; index <= transDataToAdd.Count; index++)
                 {
@@ -62,19 +87,18 @@ namespace TransactionImporter.BLL
                 row++;
             }
         }
+
         private void AddCustomers()
         {
             Transaction trans = new Transaction();
             int row = 2;
             foreach (CustomerInfo customer in _Repo.GetCustomers())
             {
-
                 List<string> customerDataToAdd = customer.GetDataForThisExcelFile();
-                for (int index = trans.GetDataForThisExcelFile().Count; index < (trans.GetDataForThisExcelFile().Count + customerDataToAdd.Count); index++)
+                for (int index = trans.GetDataForThisExcelFile().Count;
+                    index < (trans.GetDataForThisExcelFile().Count + customerDataToAdd.Count);
+                    index++)
                 {
-                    Console.WriteLine("Trans: " + trans.GetDataForThisExcelFile().Count);
-                    Console.WriteLine("For loop: " + index);
-                    Console.WriteLine("Customer Data: "  + (trans.GetDataForThisExcelFile().Count + customerDataToAdd.Count));
                     string data = customerDataToAdd[index - trans.GetDataForThisExcelFile().Count];
                     xlWorksheet.Cells[index][row] = data;
                 }
@@ -82,10 +106,5 @@ namespace TransactionImporter.BLL
                 row++;
             }
         }
-
-        //        public string GetSelectedPath()
-        //        {
-        //            return exportTransaction.GetSelectedPath();
-        //        }
     }
 }
