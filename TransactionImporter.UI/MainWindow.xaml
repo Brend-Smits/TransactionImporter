@@ -12,6 +12,7 @@
         <Button x:Name="btnRefresh" Content="Upload to database" HorizontalAlignment="Left" Margin="30,25,0,0" VerticalAlignment="Top" Width="150" Height="53" Click="btnRefresh_Click"/>
         <Button x:Name="btnAddUser" Content="Add User" HorizontalAlignment="Left" Margin="30,242,0,0" VerticalAlignment="Top" Width="150" Height="55" Click="btnAddUser_Click"/>
         <Button x:Name="btnDownload" Content="Download file" HorizontalAlignment="Left" Margin="226,26,0,0" VerticalAlignment="Top" Width="150" Height="50" Click="btnDownload_Click"/>
+        <Button x:Name="btnDownloadEU" Content="Download EU File" HorizontalAlignment="Left" Margin="440,26,0,0" VerticalAlignment="Top" Width="136" Height="50" Click="btnDownloadEU_Click"/>
 
     </Grid>
 </Window>

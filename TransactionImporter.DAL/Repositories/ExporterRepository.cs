@@ -20,5 +20,15 @@ namespace TransactionImporter.DAL.Repositories
         {
             return exporterContext.GetCustomers();
         }
+
+        public List<Transaction> GetEuTransaction()
+        {
+            return exporterContext.GetEuTransaction();
+        }
+
+        public List<CustomerInfo> GetEuCustomers()
+        {
+            return exporterContext.GetEuCustomers();
+        }
     }
 }

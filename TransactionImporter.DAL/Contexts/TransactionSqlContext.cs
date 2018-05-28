@@ -25,10 +25,9 @@ namespace TransactionImporter.DAL
                 using (SqlConnection connection = Database.GetConnectionString())
                 {
                     using (SqlCommand insertTransaction =
-                        new SqlCommand(
-                            "INSERT INTO [Transaction] (@UserId, @TransactionId, @CustomerInfoUUID, @Gateway, @Amount, @Status, @Date)",
-                            connection))
+                        new SqlCommand("dbo.AddTransactions", connection))
                     {
+                        insertTransaction.CommandType = CommandType.StoredProcedure;
                         insertTransaction.Parameters.AddWithValue("UserId", trans.User.Id);
                         insertTransaction.Parameters.AddWithValue("TransactionId", trans.TransactionId);
                         insertTransaction.Parameters.AddWithValue("CustomerInfoUUID", trans.Uuid);

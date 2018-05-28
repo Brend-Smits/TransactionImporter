@@ -58,6 +58,9 @@ namespace TransactionImporter.UI
 //            }
         }
 
-
+        private void btnDownloadEU_Click(object sender, RoutedEventArgs e)
+        {
+            exporterLogic.DownloadEuTransactions();
+        }
     }
     }

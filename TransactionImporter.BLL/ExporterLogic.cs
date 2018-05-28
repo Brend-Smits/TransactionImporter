@@ -44,6 +44,60 @@ namespace TransactionImporter.BLL
                     Missing.Value, Missing.Value, Missing.Value);
             }
         }
+        public void DownloadEuTransactions()
+        {
+            //TODO: Move to Folder Dialog to UI Layer.
+            FolderBrowserDialog folderDialog = new FolderBrowserDialog();
+            if (folderDialog.ShowDialog() == DialogResult.OK)
+            {
+                string randomFile = Guid.NewGuid().ToString().Replace("-", "");
+                string savePath = $"{folderDialog.SelectedPath}\\{randomFile}.xlsx";
+                Workbook xlWorkbook = xlApp.Workbooks.Add();
+                xlWorksheet = xlWorkbook.Worksheets.get_Item(1);
+                AddHeaders();
+                AddEuTransactions();
+                AddEuCustomers();
+
+                xlWorkbook.SaveAs(savePath, XlFileFormat.xlOpenXMLWorkbook, Missing.Value,
+                    Missing.Value, false, false, XlSaveAsAccessMode.xlNoChange,
+                    XlSaveConflictResolution.xlUserResolution, true,
+                    Missing.Value, Missing.Value, Missing.Value);
+            }
+        }
+        private void AddEuTransactions()
+        {
+            int row = 2;
+            foreach (Transaction trans in _Repo.GetEuTransaction())
+            {
+                List<string> transDataToAdd = trans.GetDataForThisExcelFile();
+                for (int index = 1; index <= transDataToAdd.Count; index++)
+                {
+                    string data = transDataToAdd[index - 1];
+                    xlWorksheet.Cells[index][row] = data;
+                }
+
+                row++;
+            }
+        }
+
+        private void AddEuCustomers()
+        {
+            Transaction trans = new Transaction();
+            int row = 2;
+            foreach (CustomerInfo customer in _Repo.GetEuCustomers())
+            {
+                List<string> customerDataToAdd = customer.GetDataForThisExcelFile();
+                for (int index = trans.GetDataForThisExcelFile().Count;
+                    index < (trans.GetDataForThisExcelFile().Count + customerDataToAdd.Count);
+                    index++)
+                {
+                    string data = customerDataToAdd[index - trans.GetDataForThisExcelFile().Count];
+                    xlWorksheet.Cells[index][row] = data;
+                }
+
+                row++;
+            }
+        }
 
         private void AddHeaders()
         {

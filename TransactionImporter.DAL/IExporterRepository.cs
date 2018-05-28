@@ -7,5 +7,7 @@ namespace TransactionImporter.DAL
     {
         List<Transaction> GetTransaction();
         List<CustomerInfo> GetCustomers();
+        List<Transaction> GetEuTransaction();
+        List<CustomerInfo> GetEuCustomers();
     }
 }

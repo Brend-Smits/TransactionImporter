@@ -3,6 +3,7 @@
     public interface IExporterLogic
     {
         void DownloadTransactions();
+        void DownloadEuTransactions();
 
     }
 }
