@@ -23,20 +23,20 @@ namespace TransactionImporter.DAL
             {
                 using (SqlConnection connection = Database.GetConnectionString())
                 {
-                    using (SqlCommand InsertTransaction =
+                    using (SqlCommand insertTransaction =
                         new SqlCommand(
                             "INSERT INTO [Transaction] (@UserId, @TransactionId, @CustomerInfoUUID, @Gateway, @Amount, @Status, @Date)",
                             connection))
                     {
-                        InsertTransaction.Parameters.AddWithValue("UserId", trans.User.Id);
-                        InsertTransaction.Parameters.AddWithValue("TransactionId", trans.TransactionId);
-                        InsertTransaction.Parameters.AddWithValue("CustomerInfoUUID", trans.Uuid);
-                        InsertTransaction.Parameters.AddWithValue("Gateway", trans.Gateway);
-                        InsertTransaction.Parameters.AddWithValue("Amount", trans.Amount);
-                        InsertTransaction.Parameters.AddWithValue("Status", trans.Status);
-                        InsertTransaction.Parameters.AddWithValue("Date", trans.Date);
+                        insertTransaction.Parameters.AddWithValue("UserId", trans.User.Id);
+                        insertTransaction.Parameters.AddWithValue("TransactionId", trans.TransactionId);
+                        insertTransaction.Parameters.AddWithValue("CustomerInfoUUID", trans.Uuid);
+                        insertTransaction.Parameters.AddWithValue("Gateway", trans.Gateway);
+                        insertTransaction.Parameters.AddWithValue("Amount", trans.Amount);
+                        insertTransaction.Parameters.AddWithValue("Status", trans.Status);
+                        insertTransaction.Parameters.AddWithValue("Date", trans.Date);
                         connection.Open();
-                        InsertTransaction.ExecuteNonQuery();
+                        insertTransaction.ExecuteNonQuery();
                     }
                 }
             }
@@ -57,10 +57,10 @@ namespace TransactionImporter.DAL
                     foreach (Transaction item in transactions)
                     {
                         bool doesTransactionIdExist = false;
-                        SqlCommand SelectUuid = new SqlCommand("SELECT COUNT(*) FROM [Transaction] WHERE TransactionId LIKE @TransactionId", connection);
+                        SqlCommand selectUuid = new SqlCommand("SELECT COUNT(*) FROM [Transaction] WHERE TransactionId LIKE @TransactionId", connection);
                         
-                            SelectUuid.Parameters.AddWithValue("TransactionId", item.TransactionId);
-                            int userCount = (int)SelectUuid.ExecuteScalar();
+                            selectUuid.Parameters.AddWithValue("TransactionId", item.TransactionId);
+                            int userCount = (int)selectUuid.ExecuteScalar();
                             if (userCount > 0)
                             {
                                 doesTransactionIdExist = true;
@@ -70,18 +70,18 @@ namespace TransactionImporter.DAL
                         {
                             continue;
                         }
-                        SqlCommand InsertTransaction = new SqlCommand("INSERT INTO [Transaction] (UploadId, TransactionId, CustomerInfoUUID, Gateway, Status, Country, Ip, Username) VALUES (@UploadId, @TransactionId, @CustomerInfoUUID, @Gateway, @Status, @Country, @Ip, @Username)", connection);
-                            InsertTransaction.Parameters.AddWithValue("UploadId", uploadId);
-                            InsertTransaction.Parameters.AddWithValue("TransactionId", item.TransactionId);
-                            InsertTransaction.Parameters.AddWithValue("CustomerInfoUUID", item.Uuid);
-                            InsertTransaction.Parameters.AddWithValue("Gateway", item.Gateway);
-                            InsertTransaction.Parameters.AddWithValue("Amount", item.Amount);
-                            InsertTransaction.Parameters.AddWithValue("Status", item.Status);
-                            InsertTransaction.Parameters.AddWithValue("Country", item.Country);
-                            InsertTransaction.Parameters.AddWithValue("Ip", item.Ip);
-                            InsertTransaction.Parameters.AddWithValue("Username", item.Username);
+                        SqlCommand insertTransaction = new SqlCommand("INSERT INTO [Transaction] (UploadId, TransactionId, CustomerInfoUUID, Gateway, Status, Country, Ip, Username) VALUES (@UploadId, @TransactionId, @CustomerInfoUUID, @Gateway, @Status, @Country, @Ip, @Username)", connection);
+                            insertTransaction.Parameters.AddWithValue("UploadId", uploadId);
+                            insertTransaction.Parameters.AddWithValue("TransactionId", item.TransactionId);
+                            insertTransaction.Parameters.AddWithValue("CustomerInfoUUID", item.Uuid);
+                            insertTransaction.Parameters.AddWithValue("Gateway", item.Gateway);
+                            insertTransaction.Parameters.AddWithValue("Amount", item.Amount);
+                            insertTransaction.Parameters.AddWithValue("Status", item.Status);
+                            insertTransaction.Parameters.AddWithValue("Country", item.Country);
+                            insertTransaction.Parameters.AddWithValue("Ip", item.Ip);
+                            insertTransaction.Parameters.AddWithValue("Username", item.Username);
                             //InsertTransaction.Parameters.AddWithValue("Date", item.Date);
-                            InsertTransaction.ExecuteNonQuery();
+                            insertTransaction.ExecuteNonQuery();
                     }
                 }
             }

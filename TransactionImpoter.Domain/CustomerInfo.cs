@@ -6,10 +6,7 @@ namespace TransactionImpoter.Domain
     {
         public string Uuid { get; private set; }
         public string Email { get; private set; }
-        public string Username { get; private set; }
         public string Ip { get; private set; }
-        public string FirstName { get; private set; }
-        public string SurName { get; private set; }
 
         public string Name { get; private set; }
         public string Address { get; private set; }

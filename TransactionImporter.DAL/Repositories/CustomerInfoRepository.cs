@@ -8,11 +8,11 @@ namespace TransactionImporter.DAL.Repositories
     public class CustomerInfoRepository:ICustomerInfoRepository
     {
 
-        private readonly ICustomerInfoContext _customerInfoContext;
+        private readonly ICustomerInfoContext customerInfoContext;
 
         public CustomerInfoRepository(ICustomerInfoContext customerInfoSqlContext)
         {
-            _customerInfoContext = customerInfoSqlContext;
+            customerInfoContext = customerInfoSqlContext;
         }
 
         public void AddCustomer(CustomerInfo customer)
@@ -22,7 +22,7 @@ namespace TransactionImporter.DAL.Repositories
 
         public void AddCustomerList(List<CustomerInfo> customers)
         {
-            _customerInfoContext.AddCustomerList(customers);
+            customerInfoContext.AddCustomerList(customers);
         }
     }
 }

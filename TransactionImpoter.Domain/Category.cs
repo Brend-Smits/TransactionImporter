@@ -12,7 +12,7 @@ namespace TransactionImpoter.Domain
         public Category(string name, int storeCategoryId)
         {
             Name = name;
-            StoreCategoryId = StoreCategoryId;
+            StoreCategoryId = storeCategoryId;
         }
     }
 }

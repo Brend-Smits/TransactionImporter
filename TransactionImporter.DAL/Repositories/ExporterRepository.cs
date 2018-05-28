@@ -5,20 +5,20 @@ namespace TransactionImporter.DAL.Repositories
 {
     public class ExporterRepository:IExporterRepository
     {
-        private readonly IExporterContext _exporterContext;
+        private readonly IExporterContext exporterContext;
 
         public ExporterRepository(IExporterContext exporterContext)
         {
-            _exporterContext = exporterContext;
+            this.exporterContext = exporterContext;
         }
         public List<Transaction> GetTransaction()
         {
-            return _exporterContext.GetTransaction();
+            return exporterContext.GetTransaction();
         }
 
         public List<CustomerInfo> GetCustomers()
         {
-            return _exporterContext.GetCustomers();
+            return exporterContext.GetCustomers();
         }
     }
 }

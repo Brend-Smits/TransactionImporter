@@ -1,4 +1,5 @@
 ﻿using TransactionImporter.BLL;
+using TransactionImporter.BLL.Interfaces;
 using TransactionImporter.DAL;
 
 namespace TransactionImporter.Factory

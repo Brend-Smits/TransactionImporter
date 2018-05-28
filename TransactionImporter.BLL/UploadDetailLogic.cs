@@ -11,13 +11,13 @@ namespace TransactionImporter.BLL
     public class UploadDetailLogic : IUploadDetailLogic
     {
         private IUploadDetailRepository _Repo = new UploadDetailRepository();
-        private IImporterExcel _importer = new ImporterExcel();
+        private IImporterExcel importer = new ImporterExcel();
         public int UploadId { get; private set; }
         List<UploadDetail> uploadsDetails = new List<UploadDetail>();
 
-        public UploadDetailLogic(IUploadDetailRepository _uploadDetailRepository)
+        public UploadDetailLogic(IUploadDetailRepository uploadDetailRepository)
         {
-            _Repo = _uploadDetailRepository;
+            _Repo = uploadDetailRepository;
             UploadId = GetUploadId();
 
 

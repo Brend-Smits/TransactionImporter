@@ -17,17 +17,16 @@ namespace TransactionImporter.BLL
         private IExporterRepository _Repo;
         private IImporterExcel importerExcel = new ImporterExcel();
 
-        public ExporterLogic(IExporterRepository _exportRepo)
+        public ExporterLogic(IExporterRepository exportRepo)
         {
-            _Repo = _exportRepo;
+            _Repo = exportRepo;
         }
 
-        public ExporterLogic()
-        {
-        }
+        public ExporterLogic() { }
 
         public void DownloadTransactions()
         {
+            //TODO: Move to Folder Dialog to UI Layer.
             FolderBrowserDialog folderDialog = new FolderBrowserDialog();
             if (folderDialog.ShowDialog() == DialogResult.OK)
             {

@@ -23,22 +23,22 @@ namespace TransactionImporter.DAL
                 using (SqlConnection connection = Database.GetConnectionString())
                 {
                     connection.Open();
-                    SqlCommand SelectUser = new SqlCommand("SELECT COUNT(*) FROM [User] WHERE Username LIKE @Username OR Email LIKE @Email", connection);
-                    SelectUser.Parameters.AddWithValue("Username", user.Username);
-                    SelectUser.Parameters.AddWithValue("Email", user.Email);
-                    int userCount = (int)SelectUser.ExecuteScalar();
+                    SqlCommand selectUser = new SqlCommand("SELECT COUNT(*) FROM [User] WHERE Username LIKE @Username OR Email LIKE @Email", connection);
+                    selectUser.Parameters.AddWithValue("Username", user.Username);
+                    selectUser.Parameters.AddWithValue("Email", user.Email);
+                    int userCount = (int)selectUser.ExecuteScalar();
                     if (userCount == 0)
                     {
-                        SqlCommand AddUser = new SqlCommand(
+                        SqlCommand addUser = new SqlCommand(
                             "INSERT INTO [User] (Username, Email, Password, Birthdate, Country, CreatedAt) VALUES (@Username, @Email, @Password, @Birthdate, @Country, @CreatedAt)",
                             connection);
-                        AddUser.Parameters.AddWithValue("Username", user.Username);
-                        AddUser.Parameters.AddWithValue("Email", user.Email);
-                        AddUser.Parameters.AddWithValue("Password", user.Password);
-                        AddUser.Parameters.AddWithValue("Birthdate", user.Birthdate);
-                        AddUser.Parameters.AddWithValue("Country", user.Country);
-                        AddUser.Parameters.AddWithValue("CreatedAt", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
-                        AddUser.ExecuteNonQuery();
+                        addUser.Parameters.AddWithValue("Username", user.Username);
+                        addUser.Parameters.AddWithValue("Email", user.Email);
+                        addUser.Parameters.AddWithValue("Password", user.Password);
+                        addUser.Parameters.AddWithValue("Birthdate", user.Birthdate);
+                        addUser.Parameters.AddWithValue("Country", user.Country);
+                        addUser.Parameters.AddWithValue("CreatedAt", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+                        addUser.ExecuteNonQuery();
                     } else
                     {
                         Console.WriteLine("User with that Username or Email already exists.");

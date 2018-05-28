@@ -17,11 +17,11 @@ namespace TransactionImporter.DAL
                 using (SqlConnection connection = Database.GetConnectionString())
                 {
                     connection.Open();
-                        SqlCommand SelectTransactions = new SqlCommand(
+                        SqlCommand selectTransactions = new SqlCommand(
                             "SELECT * FROM [Transaction] WHERE (UploadId) LIKE (@UploadId)",
                             connection);
-                    SelectTransactions.Parameters.AddWithValue("UploadId", uploadId);
-                    using (SqlDataReader reader = SelectTransactions.ExecuteReader())
+                    selectTransactions.Parameters.AddWithValue("UploadId", uploadId);
+                    using (SqlDataReader reader = selectTransactions.ExecuteReader())
                     {
                         DataTable dataTable = new DataTable();
                         dataTable.Load(reader);
@@ -58,9 +58,9 @@ namespace TransactionImporter.DAL
                 using (SqlConnection connection = Database.GetConnectionString())
                 {
                     connection.Open();
-                    SqlCommand SelectUuid = new SqlCommand("SELECT (CustomerInfoUUID) FROM [Transaction] WHERE (UploadId) LIKE @UploadId", connection);
-                    SelectUuid.Parameters.AddWithValue("UploadId", uploadId);
-                    using (SqlDataReader uuidReader = SelectUuid.ExecuteReader())
+                    SqlCommand selectUuid = new SqlCommand("SELECT (CustomerInfoUUID) FROM [Transaction] WHERE (UploadId) LIKE @UploadId", connection);
+                    selectUuid.Parameters.AddWithValue("UploadId", uploadId);
+                    using (SqlDataReader uuidReader = selectUuid.ExecuteReader())
                     {
                         while (uuidReader.Read())
                         {
@@ -69,13 +69,13 @@ namespace TransactionImporter.DAL
                         uuidReader.Close();
                     }
 
-                    foreach (string UUID in customerUUIDs)
+                    foreach (string uuid in customerUUIDs)
                     {
-                        SqlCommand SelectCustomers = new SqlCommand(
+                        SqlCommand selectCustomers = new SqlCommand(
                             "SELECT * FROM [CustomerInfo] WHERE (Uuid) LIKE (@Uuid)",
                             connection);
-                        SelectCustomers.Parameters.AddWithValue("Uuid", UUID);
-                        using (SqlDataReader customerReader = SelectCustomers.ExecuteReader())
+                        selectCustomers.Parameters.AddWithValue("Uuid", uuid);
+                        using (SqlDataReader customerReader = selectCustomers.ExecuteReader())
                         {
                             DataTable dataTable = new DataTable();
                             dataTable.Load(customerReader);
@@ -100,34 +100,6 @@ namespace TransactionImporter.DAL
                 Console.WriteLine(exception);
                 throw;
             }
-        }
-
-        private Transaction CreateTransactionObject(SqlDataReader reader, int i)
-        {
-            Dictionary<string, string> transactionValues = new Dictionary<string, string>
-            {
-                {"TransactionId", null},
-                {"Gateway", null},
-                {"Status", null},
-                {"Price", null},
-                {"Country", null},
-                {"Ip", null},
-                {"Username", null},
-                {"Uuid", null}
-            };
-
-            for (int j = i; j < reader.FieldCount; j++)
-            {
-                if (transactionValues.ContainsKey(reader.GetName(i)))
-                {
-                    transactionValues[reader.GetName(i)] = reader.GetString(i);
-                    
-                }
-            }
-
-            return new Transaction(transactionValues["Transaction ID"], transactionValues["Gateway"],
-                Convert.ToDouble(transactionValues["Price"]), transactionValues["Status"], transactionValues["Country"],
-                transactionValues["Ip"], transactionValues["Username"], transactionValues["Uuid"]);
         }
     }
 }
