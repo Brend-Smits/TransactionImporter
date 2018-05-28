@@ -44,7 +44,7 @@ namespace TransactionImporter.UI
 
         private void btnAddUser_Click(object sender, RoutedEventArgs e)
         {
-            User user = new User("Rubbertjuh", "brend_smits@hotmail.com", "123123", "1998-01-23", "Netherlands");
+            User user = new User("Rubbertjuh2", "brend_smits2@hotmail.com", "1231232", "1998-01-23", "Netherlands");
             userLogic.CreateUser(user);
         }
 

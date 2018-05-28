@@ -22,9 +22,7 @@ namespace TransactionImporter.BLL
 
 
         }
-        public UploadDetailLogic()
-        {
-        }
+        public UploadDetailLogic() { }
 
         public UploadDetail GetUploadDetails(string path)
         {

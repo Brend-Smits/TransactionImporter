@@ -8,7 +8,7 @@ namespace TransactionImporter.DAL
 {
     public class ExporterSqlContext:IExporterContext
     {
-        private int uploadId = 12;
+        private int uploadId = 14;
         public List<Transaction> GetTransaction()
         {
             List<Transaction> transactions = new List<Transaction>();
