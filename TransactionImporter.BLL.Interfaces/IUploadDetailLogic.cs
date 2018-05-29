@@ -1,4 +1,5 @@
-﻿using TransactionImpoter.Domain;
+﻿using System.Collections.Generic;
+using TransactionImpoter.Domain;
 
 namespace TransactionImporter.BLL.Interfaces
 {
@@ -6,7 +7,7 @@ namespace TransactionImporter.BLL.Interfaces
     {
         UploadDetail GetUploadDetails(string path);
         void UploadDetails(UploadDetail detail, string path);
-        void UploadDetailList();
+        List<UploadDetail> UploadDetailList();
         int GetUploadId();
     }
 }

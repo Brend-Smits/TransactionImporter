@@ -12,9 +12,6 @@
             @Html.DisplayNameFor(model => model.UploadId)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.UserId)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.UploadedOn)
         </th>
         <th></th>
@@ -26,14 +23,12 @@
             @Html.DisplayFor(modelItem => item.UploadId)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.UserId)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.UploadedOn)
         </td>
         <td>
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            @Html.ActionLink("Details", "Details", new { id = item.UploadId, controller = "Download" }) |
+            @Html.ActionLink("Download", "Download", new { id = item.UploadId, controller = "Download" }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.UploadId, controller = "Download" })
         </td>
     </tr>
 }

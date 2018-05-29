@@ -288,6 +288,20 @@
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TransactionImporter.BLL.Interfaces\TransactionImporter.BLL.Interfaces.csproj">
+      <Project>{F41405A9-AA8B-4E1D-A8E7-831405F546B2}</Project>
+      <Name>TransactionImporter.BLL.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TransactionImporter.Factory\TransactionImporter.Factory.csproj">
+      <Project>{4C8257CD-AF9D-4863-87F5-8B8E8FB07F78}</Project>
+      <Name>TransactionImporter.Factory</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TransactionImpoter.Domain\TransactionImporter.Domain.csproj">
+      <Project>{e58e1a50-b7f9-4dee-a662-3ec36ab5113a}</Project>
+      <Name>TransactionImporter.Domain</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

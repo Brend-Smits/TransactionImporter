@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
+using System.Linq.Expressions;
 using TransactionImpoter.Domain;
 
 namespace TransactionImporter.DAL
 {
-    public class UploadDetailSqlContext:IUploadDetailContext
+    public class UploadDetailSqlContext : IUploadDetailContext
     {
         public void UploadDetails(UploadDetail detail)
         {
@@ -32,9 +34,42 @@ namespace TransactionImporter.DAL
             }
         }
 
-        public void UploadDetailList(List<UploadDetail> details)
+        public List<UploadDetail> UploadDetailList()
         {
-            throw new NotImplementedException();
+            List<UploadDetail> uploads = new List<UploadDetail>();
+            try
+            {
+                using (SqlConnection connection = Database.GetConnectionString())
+                {
+                    connection.Open();
+                    SqlCommand addUploadDetails = new SqlCommand("SELECT * FROM [UploadDetail]", connection);
+                    addUploadDetails.Parameters.AddWithValue("UserId", 1);
+                    addUploadDetails.ExecuteNonQuery();
+                    using (SqlDataReader reader = addUploadDetails.ExecuteReader())
+                    {
+                        DataTable dataTable = new DataTable();
+                        dataTable.Load(reader);
+                        foreach (DataRow dataRow in dataTable.Rows)
+                        {
+                            UploadDetail detail = new UploadDetail(
+                                Convert.ToInt32((dataRow["UploadId"] != DBNull.Value) ? dataRow["UploadId"] : 0),
+                                Convert.ToDateTime((dataRow["StartTimeUpload"] != DBNull.Value)
+                                    ? dataRow["StartTimeUpload"]
+                                    : DateTime.Now),
+                                (dataRow["FileName"].ToString() != "") ? dataRow["FileName"].ToString() : "-",
+                                (dataRow["FileSize"].ToString() != "") ? dataRow["FileSize"].ToString() : "-");
+                            uploads.Add(detail);
+                        }
+                    }
+                }
+
+                return uploads;
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception);
+                throw;
+            }
         }
 
         public int GetUploadId()

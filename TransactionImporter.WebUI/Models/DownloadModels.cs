@@ -8,8 +8,13 @@ namespace TransactionImporter.WebUI.Models
 {
     public class DownloadModels
     {
+        public DownloadModels(string uploadedOn, int uploadId)
+        {
+            UploadId = uploadId;
+            UploadedOn = uploadedOn;
+        }
+
         public int UploadId { get; private set; }
-        public int UserId { get; private set; }
         public string UploadedOn { get; private set; }
         public IEnumerator GetEnumerator()
         {
