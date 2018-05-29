@@ -5,9 +5,7 @@ namespace TransactionImporter.DAL
 {
     public interface IExporterContext
     {
-        List<Transaction> GetTransaction();
-        List<CustomerInfo> GetCustomers();
-        List<Transaction> GetEuTransaction();
-        List<CustomerInfo> GetEuCustomers();
+        List<Transaction> GetTransaction(bool filterEu);
+        List<CustomerInfo> GetCustomers(bool filterEu);
     }
 }

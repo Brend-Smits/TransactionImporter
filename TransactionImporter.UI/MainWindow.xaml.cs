@@ -54,13 +54,13 @@ namespace TransactionImporter.UI
             //            if (folderDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             //            {
             ////                folderDialog.SelectedPath = exportTransactionLogic.GetSelectedPath();
-            exporterLogic.DownloadTransactions();
+            exporterLogic.DownloadTransactions(false);
 //            }
         }
 
         private void btnDownloadEU_Click(object sender, RoutedEventArgs e)
         {
-            exporterLogic.DownloadEuTransactions();
+            exporterLogic.DownloadTransactions(true);
         }
     }
     }
