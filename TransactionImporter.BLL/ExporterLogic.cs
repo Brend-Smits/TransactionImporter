@@ -24,14 +24,10 @@ namespace TransactionImporter.BLL
 
         public ExporterLogic() { }
 
-        public void DownloadTransactions(bool filterEu)
+        public void DownloadTransactions(bool filterEu, string path)
         {
-                //TODO: Move to Folder Dialog to UI Layer.
-                FolderBrowserDialog folderDialog = new FolderBrowserDialog();
-                if (folderDialog.ShowDialog() == DialogResult.OK)
-                {
                     string randomFile = Guid.NewGuid().ToString().Replace("-", "");
-                    string savePath = $"{folderDialog.SelectedPath}\\{randomFile}.xlsx";
+                    string savePath = $"{path}\\{randomFile}.xlsx";
                     Workbook xlWorkbook = xlApp.Workbooks.Add();
                     xlWorksheet = xlWorkbook.Worksheets.get_Item(1);
                     AddHeaders();
@@ -42,7 +38,6 @@ namespace TransactionImporter.BLL
                         Missing.Value, false, false, XlSaveAsAccessMode.xlNoChange,
                         XlSaveConflictResolution.xlUserResolution, true,
                         Missing.Value, Missing.Value, Missing.Value);
-                }
             
         }
 

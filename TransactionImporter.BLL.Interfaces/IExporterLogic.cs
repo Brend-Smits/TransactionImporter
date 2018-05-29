@@ -2,7 +2,7 @@
 {
     public interface IExporterLogic
     {
-        void DownloadTransactions(bool filterEu);
+        void DownloadTransactions(bool filterEu, string path);
 
     }
 }
