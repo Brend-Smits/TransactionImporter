@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.IO;
+using System.Windows;
 using System.Windows.Forms;
 using TransactionImporter.BLL;
 using TransactionImporter.BLL.Interfaces;
@@ -27,9 +28,15 @@ namespace TransactionImporter.UI
 
         private void btnUploadFile_Click(object sender, RoutedEventArgs e)
         {
-            importerLogic.UploadFile();
-            string path = importerLogic.GetPath();
-            uploadDetailLogic.UploadDetails(uploadDetailLogic.GetUploadDetails(path), path);
+            OpenFileDialog fileDialog = OpenMyFileDialog();
+            if (fileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                string filePath = fileDialog.FileName;
+                Stream mystream = fileDialog.OpenFile();
+                importerLogic.UploadFile(filePath, mystream);
+                string path = importerLogic.GetPath();
+                uploadDetailLogic.UploadDetails(uploadDetailLogic.GetUploadDetails(path), path);
+            }
         }
 
         private void btnRetrieveData_Click(object sender, RoutedEventArgs e)
@@ -67,6 +74,15 @@ namespace TransactionImporter.UI
                 string path = folderDialog.SelectedPath;
                 exporterLogic.DownloadTransactions(true, path);
             }
+        }
+        public OpenFileDialog OpenMyFileDialog()
+        {
+            OpenFileDialog fileDialog = new OpenFileDialog
+            {
+                Filter = "Excel files (*.csv;*.xlsx)|*.csv;*.xlsx",
+                InitialDirectory = "c:\\"
+            };
+            return fileDialog;
         }
     }
     }
