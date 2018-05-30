@@ -17,29 +17,38 @@ namespace TransactionImporter.BLL
         private IExporterRepository _Repo;
         private IImporterExcel importerExcel = new ImporterExcel();
 
+        public string randomFileName { get; private set; }
+
         public ExporterLogic(IExporterRepository exportRepo)
         {
             _Repo = exportRepo;
         }
 
-        public ExporterLogic() { }
+        public ExporterLogic()
+        {
+        }
 
         public void DownloadTransactions(bool filterEu, string path)
         {
-                    string randomFile = Guid.NewGuid().ToString().Replace("-", "");
-                    string savePath = $"{path}\\{randomFile}.xlsx";
-                    Workbook xlWorkbook = xlApp.Workbooks.Add();
-                    xlWorksheet = xlWorkbook.Worksheets.get_Item(1);
-                    AddHeaders();
-                    AddTransactions(filterEu);
-                    AddCustomers(filterEu);
+            randomFileName = Guid.NewGuid().ToString().Replace("-", "");
+            string savePath = $"{path}{randomFileName}.xlsx";
+            Workbook xlWorkbook = xlApp.Workbooks.Add();
+            xlWorksheet = xlWorkbook.Worksheets.get_Item(1);
+            AddHeaders();
+            AddTransactions(filterEu);
+            AddCustomers(filterEu);
 
-                    xlWorkbook.SaveAs(savePath, XlFileFormat.xlOpenXMLWorkbook, Missing.Value,
-                        Missing.Value, false, false, XlSaveAsAccessMode.xlNoChange,
-                        XlSaveConflictResolution.xlUserResolution, true,
-                        Missing.Value, Missing.Value, Missing.Value);
-            
+            xlWorkbook.SaveAs(savePath, XlFileFormat.xlOpenXMLWorkbook, Missing.Value,
+                Missing.Value, false, false, XlSaveAsAccessMode.xlNoChange,
+                XlSaveConflictResolution.xlUserResolution, true,
+                Missing.Value, Missing.Value, Missing.Value);
         }
+
+        public string GetDownloadName()
+        {
+            return randomFileName;
+        }
+
 
         private void AddHeaders()
         {

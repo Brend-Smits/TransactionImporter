@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -34,9 +35,13 @@ namespace TransactionImporter.WebUI.Controllers
         }
 
         // GET: Download/Details/5
-        public void Download(int id)
+        public ActionResult Download(int id)
         {
-           exporterLogic.DownloadTransactions(true);
+            string serverPath = "C:\\Users\\Rubbertjuh\\Desktop\\TransImporter-Exports\\";
+            exporterLogic.DownloadTransactions(true, serverPath);
+            string fileName = exporterLogic.GetDownloadName();
+            string combineFileNamePath = serverPath + fileName + ".xlsx";
+            return File(combineFileNamePath, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", Path.GetFileName(fileName));
         }
 
         // GET: Download/Delete/5

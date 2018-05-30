@@ -26,9 +26,9 @@
             @Html.DisplayFor(modelItem => item.UploadedOn)
         </td>
         <td>
-            @Html.ActionLink("Details", "Details", new { id = item.UploadId, controller = "Download" }) |
-            @Html.ActionLink("Download", "Download", new { id = item.UploadId, controller = "Download" }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.UploadId, controller = "Download" })
+            @Html.ActionLink("Details", "Details", new {id = item.UploadId, controller = "Download"}) |
+            @Html.ActionLink("Download", "Download", new {id = item.UploadId, controller = "Download"}) |
+            @Html.ActionLink("Delete", "Delete", new {id = item.UploadId, controller = "Download"})
         </td>
     </tr>
 }

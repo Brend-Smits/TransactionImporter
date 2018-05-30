@@ -51,16 +51,6 @@ namespace TransactionImporter.BLL
             return tempFilePath;
         }
 
-        public OpenFileDialog OpenMyFileDialog()
-        {
-            OpenFileDialog fileDialog = new OpenFileDialog
-            {
-                Filter = "Excel files (*.csv;*.xlsx)|*.csv;*.xlsx",
-                InitialDirectory = "c:\\"
-            };
-            return fileDialog;
-        }
-
         private string ConvertFileIfNeeded()
         {
             if (File.Exists(filePath))
