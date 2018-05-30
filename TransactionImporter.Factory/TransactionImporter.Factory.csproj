@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CountryContinent.cs" />
     <Compile Include="UploadDetailFactory.cs" />
     <Compile Include="ExporterFactory.cs" />
     <Compile Include="UserFactory.cs" />
