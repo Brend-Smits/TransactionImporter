@@ -42,11 +42,13 @@ namespace TransactionImporter.BLL
                 Missing.Value, false, false, XlSaveAsAccessMode.xlNoChange,
                 XlSaveConflictResolution.xlUserResolution, true,
                 Missing.Value, Missing.Value, Missing.Value);
+            xlWorkbook.Close(0);
+            xlApp.Quit();
         }
 
         public string GetDownloadName()
         {
-            return randomFileName;
+            return randomFileName + ".xlsx";
         }
 
 

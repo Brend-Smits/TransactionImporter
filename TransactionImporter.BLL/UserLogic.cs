@@ -23,6 +23,11 @@ namespace TransactionImporter.BLL
             throw new NotImplementedException();
         }
 
+        public User GetUserById(int id)
+        {
+            return _Repo.GetUserById(id);
+        }
+
         public void EditUser()
         {
             throw new NotImplementedException();

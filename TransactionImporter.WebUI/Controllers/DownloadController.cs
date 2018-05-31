@@ -16,6 +16,8 @@ namespace TransactionImporter.WebUI.Controllers
     {
         private IUploadDetailLogic uploadDetailLogic = UploadDetailFactory.CreateLogic();
         private IExporterLogic exporterLogic = ExporterFactory.CreateLogic();
+
+        private IUserLogic userLogic = UserFactory.CreateLogic();
         // GET: Download
         public ActionResult Index()
         {
@@ -23,7 +25,7 @@ namespace TransactionImporter.WebUI.Controllers
             List<DownloadModels> downloadableList = new List<DownloadModels>();
             foreach (UploadDetail upload in uploadDetailList)
             {
-                downloadableList.Add(new DownloadModels(upload.StartTimeUpload.ToString(), upload.UploadId));
+                downloadableList.Add(new DownloadModels(upload.UploadId, upload.UserId, upload.StartTimeUpload.ToString(), upload.FileName, Convert.ToInt32(upload.FileSize)));
             }
             return View(downloadableList);
         }
@@ -31,7 +33,10 @@ namespace TransactionImporter.WebUI.Controllers
         // GET: Download/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            UploadDetail detail = uploadDetailLogic.GetUploadDetailById(id);
+            User user = userLogic.GetUserById(detail.UserId);
+            DownloadModels model = new DownloadModels(detail.UploadId, detail.UserId, user.Username, detail.StartTimeUpload.ToString(), detail.FileName, Convert.ToInt32(detail.FileSize));
+            return View(model);
         }
 
         // GET: Download/Details/5
@@ -40,7 +45,7 @@ namespace TransactionImporter.WebUI.Controllers
             string serverPath = "C:\\Users\\Rubbertjuh\\Desktop\\TransImporter-Exports\\";
             exporterLogic.DownloadTransactions(true, serverPath);
             string fileName = exporterLogic.GetDownloadName();
-            string combineFileNamePath = serverPath + fileName + ".xlsx";
+            string combineFileNamePath = serverPath + fileName;
             return File(combineFileNamePath, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", Path.GetFileName(fileName));
         }
 
@@ -56,8 +61,7 @@ namespace TransactionImporter.WebUI.Controllers
         {
             try
             {
-                // TODO: Add delete logic here
-
+                exporterLogic.DeleteDataByUploadId(id);
                 return RedirectToAction("Index");
             }
             catch

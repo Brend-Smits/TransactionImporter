@@ -51,5 +51,42 @@ namespace TransactionImporter.DAL
         {
             throw new NotImplementedException();
         }
+
+        public User GetUserById(int id)
+        {
+            try
+            {
+            using (SqlConnection connection = Database.GetConnectionString())
+            {
+                connection.Open();
+                SqlCommand selectUserById =
+                    new SqlCommand("SELECT * FROM [User] WHERE (UserId) = (@UserId)", connection);
+                selectUserById.Parameters.AddWithValue("UserId", id);
+                selectUserById.ExecuteNonQuery();
+                using (SqlDataReader reader = selectUserById.ExecuteReader())
+                {
+                    DataTable dataTable = new DataTable();
+                    dataTable.Load(reader);
+                    foreach (DataRow dataRow in dataTable.Rows)
+                    {
+                        User user = new User(
+                            (dataRow["Username"].ToString() != "") ? dataRow["Username"].ToString() : "-",
+                            (dataRow["Email"].ToString() != "") ? dataRow["Email"].ToString() : "-",
+                            (dataRow["Birthdate"].ToString() != "") ? dataRow["Birthdate"].ToString() : "-",
+                            (dataRow["Country"].ToString() != "") ? dataRow["Country"].ToString() : "-");
+                        return user;
+                    }
+                }
+            }
+
+            return null;
+        }
+        catch (Exception exception)
+        {
+            Console.WriteLine(exception);
+            throw;
+        }
     }
+}
+
 }

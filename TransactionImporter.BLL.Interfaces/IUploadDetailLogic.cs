@@ -9,5 +9,6 @@ namespace TransactionImporter.BLL.Interfaces
         void UploadDetails(UploadDetail detail, string path);
         List<UploadDetail> UploadDetailList();
         int GetUploadId();
+        UploadDetail GetUploadDetailById(int id);
     }
 }

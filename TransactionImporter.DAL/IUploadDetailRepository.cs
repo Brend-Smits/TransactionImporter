@@ -8,5 +8,6 @@ namespace TransactionImporter.DAL
         void UploadDetails(UploadDetail detail);
         List<UploadDetail> UploadDetailList();
         int GetUploadId();
+        UploadDetail GetUploadDetailById(int id);
     }
 }

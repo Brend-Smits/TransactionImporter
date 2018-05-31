@@ -8,14 +8,30 @@ namespace TransactionImporter.WebUI.Models
 {
     public class DownloadModels
     {
-        public DownloadModels(string uploadedOn, int uploadId)
+        public DownloadModels(int uploadId, int userId, string uploadedOn, string fileName, int fileSize)
         {
             UploadId = uploadId;
+            UserId = userId;
             UploadedOn = uploadedOn;
+            FileName = fileName;
+            FileSize = fileSize;
+        }
+        public DownloadModels(int uploadId, int userId, string username, string uploadedOn, string fileName, int fileSize)
+        {
+            UploadId = uploadId;
+            UserId = userId;
+            Username = username;
+            UploadedOn = uploadedOn;
+            FileName = fileName;
+            FileSize = fileSize;
         }
 
         public int UploadId { get; private set; }
         public string UploadedOn { get; private set; }
+        public string FileName { get; private set; }
+        public int FileSize { get; private set; }
+        public int UserId { get; private set; }
+        public string Username { get; private set; }
         public IEnumerator GetEnumerator()
         {
             throw new NotImplementedException();

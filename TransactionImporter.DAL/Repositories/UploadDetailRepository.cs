@@ -32,5 +32,10 @@ namespace TransactionImporter.DAL.Repositories
             IUploadDetailContext uploadDetailContext = new UploadDetailSqlContext();
             return uploadDetailContext.GetUploadId();
         }
+
+        public UploadDetail GetUploadDetailById(int id)
+        {
+            return uploadDetailContext.GetUploadDetailById(id);
+        }
     }
 }

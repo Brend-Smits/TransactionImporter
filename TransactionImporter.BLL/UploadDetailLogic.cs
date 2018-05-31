@@ -59,5 +59,10 @@ namespace TransactionImporter.BLL
         {
             return _Repo.GetUploadId();
         }
+
+        public UploadDetail GetUploadDetailById(int id)
+        {
+            return _Repo.GetUploadDetailById(id);
+        }
     }
 }

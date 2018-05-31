@@ -43,7 +43,6 @@ namespace TransactionImporter.DAL
                 {
                     connection.Open();
                     SqlCommand addUploadDetails = new SqlCommand("SELECT * FROM [UploadDetail]", connection);
-                    addUploadDetails.Parameters.AddWithValue("UserId", 1);
                     addUploadDetails.ExecuteNonQuery();
                     using (SqlDataReader reader = addUploadDetails.ExecuteReader())
                     {
@@ -53,6 +52,7 @@ namespace TransactionImporter.DAL
                         {
                             UploadDetail detail = new UploadDetail(
                                 Convert.ToInt32((dataRow["UploadId"] != DBNull.Value) ? dataRow["UploadId"] : 0),
+                                Convert.ToInt32((dataRow["UserId"] != DBNull.Value) ? dataRow["Userid"] : 0),
                                 Convert.ToDateTime((dataRow["StartTimeUpload"] != DBNull.Value)
                                     ? dataRow["StartTimeUpload"]
                                     : DateTime.Now),
@@ -83,6 +83,44 @@ namespace TransactionImporter.DAL
                         "SELECT ISNULL(MAX(UploadId), 0) FROM [UploadDetail]", connection);
                     return Convert.ToInt32(selectMaxUploadId.ExecuteScalar());
                 }
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception);
+                throw;
+            }
+        }
+
+        public UploadDetail GetUploadDetailById(int id)
+        {
+            try
+            {
+                using (SqlConnection connection = Database.GetConnectionString())
+                {
+                    connection.Open();
+                    SqlCommand addUploadDetailById = new SqlCommand("SELECT * FROM [UploadDetail] WHERE (UploadId) = (@UploadId)", connection);
+                    addUploadDetailById.Parameters.AddWithValue("UploadId", id);
+                    addUploadDetailById.ExecuteNonQuery();
+                    using (SqlDataReader reader = addUploadDetailById.ExecuteReader())
+                    {
+                        DataTable dataTable = new DataTable();
+                        dataTable.Load(reader);
+                        foreach (DataRow dataRow in dataTable.Rows)
+                        {
+                            UploadDetail detail = new UploadDetail(
+                                Convert.ToInt32((dataRow["UploadId"] != DBNull.Value) ? dataRow["UploadId"] : 0),
+                                Convert.ToInt32((dataRow["UserId"] != DBNull.Value) ? dataRow["Userid"] : 0),
+                                Convert.ToDateTime((dataRow["StartTimeUpload"] != DBNull.Value)
+                                    ? dataRow["StartTimeUpload"]
+                                    : DateTime.Now),
+                                (dataRow["FileName"].ToString() != "") ? dataRow["FileName"].ToString() : "-",
+                                (dataRow["FileSize"].ToString() != "") ? dataRow["FileSize"].ToString() : "-");
+                            return detail;
+                        }
+                    }
+                }
+
+                return null;
             }
             catch (Exception exception)
             {
