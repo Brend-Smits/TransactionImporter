@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Web;
 using System.Web.Mvc;
 using TransactionImporter.BLL.Interfaces;
@@ -13,6 +14,7 @@ namespace TransactionImporter.WebUI.Controllers
     public class CountryContinentController : Controller
     {
         private ICountryContinentLogic countryContinentLogic = CountryContinentFactory.CreateLogic();
+
         // GET: CountryContinent
         public ActionResult Index()
         {
@@ -20,15 +22,10 @@ namespace TransactionImporter.WebUI.Controllers
             List<CountryContinentModels> countryModels = new List<CountryContinentModels>();
             foreach (CountryContinent country in countryContinents)
             {
-                countryModels.Add(new CountryContinentModels(country.Country, country.Continent));
+                countryModels.Add(new CountryContinentModels(country.Id, country.Country, country.Continent));
             }
-            return View(countryModels);
-        }
 
-        // GET: CountryContinent/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
+            return View(countryModels);
         }
 
         // GET: CountryContinent/Create
@@ -37,35 +34,42 @@ namespace TransactionImporter.WebUI.Controllers
             return View();
         }
 
+
         // POST: CountryContinent/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(CountryContinentModels models)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add insert logic here
+                CountryContinent countryContinent = new CountryContinent(models.Country, models.Continent);
+                countryContinentLogic.AddCountry(countryContinent);
 
                 return RedirectToAction("Index");
             }
-            catch
+            else
             {
-                return View();
+                return View("Create", models);
             }
         }
 
         // GET: CountryContinent/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            CountryContinent country = new CountryContinent(countryContinentLogic.GetCountryById(id).Country, countryContinentLogic.GetCountryById(id).Continent);
+            
+            CountryContinentModels model = new CountryContinentModels(country.Country, country.Continent);
+            return View(model);
         }
 
         // POST: CountryContinent/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(CountryContinentModels model, int id, FormCollection collection)
         {
             try
             {
-                // TODO: Add update logic here
+                CountryContinent continent = new CountryContinent(model.Country, model.Continent);
+                countryContinentLogic.UpdateCountryById(id, continent);
 
                 return RedirectToAction("Index");
             }

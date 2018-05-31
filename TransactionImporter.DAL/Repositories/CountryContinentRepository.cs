@@ -16,5 +16,20 @@ namespace TransactionImporter.DAL.Repositories
         {
             return countryContinentContext.GetAllCountries();
         }
+
+        public CountryContinent GetCountryById(int id)
+        {
+            return countryContinentContext.GetCountryById(id);
+        }
+
+        public void AddCountry(CountryContinent countryContinent)
+        {
+            countryContinentContext.AddCountry(countryContinent);
+        }
+
+        public void UpdateCountryById(int id, CountryContinent countryContinent)
+        {
+            countryContinentContext.UpdateCountryById(id, countryContinent);
+        }
     }
 }

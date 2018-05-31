@@ -17,5 +17,20 @@ namespace TransactionImporter.BLL
         {
             return _Repo.GetAllCountries();
         }
+
+        public CountryContinent GetCountryById(int id)
+        {
+            return _Repo.GetCountryById(id);
+        }
+
+        public void AddCountry(CountryContinent countryContinent)
+        {
+            _Repo.AddCountry(countryContinent);
+        }
+
+        public void UpdateCountryById(int id, CountryContinent countryContinent)
+        {
+            _Repo.UpdateCountryById(id, countryContinent);
+        }
     }
 }

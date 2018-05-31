@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.ComponentModel.DataAnnotations;
 
 namespace TransactionImporter.WebUI.Models
 {
@@ -10,9 +11,18 @@ namespace TransactionImporter.WebUI.Models
             Country = country;
             Continent = continent;
         }
-
-        public string Country { get; private set; }
-        public string Continent { get; private set; }
+        public CountryContinentModels(int id, string country, string continent)
+        {
+            Id = id;
+            Country = country;
+            Continent = continent;
+        }
+        public CountryContinentModels() { }
+        public int Id { get;  set; }
+        [Display(Name = "Country")]
+        public string Country { get; set; }
+        [Display(Name = "Continent")]
+        public string Continent { get; set; }
 
         public IEnumerator GetEnumerator()
         {

@@ -24,6 +24,7 @@ namespace TransactionImporter.DAL.Contexts
                         foreach (DataRow dataRow in dataTable.Rows)
                         {
                             CountryContinent countryContinent = new CountryContinent(
+                                Convert.ToInt32((dataRow["Id"] != DBNull.Value) ? dataRow["Id"] : 0),
                                 (dataRow["Countrycode"].ToString() != "") ? dataRow["Countrycode"].ToString() : "-",
                                 (dataRow["Continent"].ToString() != "") ? dataRow["Continent"].ToString() : "-");
                             countryContinents.Add(countryContinent);
@@ -32,6 +33,84 @@ namespace TransactionImporter.DAL.Contexts
                 }
 
                 return countryContinents;
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception);
+                throw;
+            }
+        }
+        public CountryContinent GetCountryById(int id)
+        {
+            try
+            {
+                using (SqlConnection connection = Database.GetConnectionString())
+                {
+                    connection.Open();
+                    SqlCommand selectCountry = new SqlCommand("SELECT * FROM [CountryContinent] WHERE (Id) = (@Id)", connection);
+                    selectCountry.Parameters.AddWithValue("Id", id);
+                    using (SqlDataReader reader = selectCountry.ExecuteReader())
+                    {
+                        DataTable dataTable = new DataTable();
+                        dataTable.Load(reader);
+                        foreach (DataRow dataRow in dataTable.Rows)
+                        {
+                            CountryContinent countryContinent = new CountryContinent(
+                                (dataRow["Countrycode"].ToString() != "") ? dataRow["Countrycode"].ToString() : "-",
+                                (dataRow["Continent"].ToString() != "") ? dataRow["Continent"].ToString() : "-");
+                            return countryContinent;
+                        }
+                    }
+                }
+
+                return null;
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception);
+                throw;
+            }
+        }
+
+        public void AddCountry(CountryContinent countryContinent)
+        {
+            try
+            {
+                using (SqlConnection connection = Database.GetConnectionString())
+                {
+                    connection.Open();
+                    SqlCommand addCountry =
+                        new SqlCommand(
+                            "INSERT INTO [CountryContinent] (CountryCode, Continent) VALUES (@CountryCode, @Continent)",
+                            connection);
+                    addCountry.Parameters.AddWithValue("CountryCode", countryContinent.Country);
+                    addCountry.Parameters.AddWithValue("Continent", countryContinent.Continent);
+                    addCountry.ExecuteNonQuery();
+                }
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception);
+                throw;
+            }
+        }
+
+        public void UpdateCountryById(int id, CountryContinent countryContinent)
+        {
+            try
+            {
+                using (SqlConnection connection = Database.GetConnectionString())
+                {
+                    connection.Open();
+                    SqlCommand updateCountry =
+                        new SqlCommand(
+                            "INSERT INTO [CountryContinent] (CountryCode, Continent) VALUES (@CountryCode, @Continent) WHERE (Id) = (@Id)",
+                            connection);
+                    updateCountry.Parameters.AddWithValue("CountryCode", countryContinent.Country);
+                    updateCountry.Parameters.AddWithValue("Continent", countryContinent.Continent);
+                    updateCountry.Parameters.AddWithValue("Id", id);
+                    updateCountry.ExecuteNonQuery();
+                }
             }
             catch (Exception exception)
             {
