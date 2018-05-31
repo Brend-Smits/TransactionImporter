@@ -20,5 +20,10 @@ namespace TransactionImporter.DAL.Repositories
         {
             return exporterContext.GetCustomers(filterEu);
         }
+
+        public void DeleteDataByUploadId(int id)
+        {
+            exporterContext.DeleteDataByUploadId(id);
+        }
     }
 }

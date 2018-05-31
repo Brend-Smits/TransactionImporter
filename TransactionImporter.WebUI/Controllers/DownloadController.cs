@@ -52,7 +52,10 @@ namespace TransactionImporter.WebUI.Controllers
         // GET: Download/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            UploadDetail detail = uploadDetailLogic.GetUploadDetailById(id);
+            User user = userLogic.GetUserById(detail.UserId);
+            DownloadModels model = new DownloadModels(detail.UploadId, detail.UserId, user.Username, detail.StartTimeUpload.ToString(), detail.FileName, Convert.ToInt32(detail.FileSize));
+            return View(model);
         }
 
         // POST: Download/Delete/5
