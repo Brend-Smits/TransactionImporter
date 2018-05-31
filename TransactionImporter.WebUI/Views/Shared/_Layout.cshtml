@@ -23,7 +23,7 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("Download", "Index", "Download")</li>
-                    @* <li>@Html.ActionLink("Country", "Country", "Country")</li> *@
+                    <li>@Html.ActionLink("Countries", "Index", "CountryContinent")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -33,7 +33,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>&copy; @DateTime.Now.Year - Transaction Importer - Rubbertjuh</p>
         </footer>
     </div>
 

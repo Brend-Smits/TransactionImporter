@@ -3,15 +3,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using TransactionImporter.BLL.Interfaces;
+using TransactionImporter.Factory;
+using TransactionImporter.WebUI.Models;
+using TransactionImpoter.Domain;
 
 namespace TransactionImporter.WebUI.Controllers
 {
     public class CountryContinentController : Controller
     {
+        private ICountryContinentLogic countryContinentLogic = CountryContinentFactory.CreateLogic();
         // GET: CountryContinent
         public ActionResult Index()
         {
-            return View();
+            List<CountryContinent> countryContinents = countryContinentLogic.GetAllCountries();
+            List<CountryContinentModels> countryModels = new List<CountryContinentModels>();
+            foreach (CountryContinent country in countryContinents)
+            {
+                countryModels.Add(new CountryContinentModels(country.Country, country.Continent));
+            }
+            return View(countryModels);
         }
 
         // GET: CountryContinent/Details/5

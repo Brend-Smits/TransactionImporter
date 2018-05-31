@@ -15,7 +15,7 @@ namespace TransactionImporter.BLL
         }
         public List<CountryContinent> GetAllCountries()
         {
-            throw new System.NotImplementedException();
+            return _Repo.GetAllCountries();
         }
     }
 }

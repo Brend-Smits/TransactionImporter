@@ -14,7 +14,7 @@ namespace TransactionImporter.DAL.Repositories
         }
         public List<CountryContinent> GetAllCountries()
         {
-            throw new System.NotImplementedException();
+            return countryContinentContext.GetAllCountries();
         }
     }
 }

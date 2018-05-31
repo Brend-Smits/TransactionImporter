@@ -6,7 +6,7 @@ using TransactionImporter.DAL.Repositories;
 
 namespace TransactionImporter.Factory
 {
-    public class CountryContinent
+    public class CountryContinentFactory
     {
         public static ICountryContinentLogic CreateLogic()
         {
