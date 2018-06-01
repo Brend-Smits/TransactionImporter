@@ -18,6 +18,7 @@ namespace TransactionImporter.WebUI.Controllers
         private IExporterLogic exporterLogic = ExporterFactory.CreateLogic();
 
         private IUserLogic userLogic = UserFactory.CreateLogic();
+        string serverPath = "C:\\Users\\Rubbertjuh\\Desktop\\TransImporter-Exports\\";
         // GET: Download
         public ActionResult Index()
         {
@@ -43,7 +44,6 @@ namespace TransactionImporter.WebUI.Controllers
         //TODO: Make it cleaner so we don't have duplicate code.
         public ActionResult DownloadEu(int id)
         {
-            string serverPath = "C:\\Users\\Rubbertjuh\\Desktop\\TransImporter-Exports\\";
             exporterLogic.DownloadTransactions(true, serverPath);
             string fileName = exporterLogic.GetDownloadName();
             string combineFileNamePath = serverPath + fileName;
@@ -53,7 +53,6 @@ namespace TransactionImporter.WebUI.Controllers
         //TODO: Make it cleaner so we don't have duplicate code.
         public ActionResult DownloadRaw(int id)
         {
-            string serverPath = "C:\\Users\\Rubbertjuh\\Desktop\\TransImporter-Exports\\";
             exporterLogic.DownloadTransactions(false, serverPath);
             string fileName = exporterLogic.GetDownloadName();
             string combineFileNamePath = serverPath + fileName;
