@@ -22,9 +22,7 @@ namespace TransactionImporter.BLL
 
 
         }
-        public UploadDetailLogic()
-        {
-        }
+        public UploadDetailLogic() { }
 
         public UploadDetail GetUploadDetails(string path)
         {
@@ -52,14 +50,19 @@ namespace TransactionImporter.BLL
             return fileInfo.Name;
         }
 
-        public void UploadDetailList()
+        public List<UploadDetail> UploadDetailList()
         {
-            throw new NotImplementedException();
+            return _Repo.UploadDetailList();
         }
 
         public int GetUploadId()
         {
             return _Repo.GetUploadId();
+        }
+
+        public UploadDetail GetUploadDetailById(int id)
+        {
+            return _Repo.GetUploadDetailById(id);
         }
     }
 }

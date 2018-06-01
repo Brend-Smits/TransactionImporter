@@ -1,0 +1,65 @@
+﻿@model TransactionImporter.WebUI.Models.DownloadModels
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Username)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Username)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.FileName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FileName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.FileSize)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FileSize)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.UploadId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UploadId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UploadedOn)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UploadedOn)
+        </dd>
+        <dt>
+            Download-Raw: 
+        </dt>
+        <dd>
+            @Html.ActionLink("Download Raw", "DownloadRaw", new {id = Model.UploadId, controller = "Download"}) 
+        </dd>
+        <dt>
+            Download-EU: 
+        </dt>
+        <dd>
+            @Html.ActionLink("Download EU", "DownloadEu", new {id = Model.UploadId, controller = "Download"}) 
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>

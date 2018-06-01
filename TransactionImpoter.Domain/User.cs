@@ -20,5 +20,12 @@ namespace TransactionImpoter.Domain
             Birthdate = birthdate;
             Country = country;
         }
+        public User(string username, string email, string birthdate, string country)
+        {
+            Username = username;
+            Email = email;
+            Birthdate = birthdate;
+            Country = country;
+        }
     }
 }

@@ -7,5 +7,6 @@ namespace TransactionImporter.BLL.Interfaces
         void CreateUser(User user);
         void EditUser();
         void DeleteUser();
+        User GetUserById(int id);
     }
 }

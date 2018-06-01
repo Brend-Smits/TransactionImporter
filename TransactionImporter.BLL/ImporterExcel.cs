@@ -21,29 +21,24 @@ namespace TransactionImporter.BLL
         private Workbooks wbs;
         private Workbook wb;
 
-        public void UploadFile()
+        public void UploadFile(string path, Stream stream)
         {
-            //TODO: Move OpenFileDialog to UI
-            OpenFileDialog fileDialog = OpenMyFileDialog();
-            if (fileDialog.ShowDialog() == DialogResult.OK)
+            try
             {
-                try
+                Stream myStream = stream;
+                using (myStream)
                 {
-                    Stream myStream = fileDialog.OpenFile();
-                    using (myStream)
-                    {
-                    }
+                }
 
-                    
-                    filePath = fileDialog.FileName;
-                    xlWorkbook = xlApp.Workbooks.Open(ConvertFileIfNeeded(), 0, true, 5, "", "", true,
-                        XlPlatform.xlWindows, "\t", false, false, 0, true, 1, 0);
-                    xlWorksheet = xlWorkbook.Worksheets.Item[1] as Worksheet;
-                }
-                catch (Exception exception)
-                {
-                    MessageBox.Show("Error: Could not read file from disk. Original error: " + exception.Message);
-                }
+
+                filePath = path;
+                xlWorkbook = xlApp.Workbooks.Open(ConvertFileIfNeeded(), 0, true, 5, "", "", true,
+                    XlPlatform.xlWindows, "\t", false, false, 0, true, 1, 0);
+                xlWorksheet = xlWorkbook.Worksheets.Item[1] as Worksheet;
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show("Error: Could not read file from disk. Original error: " + exception.Message);
             }
         }
 
@@ -54,16 +49,6 @@ namespace TransactionImporter.BLL
                 Type.Missing, XlSaveAsAccessMode.xlExclusive, Type.Missing, Type.Missing, Type.Missing,
                 Type.Missing, Type.Missing);
             return tempFilePath;
-        }
-
-        public OpenFileDialog OpenMyFileDialog()
-        {
-            OpenFileDialog fileDialog = new OpenFileDialog
-            {
-                Filter = "Excel files (*.csv;*.xlsx)|*.csv;*.xlsx",
-                InitialDirectory = "c:\\"
-            };
-            return fileDialog;
         }
 
         private string ConvertFileIfNeeded()

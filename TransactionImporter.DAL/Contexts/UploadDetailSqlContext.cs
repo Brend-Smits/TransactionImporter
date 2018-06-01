@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
+using System.Linq.Expressions;
 using TransactionImpoter.Domain;
 
 namespace TransactionImporter.DAL
 {
-    public class UploadDetailSqlContext:IUploadDetailContext
+    public class UploadDetailSqlContext : IUploadDetailContext
     {
         public void UploadDetails(UploadDetail detail)
         {
@@ -32,9 +34,42 @@ namespace TransactionImporter.DAL
             }
         }
 
-        public void UploadDetailList(List<UploadDetail> details)
+        public List<UploadDetail> UploadDetailList()
         {
-            throw new NotImplementedException();
+            List<UploadDetail> uploads = new List<UploadDetail>();
+            try
+            {
+                using (SqlConnection connection = Database.GetConnectionString())
+                {
+                    connection.Open();
+                    SqlCommand addUploadDetails = new SqlCommand("SELECT * FROM [UploadDetail]", connection);
+                    addUploadDetails.ExecuteNonQuery();
+                    using (SqlDataReader reader = addUploadDetails.ExecuteReader())
+                    {
+                        DataTable dataTable = new DataTable();
+                        dataTable.Load(reader);
+                        foreach (DataRow dataRow in dataTable.Rows)
+                        {
+                            UploadDetail detail = new UploadDetail(
+                                Convert.ToInt32((dataRow["UploadId"] != DBNull.Value) ? dataRow["UploadId"] : 0),
+                                Convert.ToInt32((dataRow["UserId"] != DBNull.Value) ? dataRow["Userid"] : 0),
+                                Convert.ToDateTime((dataRow["StartTimeUpload"] != DBNull.Value)
+                                    ? dataRow["StartTimeUpload"]
+                                    : DateTime.Now),
+                                (dataRow["FileName"].ToString() != "") ? dataRow["FileName"].ToString() : "-",
+                                (dataRow["FileSize"].ToString() != "") ? dataRow["FileSize"].ToString() : "-");
+                            uploads.Add(detail);
+                        }
+                    }
+                }
+
+                return uploads;
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception);
+                throw;
+            }
         }
 
         public int GetUploadId()
@@ -48,6 +83,44 @@ namespace TransactionImporter.DAL
                         "SELECT ISNULL(MAX(UploadId), 0) FROM [UploadDetail]", connection);
                     return Convert.ToInt32(selectMaxUploadId.ExecuteScalar());
                 }
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception);
+                throw;
+            }
+        }
+
+        public UploadDetail GetUploadDetailById(int id)
+        {
+            try
+            {
+                using (SqlConnection connection = Database.GetConnectionString())
+                {
+                    connection.Open();
+                    SqlCommand addUploadDetailById = new SqlCommand("SELECT * FROM [UploadDetail] WHERE (UploadId) = (@UploadId)", connection);
+                    addUploadDetailById.Parameters.AddWithValue("UploadId", id);
+                    addUploadDetailById.ExecuteNonQuery();
+                    using (SqlDataReader reader = addUploadDetailById.ExecuteReader())
+                    {
+                        DataTable dataTable = new DataTable();
+                        dataTable.Load(reader);
+                        foreach (DataRow dataRow in dataTable.Rows)
+                        {
+                            UploadDetail detail = new UploadDetail(
+                                Convert.ToInt32((dataRow["UploadId"] != DBNull.Value) ? dataRow["UploadId"] : 0),
+                                Convert.ToInt32((dataRow["UserId"] != DBNull.Value) ? dataRow["Userid"] : 0),
+                                Convert.ToDateTime((dataRow["StartTimeUpload"] != DBNull.Value)
+                                    ? dataRow["StartTimeUpload"]
+                                    : DateTime.Now),
+                                (dataRow["FileName"].ToString() != "") ? dataRow["FileName"].ToString() : "-",
+                                (dataRow["FileSize"].ToString() != "") ? dataRow["FileSize"].ToString() : "-");
+                            return detail;
+                        }
+                    }
+                }
+
+                return null;
             }
             catch (Exception exception)
             {

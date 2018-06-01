@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System.IO;
+using System.Windows;
+using System.Windows.Forms;
 using TransactionImporter.BLL;
 using TransactionImporter.BLL.Interfaces;
 using TransactionImporter.Factory;
@@ -26,9 +28,15 @@ namespace TransactionImporter.UI
 
         private void btnUploadFile_Click(object sender, RoutedEventArgs e)
         {
-            importerLogic.UploadFile();
-            string path = importerLogic.GetPath();
-            uploadDetailLogic.UploadDetails(uploadDetailLogic.GetUploadDetails(path), path);
+            OpenFileDialog fileDialog = OpenMyFileDialog();
+            if (fileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                string filePath = fileDialog.FileName;
+                Stream mystream = fileDialog.OpenFile();
+                importerLogic.UploadFile(filePath, mystream);
+                string path = importerLogic.GetPath();
+                uploadDetailLogic.UploadDetails(uploadDetailLogic.GetUploadDetails(path), path);
+            }
         }
 
         private void btnRetrieveData_Click(object sender, RoutedEventArgs e)
@@ -44,20 +52,37 @@ namespace TransactionImporter.UI
 
         private void btnAddUser_Click(object sender, RoutedEventArgs e)
         {
-            User user = new User("Rubbertjuh", "brend_smits@hotmail.com", "123123", "1998-01-23", "Netherlands");
+            User user = new User("Rubbertjuh2", "brend_smits2@hotmail.com", "1231232", "1998-01-23", "Netherlands");
             userLogic.CreateUser(user);
         }
 
         private void btnDownload_Click(object sender, RoutedEventArgs e)
         {
-            //            FolderBrowserDialog folderDialog = new FolderBrowserDialog();
-            //            if (folderDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            //            {
-            ////                folderDialog.SelectedPath = exportTransactionLogic.GetSelectedPath();
-            exporterLogic.DownloadTransactions();
-//            }
+            FolderBrowserDialog folderDialog = new FolderBrowserDialog();
+            if (folderDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                string path = folderDialog.SelectedPath;
+                exporterLogic.DownloadTransactions(false, path);
+            }
         }
 
-
+        private void btnDownloadEU_Click(object sender, RoutedEventArgs e)
+        {
+            FolderBrowserDialog folderDialog = new FolderBrowserDialog();
+            if (folderDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                string path = folderDialog.SelectedPath;
+                exporterLogic.DownloadTransactions(true, path);
+            }
+        }
+        public OpenFileDialog OpenMyFileDialog()
+        {
+            OpenFileDialog fileDialog = new OpenFileDialog
+            {
+                Filter = "Excel files (*.csv;*.xlsx)|*.csv;*.xlsx",
+                InitialDirectory = "c:\\"
+            };
+            return fileDialog;
+        }
     }
     }

@@ -42,12 +42,14 @@
   <ItemGroup>
     <Compile Include="ConnectionBuilder.cs" />
     <Compile Include="ContextInterfaces\ICategoryContext.cs" />
+    <Compile Include="ContextInterfaces\ICountryContinentContext.cs" />
     <Compile Include="ContextInterfaces\ICustomerInfoContext.cs" />
     <Compile Include="ContextInterfaces\IProductContext.cs" />
     <Compile Include="ContextInterfaces\IExporterContext.cs" />
     <Compile Include="ContextInterfaces\IUploadDetailContext.cs" />
     <Compile Include="ContextInterfaces\IUserContext.cs" />
     <Compile Include="Contexts\CategorySqlContext.cs" />
+    <Compile Include="Contexts\CountryContinentSqlContext.cs" />
     <Compile Include="Contexts\CustomerInfoSqlContext.cs" />
     <Compile Include="Contexts\ProductSqlContext.cs" />
     <Compile Include="Contexts\UploadDetailSqlContext.cs" />
@@ -55,6 +57,7 @@
     <Compile Include="Contexts\UserSqlContext.cs" />
     <Compile Include="Database.cs" />
     <Compile Include="ICategoryRepository.cs" />
+    <Compile Include="ICountryContinentRepository.cs" />
     <Compile Include="ICustomerInfoRepository.cs" />
     <Compile Include="IExporterRepository.cs" />
     <Compile Include="IProductRepository.cs" />
@@ -64,6 +67,7 @@
     <Compile Include="ContextInterfaces\ITransactionContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CategoryRepository.cs" />
+    <Compile Include="Repositories\CountryContinentRepository.cs" />
     <Compile Include="Repositories\CustomerInfoRepository.cs" />
     <Compile Include="Repositories\ExporterRepository.cs" />
     <Compile Include="Repositories\ProductRepository.cs" />

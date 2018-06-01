@@ -35,5 +35,10 @@ namespace TransactionImporter.DAL.Repositories
         {
             throw new NotImplementedException();
         }
+
+        public User GetUserById(int id)
+        {
+            return userContext.GetUserById(id);
+        }
     }
 }

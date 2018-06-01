@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using TransactionImpoter.Domain;
 
 namespace TransactionImporter.DAL.Repositories
@@ -21,15 +22,20 @@ namespace TransactionImporter.DAL.Repositories
             uploadDetailContext.UploadDetails(detail);
         }
 
-        public void UploadDetailList()
+        public List<UploadDetail> UploadDetailList()
         {
-            throw new NotImplementedException();
+            return uploadDetailContext.UploadDetailList();
         }
 
         public int GetUploadId()
         {
             IUploadDetailContext uploadDetailContext = new UploadDetailSqlContext();
             return uploadDetailContext.GetUploadId();
+        }
+
+        public UploadDetail GetUploadDetailById(int id)
+        {
+            return uploadDetailContext.GetUploadDetailById(id);
         }
     }
 }

@@ -1,0 +1,36 @@
+﻿@model IEnumerable<TransactionImporter.WebUI.Models.DownloadModels>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.UploadId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UploadedOn)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.UploadId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UploadedOn)
+        </td>
+        <td>
+            @Html.ActionLink("Details", "Details", new {id = item.UploadId, controller = "Download"}) |
+            @Html.ActionLink("Download-EU", "DownloadEu", new {id = item.UploadId, controller = "Download"}) |
+            @Html.ActionLink("Delete", "Delete", new {id = item.UploadId, controller = "Download"})
+        </td>
+    </tr>
+}
+
+</table>
