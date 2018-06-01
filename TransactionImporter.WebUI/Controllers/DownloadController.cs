@@ -40,10 +40,21 @@ namespace TransactionImporter.WebUI.Controllers
         }
 
         // GET: Download/Details/5
-        public ActionResult Download(int id)
+        //TODO: Make it cleaner so we don't have duplicate code.
+        public ActionResult DownloadEu(int id)
         {
             string serverPath = "C:\\Users\\Rubbertjuh\\Desktop\\TransImporter-Exports\\";
             exporterLogic.DownloadTransactions(true, serverPath);
+            string fileName = exporterLogic.GetDownloadName();
+            string combineFileNamePath = serverPath + fileName;
+            return File(combineFileNamePath, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", Path.GetFileName(fileName));
+        }
+        // GET: Download/Details/5
+        //TODO: Make it cleaner so we don't have duplicate code.
+        public ActionResult DownloadRaw(int id)
+        {
+            string serverPath = "C:\\Users\\Rubbertjuh\\Desktop\\TransImporter-Exports\\";
+            exporterLogic.DownloadTransactions(false, serverPath);
             string fileName = exporterLogic.GetDownloadName();
             string combineFileNamePath = serverPath + fileName;
             return File(combineFileNamePath, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", Path.GetFileName(fileName));

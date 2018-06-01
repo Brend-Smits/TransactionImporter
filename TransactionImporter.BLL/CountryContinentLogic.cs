@@ -32,5 +32,10 @@ namespace TransactionImporter.BLL
         {
             _Repo.UpdateCountryById(id, countryContinent);
         }
+
+        public void RemoveCountryContinentById(int id)
+        {
+            _Repo.RemoveCountryContinentById(id);
+        }
     }
 }

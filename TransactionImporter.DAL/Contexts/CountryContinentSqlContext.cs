@@ -56,6 +56,7 @@ namespace TransactionImporter.DAL.Contexts
                         foreach (DataRow dataRow in dataTable.Rows)
                         {
                             CountryContinent countryContinent = new CountryContinent(
+                                Convert.ToInt32((dataRow["Id"] != DBNull.Value) ? dataRow["Id"] : 0),
                                 (dataRow["Countrycode"].ToString() != "") ? dataRow["Countrycode"].ToString() : "-",
                                 (dataRow["Continent"].ToString() != "") ? dataRow["Continent"].ToString() : "-");
                             return countryContinent;
@@ -104,13 +105,34 @@ namespace TransactionImporter.DAL.Contexts
                     connection.Open();
                     SqlCommand updateCountry =
                         new SqlCommand(
-                            "INSERT INTO [CountryContinent] (CountryCode, Continent) VALUES (@CountryCode, @Continent) WHERE (Id) = (@Id)",
+                            "UPDATE [CountryContinent] SET CountryCode = @CountryCode, Continent = @Continent WHERE Id = @Id",
                             connection);
                     updateCountry.Parameters.AddWithValue("CountryCode", countryContinent.Country);
                     updateCountry.Parameters.AddWithValue("Continent", countryContinent.Continent);
                     updateCountry.Parameters.AddWithValue("Id", id);
                     updateCountry.ExecuteNonQuery();
                 }
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception);
+                throw;
+            }
+        }
+
+        public void RemoveCountryContinentById(int id)
+        {
+            try
+            {
+                using (SqlConnection connection = Database.GetConnectionString())
+                {
+                    connection.Open();
+                        SqlCommand insertCustomerInfo = new SqlCommand("dbo.RemoveCountryContinentById", connection);
+                        insertCustomerInfo.CommandType = CommandType.StoredProcedure;
+                        insertCustomerInfo.Parameters.AddWithValue("Id", id);
+                        insertCustomerInfo.ExecuteNonQuery();
+                    }
+                
             }
             catch (Exception exception)
             {

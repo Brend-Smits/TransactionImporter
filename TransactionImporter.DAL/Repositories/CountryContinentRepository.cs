@@ -31,5 +31,10 @@ namespace TransactionImporter.DAL.Repositories
         {
             countryContinentContext.UpdateCountryById(id, countryContinent);
         }
+
+        public void RemoveCountryContinentById(int id)
+        {
+            countryContinentContext.RemoveCountryContinentById(id);
+        }
     }
 }

@@ -45,6 +45,18 @@
         <dd>
             @Html.DisplayFor(model => model.UploadedOn)
         </dd>
+        <dt>
+            Download-Raw: 
+        </dt>
+        <dd>
+            @Html.ActionLink("Download Raw", "DownloadRaw", new {id = Model.UploadId, controller = "Download"}) 
+        </dd>
+        <dt>
+            Download-EU: 
+        </dt>
+        <dd>
+            @Html.ActionLink("Download EU", "DownloadEu", new {id = Model.UploadId, controller = "Download"}) 
+        </dd>
 
     </dl>
 </div>

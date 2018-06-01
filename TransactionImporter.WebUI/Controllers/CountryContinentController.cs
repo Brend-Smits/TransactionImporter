@@ -49,27 +49,27 @@ namespace TransactionImporter.WebUI.Controllers
             }
             else
             {
-                return View("Create", models);
+                return View();
             }
         }
 
         // GET: CountryContinent/Edit/5
         public ActionResult Edit(int id)
         {
-            CountryContinent country = new CountryContinent(countryContinentLogic.GetCountryById(id).Country, countryContinentLogic.GetCountryById(id).Continent);
+            CountryContinent countryContinent = countryContinentLogic.GetCountryById(id);
             
-            CountryContinentModels model = new CountryContinentModels(country.Country, country.Continent);
+            CountryContinentModels model = new CountryContinentModels(countryContinent.Country, countryContinent.Continent);
             return View(model);
         }
 
         // POST: CountryContinent/Edit/5
         [HttpPost]
-        public ActionResult Edit(CountryContinentModels model, int id, FormCollection collection)
+        public ActionResult Edit(CountryContinentModels model, FormCollection collection)
         {
             try
             {
                 CountryContinent continent = new CountryContinent(model.Country, model.Continent);
-                countryContinentLogic.UpdateCountryById(id, continent);
+                countryContinentLogic.UpdateCountryById(model.Id, continent);
 
                 return RedirectToAction("Index");
             }
@@ -82,16 +82,18 @@ namespace TransactionImporter.WebUI.Controllers
         // GET: CountryContinent/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            CountryContinent country = countryContinentLogic.GetCountryById(id);
+            CountryContinentModels model = new CountryContinentModels(country.Id, country.Country, country.Continent);
+            return View(model);
         }
 
         // POST: CountryContinent/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(CountryContinentModels model)
         {
             try
             {
-                // TODO: Add delete logic here
+                countryContinentLogic.RemoveCountryContinentById(model.Id);
 
                 return RedirectToAction("Index");
             }
