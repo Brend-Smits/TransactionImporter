@@ -80,8 +80,9 @@ namespace TransactionImporter.DAL
                     {
                         query = "SELECT (CustomerInfoUUID) FROM [Transaction] WHERE (UploadId) LIKE @UploadId";
                     }
+
                     connection.Open();
-                    SqlCommand selectUuid = new SqlCommand(query,connection);
+                    SqlCommand selectUuid = new SqlCommand(query, connection);
                     selectUuid.Parameters.AddWithValue("UploadId", uploadId);
                     using (SqlDataReader uuidReader = selectUuid.ExecuteReader())
                     {
@@ -117,26 +118,6 @@ namespace TransactionImporter.DAL
                 }
 
                 return customerList;
-            }
-            catch (Exception exception)
-            {
-                Console.WriteLine(exception);
-                throw;
-            }
-        }
-
-        public void DeleteDataByUploadId(int id)
-        {
-            try
-            {
-                using (SqlConnection connection = Database.GetConnectionString())
-                {
-                    connection.Open();
-                        SqlCommand insertCustomerInfo = new SqlCommand("dbo.RemoveUploadById", connection);
-                        insertCustomerInfo.CommandType = CommandType.StoredProcedure;
-                        insertCustomerInfo.Parameters.AddWithValue("UploadId", id);
-                        insertCustomerInfo.ExecuteNonQuery();
-                    }
             }
             catch (Exception exception)
             {

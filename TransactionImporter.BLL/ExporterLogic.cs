@@ -51,11 +51,6 @@ namespace TransactionImporter.BLL
             return randomFileName + ".xlsx";
         }
 
-        public void DeleteDataByUploadId(int id)
-        {
-            _Repo.DeleteDataByUploadId(id);
-        }
-
 
         private void AddHeaders()
         {

@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Index";
+    int unknownCount = 0;
 }
 
 <h2>Countries and Continents</h2>
@@ -21,18 +22,49 @@
     </tr>
 
 @foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Country)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Continent)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new {id=item.Id}) |
-            @Html.ActionLink("Delete", "Delete", new {id=item.Id})
-        </td>
-    </tr>
+    if (item.Continent != "Unknown")
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Country)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Continent)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+
+    }
+    else
+    {
+        <tr class="highlight" id="unknownBorder">
+            <td>
+                @Html.DisplayFor(modelItem => item.Country)
+            </td>
+            <td id="unknownHighlight">
+                @Html.DisplayFor(modelItem => item.Continent)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+        unknownCount++;
+    }
+
+
+
 }
+    @{if (unknownCount > 0)
+    {
+    <div class="alertbox">
+        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+        <strong>Warning!</strong> There are @unknownCount countries which do not have a continent.
+    </div>
+    }
+    }
 
 </table>

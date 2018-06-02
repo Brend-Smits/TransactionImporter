@@ -26,7 +26,8 @@ namespace TransactionImporter.WebUI.Controllers
             List<DownloadModels> downloadableList = new List<DownloadModels>();
             foreach (UploadDetail upload in uploadDetailList)
             {
-                downloadableList.Add(new DownloadModels(upload.UploadId, upload.UserId, upload.StartTimeUpload.ToString(), upload.FileName, Convert.ToInt32(upload.FileSize)));
+                User user = userLogic.GetUserById(upload.UserId);
+                downloadableList.Add(new DownloadModels(upload.UploadId, upload.UserId, user.Username, upload.StartTimeUpload.ToString(), upload.FileName, Convert.ToInt32(upload.FileSize)));
             }
             return View(downloadableList);
         }
@@ -74,7 +75,7 @@ namespace TransactionImporter.WebUI.Controllers
         {
             try
             {
-                exporterLogic.DeleteDataByUploadId(id);
+                uploadDetailLogic.DeleteDataByUploadId(id);
                 return RedirectToAction("Index");
             }
             catch
