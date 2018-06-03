@@ -23,26 +23,44 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Username)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FileName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UploadId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UploadedOn)
-        </td>
-        <td>
-            @Html.ActionLink("Details", "Details", new {id = item.UploadId, controller = "Download"}) |
-            @Html.ActionLink("Download-EU", "DownloadEu", new {id = item.UploadId, controller = "Download"}) |
-            @Html.ActionLink("Delete", "Delete", new {id = item.UploadId, controller = "Download"})
-        </td>
-    </tr>
-}
-
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Username)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FileName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UploadId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UploadedOn)
+            </td>
+            <td>
+                <a href="#" onmouseover="ShowDetails(@item.UploadId)">Details</a> |
+                @Html.ActionLink("Download-EU", "DownloadEu", new { id = item.UploadId, controller = "Download" }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.UploadId, controller = "Download" })
+            </td>
+        </tr>
+    }
 </table>
+<div class="col-md-8" id="MyDetails">
+</div>
+
+@section Scripts
+{
+    <script>
+
+        var ShowDetails = function (id) {
+
+            var detailsDiv = $('#MyDetails');
+
+            $.get('/Download/Details/', { id: id }, function (data) {
+                detailsDiv.html(data);
+            });
+
+
+        };
+    </script>
+}

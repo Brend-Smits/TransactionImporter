@@ -15,7 +15,6 @@ namespace TransactionImporter.BLL
         private List<Transaction> transactions = new List<Transaction>();
         private List<CustomerInfo> customers = new List<CustomerInfo>();
         private string filePath;
-        private Application xlApp = new Application();
         private Workbook xlWorkbook;
         private Worksheet xlWorksheet;
         private Workbooks wbs;
@@ -32,6 +31,7 @@ namespace TransactionImporter.BLL
 
 
                 filePath = path;
+                Application xlApp = new Application();
                 xlWorkbook = xlApp.Workbooks.Open(ConvertFileIfNeeded(), 0, true, 5, "", "", true,
                     XlPlatform.xlWindows, "\t", false, false, 0, true, 1, 0);
                 xlWorksheet = xlWorkbook.Worksheets.Item[1] as Worksheet;
@@ -57,6 +57,7 @@ namespace TransactionImporter.BLL
             {
                 if (Path.GetExtension(filePath) == ".CSV" || Path.GetExtension(filePath) == ".csv")
                 {
+                    Application xlApp = new Application();
                     wb = xlApp.Workbooks.Open(filePath);
                     string tempFilePath = ChangeFileExtension(filePath, ".CSV", ".xlsx");
                     Console.WriteLine("Extension was" + filePath + " and is now: " + tempFilePath);

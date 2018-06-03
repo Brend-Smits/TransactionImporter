@@ -12,7 +12,6 @@ namespace TransactionImporter.BLL
 {
     public class ExporterLogic : IExporterLogic
     {
-        private Application xlApp = new Application();
         private Worksheet xlWorksheet;
         private IExporterRepository _Repo;
         private IImporterExcel importerExcel = new ImporterExcel();
@@ -30,6 +29,7 @@ namespace TransactionImporter.BLL
 
         public void DownloadTransactions(bool filterEu, string path)
         {
+            Application xlApp = new Application();
             randomFileName = Guid.NewGuid().ToString().Replace("-", "");
             string savePath = $"{path}{randomFileName}.xlsx";
             Workbook xlWorkbook = xlApp.Workbooks.Add();
