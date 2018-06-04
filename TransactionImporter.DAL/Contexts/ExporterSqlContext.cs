@@ -77,11 +77,12 @@ namespace TransactionImporter.DAL
                     if (filterEu)
                     {
                         query =
-                            "SELECT [CustomerInfoUUID] FROM [Transaction] WHERE (UploadId) LIKE @UploadId AND [Country] IN (SELECT [CountryCode] FROM [CountryContinent] WHERE [Continent] = 'EU')";
+                            "SELECT [Transaction].CustomerInfoUUID, [TransactionUpload].TransactionId, [TransactionUpload].UploadId FROM [Transaction] INNER JOIN [TransactionUpload] ON [Transaction].TransactionId = TransactionUpload.TransactionId WHERE UploadId = 8 AND [Country] IN(SELECT[CountryCode] FROM[CountryContinent] WHERE[Continent] = 'EU')";
                     }
                     else
                     {
-                        query = "SELECT (CustomerInfoUUID) FROM [Transaction] WHERE (UploadId) LIKE @UploadId";
+                        query =
+                            "SELECT [Transaction].CustomerInfoUUID, [TransactionUpload].TransactionId, [TransactionUpload].UploadId FROM [Transaction] INNER JOIN [TransactionUpload] ON [Transaction].TransactionId = TransactionUpload.TransactionId WHERE UploadId = 8";
                     }
 
                     connection.Open();
