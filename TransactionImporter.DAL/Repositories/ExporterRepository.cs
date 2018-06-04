@@ -20,5 +20,15 @@ namespace TransactionImporter.DAL.Repositories
         {
             return exporterContext.GetCustomers(filterEu);
         }
+
+        public List<Transaction> GetTransactionFilterContinent(string continent)
+        {
+            return exporterContext.GetTransactionFilterContinent(continent);
+        }
+
+        public List<CustomerInfo> GetCustomersFilterContinent(string continent)
+        {
+            return exporterContext.GetCustomersFilterContinent(continent);
+        }
     }
 }

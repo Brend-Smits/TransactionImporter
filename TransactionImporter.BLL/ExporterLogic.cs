@@ -25,7 +25,7 @@ namespace TransactionImporter.BLL
 
         public ExporterLogic() {}
 
-        public void DownloadTransactions(bool filterEu, string path)
+        public void DownloadTransactions(List<CustomerInfo> customerList,List<Transaction> transactionList, string path)
         {
             Application xlApp = new Application();
             randomFileName = Guid.NewGuid().ToString().Replace("-", "");
@@ -33,8 +33,8 @@ namespace TransactionImporter.BLL
             Workbook xlWorkbook = xlApp.Workbooks.Add();
             xlWorksheet = xlWorkbook.Worksheets.get_Item(1);
             AddHeaders();
-            AddTransactions(filterEu);
-            AddCustomers(filterEu);
+            AddTransactions(transactionList);
+            AddCustomers(customerList);
 
             xlWorkbook.SaveAs(savePath, XlFileFormat.xlOpenXMLWorkbook, Missing.Value,
                 Missing.Value, false, false, XlSaveAsAccessMode.xlNoChange,
