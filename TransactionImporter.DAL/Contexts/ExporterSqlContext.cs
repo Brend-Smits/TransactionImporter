@@ -20,12 +20,15 @@ namespace TransactionImporter.DAL
                 {
                     if (filerEu)
                     {
+                        //TODO: Make stored procedure
                         query =
-                            "SELECT * FROM[Transaction] WHERE(UploadId) LIKE(@UploadId) AND[Country] IN(SELECT[CountryCode] FROM[CountryContinent] WHERE[Continent] = 'EU')";
+                            "SELECT TransactionUpload.TransactionId, TransactionUpload.UploadId, [Transaction].Amount, [Transaction].Country, [Transaction].CustomerInfoUUID, [Transaction].Date, [Transaction].Discount, [Transaction].Gateway, [Transaction].IP, [Transaction].Status, [Transaction].Username FROM [TransactionUpload] INNER JOIN [Transaction] ON [Transaction].TransactionId = TransactionUpload.TransactionId WHERE UploadId = 8 AND [Country] IN(SELECT[CountryCode] FROM[CountryContinent] WHERE[Continent] = 'EU')";
                     }
                     else
                     {
-                        query = "SELECT * FROM [Transaction] WHERE (UploadId) LIKE (@UploadId)";
+                        //TODO: Make stored procedure
+                        query =
+                            "SELECT TransactionUpload.TransactionId, TransactionUpload.UploadId, [Transaction].Amount, [Transaction].Country, [Transaction].CustomerInfoUUID, [Transaction].Date, [Transaction].Discount, [Transaction].Gateway, [Transaction].IP, [Transaction].Status, [Transaction].Username FROM [TransactionUpload] INNER JOIN [Transaction] ON [Transaction].TransactionId = TransactionUpload.TransactionId WHERE UploadId = 8";
                     }
 
                     connection.Open();
