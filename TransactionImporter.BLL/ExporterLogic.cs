@@ -74,9 +74,9 @@ namespace TransactionImporter.BLL
             }
         }
 
-        private void AddTransactions(bool filterEu)
+        private void AddTransactions(List<Transaction> transactionList)
         {
-            List<Transaction> transactions = _Repo.GetTransaction(filterEu);
+            List<Transaction> transactions = transactionList;
             int row = 2;
             foreach (Transaction trans in transactions)
             {
@@ -91,12 +91,12 @@ namespace TransactionImporter.BLL
             }
         }
 
-        private void AddCustomers(bool filterEu)
+        private void AddCustomers(List<CustomerInfo> customerList)
         {
-            List<CustomerInfo> customerList = _Repo.GetCustomers(filterEu);
+            List<CustomerInfo> customers = customerList;
             Transaction trans = new Transaction();
             int row = 2;
-            foreach (CustomerInfo customer in customerList)
+            foreach (CustomerInfo customer in customers)
             {
                 List<string> customerDataToAdd = customer.GetDataForThisExcelFile();
                 for (int index = trans.GetDataForThisExcelFile().Count;
