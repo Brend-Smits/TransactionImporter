@@ -23,9 +23,7 @@ namespace TransactionImporter.BLL
             _Repo = exportRepo;
         }
 
-        public ExporterLogic()
-        {
-        }
+        public ExporterLogic() {}
 
         public void DownloadTransactions(bool filterEu, string path)
         {
