@@ -21,14 +21,14 @@ namespace TransactionImporter.DAL.Repositories
             return exporterContext.GetCustomers(filterEu);
         }
 
-        public List<Transaction> GetTransactionFilterContinent(string continent)
+        public List<Transaction> GetTransactionFilterContinent(string continent, int id)
         {
-            return exporterContext.GetTransactionFilterContinent(continent);
+            return exporterContext.GetTransactionFilterContinent(continent, id);
         }
 
-        public List<CustomerInfo> GetCustomersFilterContinent(string continent)
+        public List<CustomerInfo> GetCustomersFilterContinent(string continent, int id)
         {
-            return exporterContext.GetCustomersFilterContinent(continent);
+            return exporterContext.GetCustomersFilterContinent(continent, id);
         }
     }
 }

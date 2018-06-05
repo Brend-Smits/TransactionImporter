@@ -12,10 +12,10 @@ namespace TransactionImporter.BLL
         {
             _Repo = exportRepo;
         }
-        public void FilterContinent(string continent, string path)
+        public void FilterContinent(string continent, string path, int id)
         {
-            List<CustomerInfo> customers = _Repo.GetCustomersFilterContinent(continent);
-            List<Transaction> transactions = _Repo.GetTransactionFilterContinent(continent);
+            List<CustomerInfo> customers = _Repo.GetCustomersFilterContinent(continent, id);
+            List<Transaction> transactions = _Repo.GetTransactionFilterContinent(continent, id);
             DownloadTransactions(customers, transactions, path);
 
         }

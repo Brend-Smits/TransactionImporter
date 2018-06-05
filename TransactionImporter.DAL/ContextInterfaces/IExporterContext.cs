@@ -7,8 +7,8 @@ namespace TransactionImporter.DAL
     {
         List<Transaction> GetTransaction(bool filterEu);
         List<CustomerInfo> GetCustomers(bool filterEu);
-        List<Transaction> GetTransactionFilterContinent(string continent);
-        List<CustomerInfo> GetCustomersFilterContinent(string continent);
+        List<Transaction> GetTransactionFilterContinent(string continent, int id);
+        List<CustomerInfo> GetCustomersFilterContinent(string continent, int id);
 
     }
 }

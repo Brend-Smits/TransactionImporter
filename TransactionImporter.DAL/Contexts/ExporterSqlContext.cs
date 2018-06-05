@@ -9,7 +9,6 @@ namespace TransactionImporter.DAL
     public class ExporterSqlContext : IExporterContext
     {
         private int uploadId = 22;
-
         public List<Transaction> GetTransaction(bool filerEu)
         {
             string query;
@@ -130,7 +129,7 @@ namespace TransactionImporter.DAL
             }
         }
 
-        public List<Transaction> GetTransactionFilterContinent(string continent)
+        public List<Transaction> GetTransactionFilterContinent(string continent, int id)
         {
             List<Transaction> transactions = new List<Transaction>();
             try
@@ -153,12 +152,12 @@ namespace TransactionImporter.DAL
                         "FROM [TransactionUpload] " +
                         "INNER JOIN [Transaction] " +
                         "ON [Transaction].TransactionId = TransactionUpload.TransactionId " +
-                        "WHERE UploadId = '@UploadId' " +
-                        "AND [Country] IN (SELECT[CountryCode] FROM [CountryContinent] WHERE [Continent] = '@Continent')";
+                        "WHERE UploadId = @UploadId " +
+                        "AND [Country] IN (SELECT[CountryCode] FROM [CountryContinent] WHERE [Continent] = @Continent)";
 
                     connection.Open();
                     SqlCommand selectTransactions = new SqlCommand(query, connection);
-                    selectTransactions.Parameters.AddWithValue("UploadId", uploadId);
+                    selectTransactions.Parameters.AddWithValue("UploadId", id);
                     selectTransactions.Parameters.AddWithValue("Continent", continent);
                     using (SqlDataReader reader = selectTransactions.ExecuteReader())
                     {
@@ -191,7 +190,7 @@ namespace TransactionImporter.DAL
             }
         }
 
-        public List<CustomerInfo> GetCustomersFilterContinent(string continent)
+        public List<CustomerInfo> GetCustomersFilterContinent(string continent, int id)
         {
             List<CustomerInfo> customerList = new List<CustomerInfo>();
             List<string> customerUUIDs = new List<string>();
@@ -206,12 +205,12 @@ namespace TransactionImporter.DAL
                             "FROM [Transaction] " +
                             "INNER JOIN [TransactionUpload] " +
                             "ON [Transaction].TransactionId = TransactionUpload.TransactionId " +
-                            "WHERE UploadId = 8 " +
-                            "AND [Country] IN(SELECT[CountryCode] FROM [CountryContinent] WHERE [Continent] = '@Continent')";
+                            "WHERE UploadId = @UploadId " +
+                            "AND [Country] IN(SELECT[CountryCode] FROM [CountryContinent] WHERE [Continent] = @Continent)";
 
                     connection.Open();
                     SqlCommand selectUuid = new SqlCommand(query, connection);
-                    selectUuid.Parameters.AddWithValue("UploadId", uploadId);
+                    selectUuid.Parameters.AddWithValue("UploadId", id);
                     selectUuid.Parameters.AddWithValue("Continent", continent);
                     using (SqlDataReader uuidReader = selectUuid.ExecuteReader())
                     {
