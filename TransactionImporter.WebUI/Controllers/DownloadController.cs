@@ -16,7 +16,6 @@ namespace TransactionImporter.WebUI.Controllers
         private IContinentFilter continentFilter = ExporterFactory.CreateContinentFilter();
 
         private IUserLogic userLogic = UserFactory.CreateLogic();
-        string serverPath = "C:\\Users\\Rubbertjuh\\Desktop\\TransImporter-Exports\\";
 
 
         // GET: Download
@@ -48,6 +47,7 @@ namespace TransactionImporter.WebUI.Controllers
         // GET: Download/Details/5
         public ActionResult Download(int id, string continent)
         {
+            string serverPath = "C:\\Users\\Rubbertjuh\\Desktop\\TransImporter-Exports\\";
             if (continent == "N/A")
             {
                 continentFilter.FilterContinent("N/A", serverPath, id);  
