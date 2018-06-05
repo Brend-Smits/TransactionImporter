@@ -43,13 +43,13 @@
             Download-Raw:
         </dt>
         <dd>
-            @Html.ActionLink("Download Raw", "DownloadRaw", new {id = Model.UploadId, controller = "Download"})
+            @Html.ActionLink("Download Raw", "Download", new {id = Model.UploadId, continent = "N/A", controller = "Download"})
         </dd>
         <dt>
             Download-EU:
         </dt>
         <dd>
-            @Html.ActionLink("Download EU", "DownloadEu", new {id = Model.UploadId, controller = "Download"})
+            @Html.ActionLink("Download EU", "Download", new {id = Model.UploadId, continent = "EU", controller = "Download"})
         </dd>
 
     </dl>

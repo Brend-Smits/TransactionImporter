@@ -46,21 +46,16 @@ namespace TransactionImporter.WebUI.Controllers
         }
 
         // GET: Download/Details/5
-        //TODO: Make it cleaner so we don't have duplicate code.
-        public ActionResult DownloadEu(int id)
+        public ActionResult Download(int id, string continent)
         {
-            continentFilter.FilterContinent("EU", serverPath, id);
-            string fileName = exporterLogic.GetDownloadName();
-            string combineFileNamePath = serverPath + fileName;
-            return File(combineFileNamePath, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-                Path.GetFileName(fileName));
-        }
-
-        // GET: Download/Details/5
-        //TODO: Make it cleaner so we don't have duplicate code.
-        public ActionResult DownloadRaw(int id)
-        {
-            continentFilter.FilterContinent("EU", serverPath, id);
+            if (continent == "N/A")
+            {
+                continentFilter.FilterContinent("N/A", serverPath, id);  
+            }
+            else
+            {
+                continentFilter.FilterContinent("EU", serverPath, id);
+            }
             string fileName = exporterLogic.GetDownloadName();
             string combineFileNamePath = serverPath + fileName;
             return File(combineFileNamePath, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",

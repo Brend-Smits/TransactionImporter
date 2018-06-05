@@ -8,8 +8,7 @@ namespace TransactionImporter.DAL
 {
     public class ExporterSqlContext : IExporterContext
     {
-        private int uploadId = 22;
-        public List<Transaction> GetTransaction(bool filerEu)
+        public List<Transaction> GetTransactionsAllContinents(int id)
         {
             string query;
             List<Transaction> transactions = new List<Transaction>();
@@ -17,22 +16,13 @@ namespace TransactionImporter.DAL
             {
                 using (SqlConnection connection = Database.GetConnectionString())
                 {
-                    if (filerEu)
-                    {
                         //TODO: Make stored procedure
                         query =
-                            "SELECT TransactionUpload.TransactionId, TransactionUpload.UploadId, [Transaction].Amount, [Transaction].Country, [Transaction].CustomerInfoUUID, [Transaction].Date, [Transaction].Discount, [Transaction].Gateway, [Transaction].IP, [Transaction].Status, [Transaction].Username FROM [TransactionUpload] INNER JOIN [Transaction] ON [Transaction].TransactionId = TransactionUpload.TransactionId WHERE UploadId = 8 AND [Country] IN(SELECT[CountryCode] FROM[CountryContinent] WHERE[Continent] = 'EU')";
-                    }
-                    else
-                    {
-                        //TODO: Make stored procedure
-                        query =
-                            "SELECT TransactionUpload.TransactionId, TransactionUpload.UploadId, [Transaction].Amount, [Transaction].Country, [Transaction].CustomerInfoUUID, [Transaction].Date, [Transaction].Discount, [Transaction].Gateway, [Transaction].IP, [Transaction].Status, [Transaction].Username FROM [TransactionUpload] INNER JOIN [Transaction] ON [Transaction].TransactionId = TransactionUpload.TransactionId WHERE UploadId = 8";
-                    }
+                            "SELECT TransactionUpload.TransactionId, TransactionUpload.UploadId, [Transaction].Amount, [Transaction].Country, [Transaction].CustomerInfoUUID, [Transaction].Date, [Transaction].Discount, [Transaction].Gateway, [Transaction].IP, [Transaction].Status, [Transaction].Username FROM [TransactionUpload] INNER JOIN [Transaction] ON [Transaction].TransactionId = TransactionUpload.TransactionId WHERE UploadId = @UploadId";
 
                     connection.Open();
                     SqlCommand selectTransactions = new SqlCommand(query, connection);
-                    selectTransactions.Parameters.AddWithValue("UploadId", uploadId);
+                    selectTransactions.Parameters.AddWithValue("UploadId", id);
                     using (SqlDataReader reader = selectTransactions.ExecuteReader())
                     {
                         DataTable dataTable = new DataTable();
@@ -64,7 +54,7 @@ namespace TransactionImporter.DAL
             }
         }
 
-        public List<CustomerInfo> GetCustomers(bool filterEu)
+        public List<CustomerInfo> GetCustomersAllContinents(int id)
         {
             string query;
             List<CustomerInfo> customerList = new List<CustomerInfo>();
@@ -73,20 +63,12 @@ namespace TransactionImporter.DAL
             {
                 using (SqlConnection connection = Database.GetConnectionString())
                 {
-                    if (filterEu)
-                    {
                         query =
-                            "SELECT [Transaction].CustomerInfoUUID, [TransactionUpload].TransactionId, [TransactionUpload].UploadId FROM [Transaction] INNER JOIN [TransactionUpload] ON [Transaction].TransactionId = TransactionUpload.TransactionId WHERE UploadId = 8 AND [Country] IN(SELECT[CountryCode] FROM[CountryContinent] WHERE[Continent] = 'EU')";
-                    }
-                    else
-                    {
-                        query =
-                            "SELECT [Transaction].CustomerInfoUUID, [TransactionUpload].TransactionId, [TransactionUpload].UploadId FROM [Transaction] INNER JOIN [TransactionUpload] ON [Transaction].TransactionId = TransactionUpload.TransactionId WHERE UploadId = 8";
-                    }
+                            "SELECT [Transaction].CustomerInfoUUID, [TransactionUpload].TransactionId, [TransactionUpload].UploadId FROM [Transaction] INNER JOIN [TransactionUpload] ON [Transaction].TransactionId = TransactionUpload.TransactionId WHERE UploadId = @UploadId";
 
                     connection.Open();
                     SqlCommand selectUuid = new SqlCommand(query, connection);
-                    selectUuid.Parameters.AddWithValue("UploadId", uploadId);
+                    selectUuid.Parameters.AddWithValue("UploadId", id);
                     using (SqlDataReader uuidReader = selectUuid.ExecuteReader())
                     {
                         while (uuidReader.Read())

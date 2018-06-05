@@ -39,7 +39,7 @@
             </td>
             <td>
                 <a href="#" onmouseover="ShowDetails(@item.UploadId)">Details</a> |
-                @Html.ActionLink("Download-EU", "DownloadEu", new { id = item.UploadId, controller = "Download" }) |
+                @Html.ActionLink("Download-EU", "Download", new { id = item.UploadId, continent = "EU", controller = "Download" }) |
                 @Html.ActionLink("Delete", "Delete", new { id = item.UploadId, controller = "Download" })
             </td>
         </tr>

@@ -5,8 +5,8 @@ namespace TransactionImporter.DAL
 {
     public interface IExporterRepository
     {
-        List<Transaction> GetTransaction(bool filterEu);
-        List<CustomerInfo> GetCustomers(bool filterEu);
+        List<Transaction> GetTransactionsAllContinents(int id);
+        List<CustomerInfo> GetCustomersAllContinents(int id);
         List<Transaction> GetTransactionFilterContinent(string continent, int id);
         List<CustomerInfo> GetCustomersFilterContinent(string continent, int id);
 

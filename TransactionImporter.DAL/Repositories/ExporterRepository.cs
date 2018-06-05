@@ -11,14 +11,15 @@ namespace TransactionImporter.DAL.Repositories
         {
             this.exporterContext = exporterContext;
         }
-        public List<Transaction> GetTransaction(bool filterEu)
+
+        public List<Transaction> GetTransactionsAllContinents(int id)
         {
-            return exporterContext.GetTransaction(filterEu);
+            return exporterContext.GetTransactionsAllContinents(id);
         }
 
-        public List<CustomerInfo> GetCustomers(bool filterEu)
+        public List<CustomerInfo> GetCustomersAllContinents(int id)
         {
-            return exporterContext.GetCustomers(filterEu);
+            return exporterContext.GetCustomersAllContinents(id);
         }
 
         public List<Transaction> GetTransactionFilterContinent(string continent, int id)

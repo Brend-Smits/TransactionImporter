@@ -14,8 +14,18 @@ namespace TransactionImporter.BLL
         }
         public void FilterContinent(string continent, string path, int id)
         {
-            List<CustomerInfo> customers = _Repo.GetCustomersFilterContinent(continent, id);
-            List<Transaction> transactions = _Repo.GetTransactionFilterContinent(continent, id);
+            List<CustomerInfo> customers = new List<CustomerInfo>();
+            List<Transaction> transactions = new List<Transaction>();
+            if (continent == "N/A")
+            {
+                customers = _Repo.GetCustomersAllContinents(id);
+                transactions = _Repo.GetTransactionsAllContinents(id);
+            }
+            else
+            {
+                customers = _Repo.GetCustomersFilterContinent(continent, id);
+                transactions = _Repo.GetTransactionFilterContinent(continent, id);
+            }
             DownloadTransactions(customers, transactions, path);
 
         }
