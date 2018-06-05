@@ -13,6 +13,7 @@ namespace TransactionImporter.WebUI.Controllers
     {
         private IUploadDetailLogic uploadDetailLogic = UploadDetailFactory.CreateLogic();
         private IExporterLogic exporterLogic = ExporterFactory.CreateLogic();
+        private IContinentFilter continentFilter = ExporterFactory.CreateContinentFilter();
 
         private IUserLogic userLogic = UserFactory.CreateLogic();
         string serverPath = "C:\\Users\\Rubbertjuh\\Desktop\\TransImporter-Exports\\";
@@ -48,7 +49,7 @@ namespace TransactionImporter.WebUI.Controllers
         //TODO: Make it cleaner so we don't have duplicate code.
         public ActionResult DownloadEu(int id)
         {
-            exporterLogic.DownloadTransactions(true, serverPath);
+            continentFilter.FilterContinent("EU", serverPath);
             string fileName = exporterLogic.GetDownloadName();
             string combineFileNamePath = serverPath + fileName;
             return File(combineFileNamePath, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
@@ -59,7 +60,7 @@ namespace TransactionImporter.WebUI.Controllers
         //TODO: Make it cleaner so we don't have duplicate code.
         public ActionResult DownloadRaw(int id)
         {
-            exporterLogic.DownloadTransactions(false, serverPath);
+            continentFilter.FilterContinent("EU", serverPath);
             string fileName = exporterLogic.GetDownloadName();
             string combineFileNamePath = serverPath + fileName;
             return File(combineFileNamePath, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",

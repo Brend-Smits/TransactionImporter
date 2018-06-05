@@ -17,7 +17,6 @@ namespace TransactionImporter.BLL
         private string filePath;
         private Workbook xlWorkbook;
         private Worksheet xlWorksheet;
-        private Workbooks wbs;
         private Workbook wb;
 
         public void UploadFile(string path, Stream stream)
