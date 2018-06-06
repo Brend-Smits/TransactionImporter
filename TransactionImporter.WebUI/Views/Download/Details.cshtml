@@ -51,6 +51,12 @@
         <dd>
             @Html.ActionLink("Download EU", "Download", new {id = Model.UploadId, continent = "EU", controller = "Download"})
         </dd>
+        <dt>
+            Download-Completed:
+        </dt>
+        <dd>
+            @Html.ActionLink("Download Status Complete", "DownloadStatusComplete", new {id = Model.UploadId, status = "Complete", controller = "Download"})
+        </dd>
 
     </dl>
 </div>

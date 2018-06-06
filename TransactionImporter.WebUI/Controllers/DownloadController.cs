@@ -14,8 +14,9 @@ namespace TransactionImporter.WebUI.Controllers
         private IUploadDetailLogic uploadDetailLogic = UploadDetailFactory.CreateLogic();
         private IExporterLogic exporterLogic = ExporterFactory.CreateLogic();
         private IContinentFilter continentFilter = ExporterFactory.CreateContinentFilter();
-
+        private IStatusfilter statusFilter = ExporterFactory.CreateStatusFilter();
         private IUserLogic userLogic = UserFactory.CreateLogic();
+        string serverPath = "C:\\Users\\Rubbertjuh\\Desktop\\TransImporter-Exports\\";
 
 
         // GET: Download
@@ -47,7 +48,6 @@ namespace TransactionImporter.WebUI.Controllers
         // GET: Download/Details/5
         public ActionResult Download(int id, string continent)
         {
-            string serverPath = "C:\\Users\\Rubbertjuh\\Desktop\\TransImporter-Exports\\";
             if (continent == "N/A")
             {
                 continentFilter.FilterContinent("N/A", serverPath, id);  
@@ -56,6 +56,18 @@ namespace TransactionImporter.WebUI.Controllers
             {
                 continentFilter.FilterContinent("EU", serverPath, id);
             }
+
+            return CreateDownload();
+        }
+
+        public ActionResult DownloadStatusComplete(int id, string status)
+        {
+            statusFilter.FilterStatus(status, serverPath, id);
+            return CreateDownload();
+        }
+
+        public ActionResult CreateDownload()
+        {
             string fileName = exporterLogic.GetDownloadName();
             string combineFileNamePath = serverPath + fileName;
             return File(combineFileNamePath, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",

@@ -9,6 +9,8 @@ namespace TransactionImporter.DAL
         List<CustomerInfo> GetCustomersAllContinents(int id);
         List<Transaction> GetTransactionFilterContinent(string continent, int id);
         List<CustomerInfo> GetCustomersFilterContinent(string continent, int id);
+        List<Transaction> GetTransactionsFilterStatus(string status, int id);
+        List<CustomerInfo> GetCustomersFilterStatus(string status, int id);
 
     }
 }

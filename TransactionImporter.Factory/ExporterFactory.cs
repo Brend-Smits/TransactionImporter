@@ -16,6 +16,10 @@ namespace TransactionImporter.Factory
         {
             return new ContinentFilter(new ExporterRepository(new ExporterSqlContext()));
         }
+        public static IStatusfilter CreateStatusFilter()
+        {
+            return new StatusFilter(new ExporterRepository(new ExporterSqlContext()));
+        }
 
     }
 }

@@ -31,5 +31,15 @@ namespace TransactionImporter.DAL.Repositories
         {
             return exporterContext.GetCustomersFilterContinent(continent, id);
         }
+
+        public List<Transaction> GetTransactionsFilterStatus(string status, int id)
+        {
+            return exporterContext.GetTransactionsFilterStatus(status, id);
+        }
+
+        public List<CustomerInfo> GetCustomersFilterStatus(string status, int id)
+        {
+            return exporterContext.GetCustomersFilterStatus(status, id);
+        }
     }
 }

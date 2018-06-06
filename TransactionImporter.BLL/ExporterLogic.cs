@@ -16,7 +16,7 @@ namespace TransactionImporter.BLL
         private IExporterRepository _Repo;
         private IImporterExcel importerExcel = new ImporterExcel();
 
-        public string randomFileName { get; private set; }
+        public static string randomFileName { get; private set; }
 
         public ExporterLogic(IExporterRepository exportRepo)
         {
