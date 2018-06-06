@@ -6,7 +6,7 @@ using TransactionImpoter.Domain;
 
 namespace TransactionImporter.DAL
 {
-    public class ExporterSqlContext
+    public class UtilityFilterSqlContext
     {
 
         public List<Transaction> ReadDataAddToListTransaction(List<Transaction> transactions, SqlDataReader reader)

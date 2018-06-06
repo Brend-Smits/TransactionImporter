@@ -58,7 +58,7 @@
     <Compile Include="Contexts\FilterGatewaySqlContext.cs" />
     <Compile Include="Contexts\ProductSqlContext.cs" />
     <Compile Include="Contexts\UploadDetailSqlContext.cs" />
-    <Compile Include="Contexts\ExporterSqlContext.cs" />
+    <Compile Include="Contexts\UtilityFilterSqlContext.cs" />
     <Compile Include="Contexts\UserSqlContext.cs" />
     <Compile Include="Database.cs" />
     <Compile Include="ICategoryRepository.cs" />

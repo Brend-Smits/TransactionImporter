@@ -6,7 +6,7 @@ using TransactionImpoter.Domain;
 
 namespace TransactionImporter.DAL
 {
-    public class FilterGatewaySqlContext : ExporterSqlContext, IFilterGatewayContext
+    public class FilterGatewaySqlContext : UtilityFilterSqlContext, IFilterGatewayContext
     {
 
         public List<CustomerInfo> GetCustomersFilterGateway(string gateway, int id)

@@ -6,7 +6,7 @@ using TransactionImpoter.Domain;
 
 namespace TransactionImporter.DAL
 {
-    public class FilterContinentSqlContext : ExporterSqlContext, IFilterContinentContext
+    public class FilterContinentSqlContext : UtilityFilterSqlContext, IFilterContinentContext
     {
 
         public List<Transaction> GetTransactionsAllContinents(int id)

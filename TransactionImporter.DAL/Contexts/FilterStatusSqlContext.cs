@@ -6,7 +6,7 @@ using TransactionImpoter.Domain;
 
 namespace TransactionImporter.DAL
 {
-    public class FilterStatusSqlContext : ExporterSqlContext, IFilterStatusContext
+    public class FilterStatusSqlContext : UtilityFilterSqlContext, IFilterStatusContext
     {
 
 
