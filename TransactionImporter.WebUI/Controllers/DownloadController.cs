@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Web.Mvc;
+using TransactionImporter.BLL;
 using TransactionImporter.BLL.Interfaces;
 using TransactionImporter.Factory;
 using TransactionImporter.WebUI.Models;
@@ -12,10 +13,10 @@ namespace TransactionImporter.WebUI.Controllers
     public class DownloadController : Controller
     {
         private IUploadDetailLogic uploadDetailLogic = UploadDetailFactory.CreateLogic();
-        private IExporterLogic exporterLogic = ExporterFactory.CreateLogic();
-        private IContinentFilter continentFilter = ExporterFactory.CreateContinentFilter();
-        private IStatusfilter statusFilter = ExporterFactory.CreateStatusFilter();
-        private IGatewayFilter gatewayFilter = ExporterFactory.CreateGatewayFilter();
+        private IExporterLogic exporterLogic = new ExporterLogic();
+        private IContinentFilter continentFilter = FilterContinentFactory.CreateContinentFilter();
+        private IStatusfilter statusFilter = FilterStatusFilter.CreateStatusFilter();
+        private IGatewayFilter gatewayFilter = FilterGatewayFactory.CreateGatewayFilter();
         private IUserLogic userLogic = UserFactory.CreateLogic();
         string serverPath = "C:\\Users\\Rubbertjuh\\Desktop\\TransImporter-Exports\\";
 

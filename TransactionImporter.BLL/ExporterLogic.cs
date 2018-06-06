@@ -13,15 +13,10 @@ namespace TransactionImporter.BLL
     public class ExporterLogic : IExporterLogic
     {
         private Worksheet xlWorksheet;
-        private IExporterRepository _Repo;
         private IImporterExcel importerExcel = new ImporterExcel();
 
         public static string randomFileName { get; private set; }
 
-        public ExporterLogic(IExporterRepository exportRepo)
-        {
-            _Repo = exportRepo;
-        }
 
         public ExporterLogic() {}
 

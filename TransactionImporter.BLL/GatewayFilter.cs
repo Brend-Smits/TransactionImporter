@@ -1,16 +1,17 @@
 ﻿using System.Collections.Generic;
 using TransactionImporter.BLL.Interfaces;
 using TransactionImporter.DAL;
+using TransactionImporter.DAL.Repositories;
 using TransactionImpoter.Domain;
 
 namespace TransactionImporter.BLL
 {
     public class GatewayFilter : ExporterLogic, IGatewayFilter
     {
-        private IExporterRepository _Repo;
-        public GatewayFilter(IExporterRepository exportRepo)
+        private IFilterGatewayRepository _Repo;
+        public GatewayFilter(IFilterGatewayRepository filterGatewayRepo)
         {
-            _Repo = exportRepo;
+            _Repo = filterGatewayRepo;
         }
         public void FilterGateway(string gateway, string path, int id)
         {

@@ -1,16 +1,17 @@
 ﻿using System.Collections.Generic;
 using TransactionImporter.BLL.Interfaces;
 using TransactionImporter.DAL;
+using TransactionImporter.DAL.Repositories;
 using TransactionImpoter.Domain;
 
 namespace TransactionImporter.BLL
 {
     public class StatusFilter : ExporterLogic, IStatusfilter
     {
-        private IExporterRepository _Repo;
-        public StatusFilter(IExporterRepository exportRepo)
+        private IFilterStatusRepository _Repo;
+        public StatusFilter(FilterStatusRepository filterStatusRepo)
         {
-            _Repo = exportRepo;
+            _Repo = filterStatusRepo;
         }
         public void FilterStatus(string status, string path, int id)
         {

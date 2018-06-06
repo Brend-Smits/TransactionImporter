@@ -1,16 +1,17 @@
 ﻿using System.Collections.Generic;
 using TransactionImporter.BLL.Interfaces;
 using TransactionImporter.DAL;
+using TransactionImporter.DAL.Repositories;
 using TransactionImpoter.Domain;
 
 namespace TransactionImporter.BLL
 {
     public class ContinentFilter : ExporterLogic, IContinentFilter
     {
-        private IExporterRepository _Repo;
-        public ContinentFilter(IExporterRepository exportRepo)
+        private IFilterContinentRepository _Repo;
+        public ContinentFilter(IFilterContinentRepository filterContinentRepo)
         {
-            _Repo = exportRepo;
+            _Repo = filterContinentRepo;
         }
         public void FilterContinent(string continent, string path, int id)
         {

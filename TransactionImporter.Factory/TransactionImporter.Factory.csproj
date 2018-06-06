@@ -41,8 +41,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CountryContinentFactory.cs" />
+    <Compile Include="FilterContinentFactory.cs" />
+    <Compile Include="FilterStatusFactory.cs" />
+    <Compile Include="FilterGatewayFactory.cs" />
     <Compile Include="UploadDetailFactory.cs" />
-    <Compile Include="ExporterFactory.cs" />
     <Compile Include="UserFactory.cs" />
     <Compile Include="ImporterExcelFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
