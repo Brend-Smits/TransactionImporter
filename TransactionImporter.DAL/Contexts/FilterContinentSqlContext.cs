@@ -11,14 +11,12 @@ namespace TransactionImporter.DAL
 
         public List<Transaction> GetTransactionsAllContinents(int id)
         {
-            string query;
             List<Transaction> transactions = new List<Transaction>();
             try
             {
                 using (SqlConnection connection = Database.GetConnectionString())
                 {
-                    //TODO: Make stored procedure
-                    query =
+                    string query =
                         "SELECT TransactionUpload.TransactionId, TransactionUpload.UploadId, [Transaction].Amount, [Transaction].Country, [Transaction].CustomerInfoUUID, [Transaction].Date, [Transaction].Discount, [Transaction].Gateway, [Transaction].IP, [Transaction].Status, [Transaction].Username FROM [TransactionUpload] INNER JOIN [Transaction] ON [Transaction].TransactionId = TransactionUpload.TransactionId WHERE UploadId = @UploadId";
 
                     connection.Open();
@@ -36,14 +34,13 @@ namespace TransactionImporter.DAL
 
         public List<CustomerInfo> GetCustomersAllContinents(int id)
         {
-            string query;
             List<CustomerInfo> customerList = new List<CustomerInfo>();
             List<string> customerUUIDs = new List<string>();
             try
             {
                 using (SqlConnection connection = Database.GetConnectionString())
                 {
-                    query =
+                    string query =
                         "SELECT [Transaction].CustomerInfoUUID, [TransactionUpload].TransactionId, [TransactionUpload].UploadId FROM [Transaction] INNER JOIN [TransactionUpload] ON [Transaction].TransactionId = TransactionUpload.TransactionId WHERE UploadId = @UploadId";
 
                     connection.Open();

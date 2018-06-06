@@ -51,7 +51,6 @@ namespace TransactionImporter.DAL
             {
                 using (SqlConnection connection = Database.GetConnectionString())
                 {
-                    //TODO: Make stored procedure
                     string query =
                         "SELECT TransactionUpload.TransactionId, " +
                         "TransactionUpload.UploadId, " +
