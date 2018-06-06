@@ -128,5 +128,24 @@ namespace TransactionImporter.DAL
                 throw;
             }
         }
+        public void DeleteDataByUploadId(int id)
+        {
+            try
+            {
+                using (SqlConnection connection = Database.GetConnectionString())
+                {
+                    connection.Open();
+                    SqlCommand insertCustomerInfo = new SqlCommand("dbo.RemoveUploadById", connection);
+                    insertCustomerInfo.CommandType = CommandType.StoredProcedure;
+                    insertCustomerInfo.Parameters.AddWithValue("UploadId", id);
+                    insertCustomerInfo.ExecuteNonQuery();
+                }
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception);
+                throw;
+            }
+        }
     }
 }

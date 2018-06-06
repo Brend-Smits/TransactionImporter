@@ -64,5 +64,9 @@ namespace TransactionImporter.BLL
         {
             return _Repo.GetUploadDetailById(id);
         }
+        public void DeleteDataByUploadId(int id)
+        {
+            _Repo.DeleteDataByUploadId(id);
+        }
     }
 }

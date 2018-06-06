@@ -12,31 +12,24 @@ namespace TransactionImporter.BLL
 {
     public class ExporterLogic : IExporterLogic
     {
-        private Application xlApp = new Application();
         private Worksheet xlWorksheet;
-        private IExporterRepository _Repo;
         private IImporterExcel importerExcel = new ImporterExcel();
 
-        public string randomFileName { get; private set; }
+        public static string randomFileName { get; private set; }
 
-        public ExporterLogic(IExporterRepository exportRepo)
-        {
-            _Repo = exportRepo;
-        }
 
-        public ExporterLogic()
-        {
-        }
+        public ExporterLogic() {}
 
-        public void DownloadTransactions(bool filterEu, string path)
+        public void DownloadTransactions(List<CustomerInfo> customerList,List<Transaction> transactionList, string path)
         {
+            Application xlApp = new Application();
             randomFileName = Guid.NewGuid().ToString().Replace("-", "");
             string savePath = $"{path}{randomFileName}.xlsx";
             Workbook xlWorkbook = xlApp.Workbooks.Add();
             xlWorksheet = xlWorkbook.Worksheets.get_Item(1);
             AddHeaders();
-            AddTransactions(filterEu);
-            AddCustomers(filterEu);
+            AddTransactions(transactionList);
+            AddCustomers(customerList);
 
             xlWorkbook.SaveAs(savePath, XlFileFormat.xlOpenXMLWorkbook, Missing.Value,
                 Missing.Value, false, false, XlSaveAsAccessMode.xlNoChange,
@@ -49,11 +42,6 @@ namespace TransactionImporter.BLL
         public string GetDownloadName()
         {
             return randomFileName + ".xlsx";
-        }
-
-        public void DeleteDataByUploadId(int id)
-        {
-            _Repo.DeleteDataByUploadId(id);
         }
 
 
@@ -81,9 +69,9 @@ namespace TransactionImporter.BLL
             }
         }
 
-        private void AddTransactions(bool filterEu)
+        private void AddTransactions(List<Transaction> transactionList)
         {
-            List<Transaction> transactions = _Repo.GetTransaction(filterEu);
+            List<Transaction> transactions = transactionList;
             int row = 2;
             foreach (Transaction trans in transactions)
             {
@@ -98,12 +86,12 @@ namespace TransactionImporter.BLL
             }
         }
 
-        private void AddCustomers(bool filterEu)
+        private void AddCustomers(List<CustomerInfo> customerList)
         {
-            List<CustomerInfo> customerList = _Repo.GetCustomers(filterEu);
+            List<CustomerInfo> customers = customerList;
             Transaction trans = new Transaction();
             int row = 2;
-            foreach (CustomerInfo customer in customerList)
+            foreach (CustomerInfo customer in customers)
             {
                 List<string> customerDataToAdd = customer.GetDataForThisExcelFile();
                 for (int index = trans.GetDataForThisExcelFile().Count;

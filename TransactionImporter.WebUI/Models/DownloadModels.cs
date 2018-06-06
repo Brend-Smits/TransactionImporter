@@ -8,6 +8,9 @@ namespace TransactionImporter.WebUI.Models
 {
     public class DownloadModels
     {
+        public static IDictionary<int, DownloadModels> ModelDictionary = new Dictionary<int, DownloadModels>();
+        public static List<DownloadModels> downloadableList = new List<DownloadModels>();
+
         public DownloadModels(int uploadId, int userId, string uploadedOn, string fileName, int fileSize)
         {
             UploadId = uploadId;
@@ -25,6 +28,7 @@ namespace TransactionImporter.WebUI.Models
             FileName = fileName;
             FileSize = fileSize;
         }
+        public DownloadModels() { }
 
         public int UploadId { get; private set; }
         public string UploadedOn { get; private set; }

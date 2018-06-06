@@ -47,6 +47,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CategoryLogic.cs" />
+    <Compile Include="GatewayFilter.cs" />
+    <Compile Include="StatusFilter.cs" />
+    <Compile Include="ContinentFilter.cs" />
     <Compile Include="CountryContinentLogic.cs" />
     <Compile Include="CustomerInfoLogic.cs" />
     <Compile Include="ExporterLogic.cs" />

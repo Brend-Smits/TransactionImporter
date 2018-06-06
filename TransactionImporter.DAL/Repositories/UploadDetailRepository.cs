@@ -37,5 +37,9 @@ namespace TransactionImporter.DAL.Repositories
         {
             return uploadDetailContext.GetUploadDetailById(id);
         }
+        public void DeleteDataByUploadId(int id)
+        {
+            uploadDetailContext.DeleteDataByUploadId(id);
+        }
     }
 }

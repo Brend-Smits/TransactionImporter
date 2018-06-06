@@ -5,11 +5,11 @@ using TransactionImporter.DAL.Repositories;
 
 namespace TransactionImporter.Factory
 {
-    public class ExporterFactory
+    public class FilterContinentFactory
     {
-        public static IExporterLogic CreateLogic()
+        public static IContinentFilter CreateContinentFilter()
         {
-            return new ExporterLogic(new ExporterRepository(new ExporterSqlContext()));
+            return new ContinentFilter(new FilterContinentRepository(new FilterContinentSqlContext()));
         }
 
     }
