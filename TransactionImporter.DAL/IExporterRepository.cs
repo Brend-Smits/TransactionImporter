@@ -11,6 +11,7 @@ namespace TransactionImporter.DAL
         List<CustomerInfo> GetCustomersFilterContinent(string continent, int id);
         List<Transaction> GetTransactionsFilterStatus(string status, int id);
         List<CustomerInfo> GetCustomersFilterStatus(string status, int id);
-
+        List<CustomerInfo> GetCustomersFilterGateway(string gateway, int id);
+        List<Transaction> GetTransactionsFilterGateway(string gateway, int id);
     }
 }

@@ -20,6 +20,10 @@ namespace TransactionImporter.Factory
         {
             return new StatusFilter(new ExporterRepository(new ExporterSqlContext()));
         }
+        public static IGatewayFilter CreateGatewayFilter()
+        {
+            return new GatewayFilter(new ExporterRepository(new ExporterSqlContext()));
+        }
 
     }
 }

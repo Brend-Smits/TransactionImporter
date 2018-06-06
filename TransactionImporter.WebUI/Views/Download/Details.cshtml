@@ -57,6 +57,12 @@
         <dd>
             @Html.ActionLink("Download Status Complete", "DownloadStatusComplete", new {id = Model.UploadId, status = "Complete", controller = "Download"})
         </dd>
+        <dt>
+            Download-Paypal:
+        </dt>
+        <dd>
+            @Html.ActionLink("Download Gateway Paypal", "DownloadGatewayPaypal", new {id = Model.UploadId, gateway = "Paypal", controller = "Download"})
+        </dd>
 
     </dl>
 </div>

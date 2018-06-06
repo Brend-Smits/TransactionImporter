@@ -41,5 +41,15 @@ namespace TransactionImporter.DAL.Repositories
         {
             return exporterContext.GetCustomersFilterStatus(status, id);
         }
+
+        public List<CustomerInfo> GetCustomersFilterGateway(string gateway, int id)
+        {
+            return exporterContext.GetCustomersFilterGateway(gateway, id);
+        }
+
+        public List<Transaction> GetTransactionsFilterGateway(string gateway, int id)
+        {
+            return exporterContext.GetTransactionsFilterGateway(gateway, id);
+        }
     }
 }

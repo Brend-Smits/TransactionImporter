@@ -15,6 +15,7 @@ namespace TransactionImporter.WebUI.Controllers
         private IExporterLogic exporterLogic = ExporterFactory.CreateLogic();
         private IContinentFilter continentFilter = ExporterFactory.CreateContinentFilter();
         private IStatusfilter statusFilter = ExporterFactory.CreateStatusFilter();
+        private IGatewayFilter gatewayFilter = ExporterFactory.CreateGatewayFilter();
         private IUserLogic userLogic = UserFactory.CreateLogic();
         string serverPath = "C:\\Users\\Rubbertjuh\\Desktop\\TransImporter-Exports\\";
 
@@ -63,6 +64,11 @@ namespace TransactionImporter.WebUI.Controllers
         public ActionResult DownloadStatusComplete(int id, string status)
         {
             statusFilter.FilterStatus(status, serverPath, id);
+            return CreateDownload();
+        }
+        public ActionResult DownloadGatewayPaypal(int id, string gateway)
+        {
+            gatewayFilter.FilterGateway(gateway, serverPath, id);
             return CreateDownload();
         }
 
