@@ -10,5 +10,6 @@ namespace TransactionImporter.DAL
         void AddTransaction(int uploadId, Transaction trans);
         void AddTransactionList(int uploadId, List<Transaction> transactions);
 
+        IDictionary<string, int> GetTransactionCountPerGateway();
     }
 }

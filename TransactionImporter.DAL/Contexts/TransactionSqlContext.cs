@@ -79,5 +79,35 @@ namespace TransactionImporter.DAL
                 throw;
             }
         }
+
+        public IDictionary<string, int> GetTransactionCountPerGateway()
+        {
+            IDictionary<string, int> transactionGateway = new Dictionary<string, int>();
+            try
+            {
+                using (SqlConnection connection = Database.GetConnectionString())
+                {
+                    string query = "SELECT COUNT([TransactionId]) AS Count, [Gateway] FROM [Transaction] GROUP BY [Gateway]";
+
+                    connection.Open();
+                    SqlCommand getTransactionCount = new SqlCommand(query, connection);
+                    DataTable dataTable = new DataTable();
+                    dataTable.Load(getTransactionCount.ExecuteReader());
+                    foreach (DataRow dataRow in dataTable.Rows)
+                    {
+                        int count = Convert.ToInt32((dataRow["Count"] != DBNull.Value) ? dataRow["Count"] : 0);
+                        string gateway = (dataRow["Gateway"].ToString() != "") ? dataRow["Gateway"].ToString() : "-";
+                        transactionGateway.Add(gateway, count);
+                    }
+
+                    return transactionGateway;
+                }
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception);
+                throw;
+            }
+        }
     }
 }
