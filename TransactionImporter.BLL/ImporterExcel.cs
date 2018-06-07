@@ -31,7 +31,7 @@ namespace TransactionImporter.BLL
 
                 filePath = path;
                 Application xlApp = new Application();
-                xlWorkbook = xlApp.Workbooks.Open(ConvertFileIfNeeded(), 0, true, 5, "", "", true,
+                xlWorkbook = xlApp.Workbooks.Open(ConvertFileIfNeeded(filePath), 0, true, 5, "", "", true,
                     XlPlatform.xlWindows, "\t", false, false, 0, true, 1, 0);
                 xlWorksheet = xlWorkbook.Worksheets.Item[1] as Worksheet;
             }
@@ -50,25 +50,24 @@ namespace TransactionImporter.BLL
             return tempFilePath;
         }
 
-        private string ConvertFileIfNeeded()
+        public string ConvertFileIfNeeded(string path)
         {
-            if (File.Exists(filePath))
+            if (File.Exists(path))
             {
                 if (Path.GetExtension(filePath) == ".CSV" || Path.GetExtension(filePath) == ".csv")
                 {
                     Application xlApp = new Application();
-                    wb = xlApp.Workbooks.Open(filePath);
-                    string tempFilePath = ChangeFileExtension(filePath, ".CSV", ".xlsx");
-                    Console.WriteLine("Extension was" + filePath + " and is now: " + tempFilePath);
-                    File.Delete(filePath);
-                    return tempFilePath;
+                    wb = xlApp.Workbooks.Open(path);
+                    string tempFilePath = ChangeFileExtension(path, ".CSV", ".xlsx");
+                    Console.WriteLine("Extension was" + path + " and is now: " + tempFilePath);
+                    File.Delete(path);
+                    return path;
                 }
 
-                Console.WriteLine("Conversion was not needed, file is already correct extension");
-                return filePath;
             }
 
-            return ChangeFileExtension(filePath, ".CSV", ".xlsx");
+            Console.WriteLine("Conversion was not needed, file is already correct extension");
+            return path;
         }
 
         public void RetrieveData()
