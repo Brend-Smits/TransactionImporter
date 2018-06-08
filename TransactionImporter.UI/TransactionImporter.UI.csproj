@@ -105,6 +105,10 @@
       <Project>{f41405a9-aa8b-4e1d-a8e7-831405f546b2}</Project>
       <Name>TransactionImporter.BLL.Interfaces</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TransactionImporter.BLL\TransactionImporter.BLL.csproj">
+      <Project>{74C86FF4-F309-48D4-9790-27ADBDFBF7DB}</Project>
+      <Name>TransactionImporter.BLL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TransactionImporter.Factory\TransactionImporter.Factory.csproj">
       <Project>{4c8257cd-af9d-4863-87f5-8b8e8fb07f78}</Project>
       <Name>TransactionImporter.Factory</Name>

@@ -40,5 +40,10 @@ namespace TransactionImporter.BLL
         {
             _Repo.AddTransactionList(detailLogic.GetUploadId(), transactions);
         }
+
+        public IDictionary<string, int> GetTransactionCountPerGateway()
+        {
+            return _Repo.GetTransactionCountPerGateway();
+        }
     }
 }

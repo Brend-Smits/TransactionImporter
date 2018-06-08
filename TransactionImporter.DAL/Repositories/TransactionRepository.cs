@@ -32,5 +32,11 @@ namespace TransactionImporter.DAL
         {
             transactionContext.AddTransactionList(uploadId, transactions);
         }
+
+        public IDictionary<string, int> GetTransactionCountPerGateway()
+        {
+            return transactionContext.GetTransactionCountPerGateway();
+        }
+
     }
 }

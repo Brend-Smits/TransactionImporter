@@ -19,7 +19,7 @@ namespace TransactionImporter.UI
         private ICustomerInfoLogic customerInfoLogic = CustomerInfoFactory.CreateLogic();
         private IUserLogic userLogic = UserFactory.CreateLogic();
         private IUploadDetailLogic uploadDetailLogic = UploadDetailFactory.CreateLogic();
-        private IExporterLogic exporterLogic = ExporterFactory.CreateLogic();
+        private IExporterLogic exporterLogic = new ExporterLogic();
 
         public MainWindow()
         {
@@ -33,9 +33,8 @@ namespace TransactionImporter.UI
             {
                 string filePath = fileDialog.FileName;
                 Stream mystream = fileDialog.OpenFile();
-                importerLogic.UploadFile(filePath, mystream);
-                string path = importerLogic.GetPath();
-                uploadDetailLogic.UploadDetails(uploadDetailLogic.GetUploadDetails(path), path);
+                string newPath = importerLogic.UploadFile(filePath, mystream);
+                uploadDetailLogic.UploadDetails(uploadDetailLogic.GetUploadDetails(newPath), newPath);
             }
         }
 
@@ -62,7 +61,6 @@ namespace TransactionImporter.UI
             if (folderDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 string path = folderDialog.SelectedPath;
-                exporterLogic.DownloadTransactions(false, path);
             }
         }
 
@@ -72,7 +70,6 @@ namespace TransactionImporter.UI
             if (folderDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 string path = folderDialog.SelectedPath;
-                exporterLogic.DownloadTransactions(true, path);
             }
         }
         public OpenFileDialog OpenMyFileDialog()
