@@ -32,8 +32,8 @@ namespace TransactionImporter.UI
             if (fileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 string filePath = fileDialog.FileName;
-                Stream mystream = fileDialog.OpenFile();
-                string newPath = importerLogic.UploadFile(filePath, mystream);
+                fileDialog.OpenFile();
+                string newPath = importerLogic.UploadFile(filePath);
                 uploadDetailLogic.UploadDetails(uploadDetailLogic.GetUploadDetails(newPath), newPath);
             }
         }

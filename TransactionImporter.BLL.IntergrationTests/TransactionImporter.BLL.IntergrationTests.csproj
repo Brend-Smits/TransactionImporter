@@ -38,6 +38,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Office.Interop.Excel.15.0.4795.1000\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="Microsoft.VisualStudio.TestPlatform.TestFramework, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\MSTest.TestFramework.1.2.1\lib\net45\Microsoft.VisualStudio.TestPlatform.TestFramework.dll</HintPath>
     </Reference>
@@ -69,6 +73,10 @@
     <ProjectReference Include="..\TransactionImporter.BLL\TransactionImporter.BLL.csproj">
       <Project>{74C86FF4-F309-48D4-9790-27ADBDFBF7DB}</Project>
       <Name>TransactionImporter.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TransactionImpoter.Domain\TransactionImporter.Domain.csproj">
+      <Project>{E58E1A50-B7F9-4DEE-A662-3EC36AB5113A}</Project>
+      <Name>TransactionImporter.Domain</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

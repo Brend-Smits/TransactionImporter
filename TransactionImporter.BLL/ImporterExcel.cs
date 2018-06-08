@@ -19,14 +19,10 @@ namespace TransactionImporter.BLL
         private Worksheet xlWorksheet;
         private Workbook wb;
 
-        public string UploadFile(string path, Stream stream)
+        public string UploadFile(string path)
         {
             try
             {
-                Stream myStream = stream;
-                using (myStream)
-                {
-                }
                 Application xlApp = new Application();
                 filePath = ConvertFileIfNeeded(path);
                 xlWorkbook = xlApp.Workbooks.Open(filePath, 0, true, 5, "", "", true,
@@ -86,7 +82,7 @@ namespace TransactionImporter.BLL
         private void ReadExcelAndFillList()
         {
             Range usedRange = xlWorksheet.UsedRange;
-            for (int row = 2; row < usedRange.Rows.Count; row++)
+            for (int row = 2; row <= usedRange.Rows.Count; row++)
             {
                 customers.Add(CreateCustomerInfoObject(usedRange, row));
                 transactions.Add(CreateTransactionObject(usedRange, row));
