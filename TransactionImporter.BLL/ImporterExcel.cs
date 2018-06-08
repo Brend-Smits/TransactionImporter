@@ -43,6 +43,7 @@ namespace TransactionImporter.BLL
 
         public string ChangeFileExtension(string path, string extReplaceMe, string extReplaceWith)
         {
+            wb = new Workbook();
             string tempFilePath = Regex.Replace(path, extReplaceMe, extReplaceWith, RegexOptions.IgnoreCase);
             wb.SaveAs(tempFilePath, XlFileFormat.xlOpenXMLWorkbook, Type.Missing, Type.Missing, Type.Missing,
                 Type.Missing, XlSaveAsAccessMode.xlExclusive, Type.Missing, Type.Missing, Type.Missing,
@@ -50,13 +51,14 @@ namespace TransactionImporter.BLL
             return tempFilePath;
         }
 
-        private string ConvertFileIfNeeded()
+        public string ConvertFileIfNeeded()
         {
             if (File.Exists(filePath))
             {
                 if (Path.GetExtension(filePath) == ".CSV" || Path.GetExtension(filePath) == ".csv")
                 {
                     Application xlApp = new Application();
+                    wb = new Workbook();
                     wb = xlApp.Workbooks.Open(filePath);
                     string tempFilePath = ChangeFileExtension(filePath, ".CSV", ".xlsx");
                     Console.WriteLine("Extension was" + filePath + " and is now: " + tempFilePath);

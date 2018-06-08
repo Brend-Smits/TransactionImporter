@@ -18,6 +18,7 @@ namespace TransactionImporter.DAL
             throw new NotImplementedException();
         }
 
+        //TODO: UPDATE TO NEW STRUCTURE
         public void AddTransaction(int uploadId, Transaction trans)
         {
             try
