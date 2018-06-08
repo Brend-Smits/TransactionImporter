@@ -51,18 +51,31 @@ namespace TransactionImporter.BLL
             return tempFilePath;
         }
 
+<<<<<<< HEAD
+        public string ConvertFileIfNeeded()
+=======
         public string ConvertFileIfNeeded(string path)
+>>>>>>> ae8460373121b520a3c1652aa87269a0649cdf77
         {
             if (File.Exists(path))
             {
                 if (Path.GetExtension(filePath) == ".CSV" || Path.GetExtension(filePath) == ".csv")
                 {
                     Application xlApp = new Application();
+<<<<<<< HEAD
+                    wb = new Workbook();
+                    wb = xlApp.Workbooks.Open(filePath);
+                    string tempFilePath = ChangeFileExtension(filePath, ".CSV", ".xlsx");
+                    Console.WriteLine("Extension was" + filePath + " and is now: " + tempFilePath);
+                    File.Delete(filePath);
+                    return tempFilePath;
+=======
                     wb = xlApp.Workbooks.Open(path);
                     string tempFilePath = ChangeFileExtension(path, ".CSV", ".xlsx");
                     Console.WriteLine("Extension was" + path + " and is now: " + tempFilePath);
                     File.Delete(path);
                     return path;
+>>>>>>> ae8460373121b520a3c1652aa87269a0649cdf77
                 }
 
             }

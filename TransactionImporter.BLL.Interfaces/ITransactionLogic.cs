@@ -7,10 +7,9 @@ namespace TransactionImporter.BLL.Interfaces
     {
         List<Transaction> GetAllTransactions();
         List<Transaction> FilterTransactions();
-
         List<Transaction> GetTransactions();
-
         void AddTransaction(Transaction trans);
         void AddTransactionList(List<Transaction> transactions);
+        IDictionary<string, int> GetTransactionCountPerGateway();
     }
 }
