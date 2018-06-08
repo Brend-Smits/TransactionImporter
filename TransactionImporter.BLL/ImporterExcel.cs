@@ -19,7 +19,7 @@ namespace TransactionImporter.BLL
         private Worksheet xlWorksheet;
         private Workbook wb;
 
-        public void UploadFile(string path, Stream stream)
+        public string UploadFile(string path, Stream stream)
         {
             try
             {
@@ -27,46 +27,47 @@ namespace TransactionImporter.BLL
                 using (myStream)
                 {
                 }
-
-
-                filePath = path;
                 Application xlApp = new Application();
-                xlWorkbook = xlApp.Workbooks.Open(ConvertFileIfNeeded(filePath), 0, true, 5, "", "", true,
+                filePath = ConvertFileIfNeeded(path);
+                xlWorkbook = xlApp.Workbooks.Open(filePath, 0, true, 5, "", "", true,
                     XlPlatform.xlWindows, "\t", false, false, 0, true, 1, 0);
                 xlWorksheet = xlWorkbook.Worksheets.Item[1] as Worksheet;
+                return filePath;
             }
             catch (Exception exception)
             {
                 MessageBox.Show("Error: Could not read file from disk. Original error: " + exception.Message);
             }
+
+            return path;
         }
 
         public string ChangeFileExtension(string path, string extReplaceMe, string extReplaceWith)
         {
-            wb = new Workbook();
-            string tempFilePath = ChangeFileExtension(path, ".CSV", ".xlsx");
-            Console.WriteLine("Extension was" + path + " and is now: " + tempFilePath);
-            File.Delete(path);
-            return path;
+            string tempFilePath = Regex.Replace(path, extReplaceMe, extReplaceWith, RegexOptions.IgnoreCase);
+            wb.SaveAs(tempFilePath, XlFileFormat.xlOpenXMLWorkbook, Type.Missing, Type.Missing, Type.Missing,
+                Type.Missing, XlSaveAsAccessMode.xlExclusive, Type.Missing, Type.Missing, Type.Missing,
+                Type.Missing, Type.Missing);
+            return tempFilePath;
         }
 
         public string ConvertFileIfNeeded(string path)
         {
             if (File.Exists(path))
             {
-                if (Path.GetExtension(filePath) == ".CSV" || Path.GetExtension(filePath) == ".csv")
+                if (Path.GetExtension(path) == ".CSV" || Path.GetExtension(path) == ".csv")
                 {
                     Application xlApp = new Application();
-                    wb = new Workbook();
                     wb = xlApp.Workbooks.Open(path);
                     string tempFilePath = ChangeFileExtension(path, ".CSV", ".xlsx");
                     Console.WriteLine("Extension was" + path + " and is now: " + tempFilePath);
                     File.Delete(path);
-                    return path;
+                    wb.Close(0);
+                    xlApp.Quit();
+                    return tempFilePath;
                 }
             }
-
-            Console.WriteLine("Conversion was not needed, file is already correct extension");
+            Console.WriteLine("Conversion was not possible, file is not CSV extension or is already XLSX");
             return path;
         }
 

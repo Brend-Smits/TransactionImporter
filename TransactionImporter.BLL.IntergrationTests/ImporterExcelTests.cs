@@ -2,6 +2,7 @@
 using System;
 using System.IO;
 using System.Reflection;
+using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace TransactionImporter.BLL.IntergrationTests
@@ -14,34 +15,47 @@ namespace TransactionImporter.BLL.IntergrationTests
         {
             // Arrange
             ImporterExcel importerExcel = new ImporterExcel();
-            string path = Path.Combine(Environment.CurrentDirectory, @"Files-Integration-Tests\",
-                "ConvertFileNotNeeded.xlsx");
-            Console.WriteLine("PATH PATH PATH: " + path);
+            string randomFileName = Guid.NewGuid().ToString().Replace("-", "");
+            string pathnew =
+                @"C:\Users\Rubbertjuh\SynologyDrive\School\Semester-2\Individueel\VisualStudio\TransactionImporter\Files-Integration-Tests\" +
+                randomFileName + ".xlsx";
+            using (FileStream fs = File.Create(pathnew))
+            {
+                Byte[] info = new UTF8Encoding(true).GetBytes("This is some text in the file.");
+                fs.Write(info, 0, info.Length);
+            }
+
             // Act
-            string returnpath = importerExcel.ConvertFileIfNeeded(path);
+            string returnpath = importerExcel.ConvertFileIfNeeded(pathnew);
             Console.WriteLine("Return path: " + returnpath);
 
             // Assert
-            Assert.AreEqual(returnpath, path);
+            Assert.AreEqual(returnpath, pathnew);
+            File.Delete(pathnew);
         }
+
         [TestMethod]
         public void ConvertFileIfNeeded_ConversionNeeded_ReturnsSameFile()
         {
+
+            // Arrange
             ImporterExcel importerExcel = new ImporterExcel();
-            string basePath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\..\\"));
-            string path = @"C:\Users\Brend\CloudStation\School\Semester-2\Individueel\VisualStudio\TransactionImporter\TransactionImporter.BLL\bin\Debug\Files-Integration-Tests\ConvertFileNeeded.csv";
-            Console.WriteLine("PATH: " + path);
-            Console.WriteLine("BASEPATH: " + basePath);
-            Console.WriteLine("DEBUG: " + Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())));
-            Console.WriteLine("DEBUG: " + Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory,"\\..\\..\\")));
-            Console.WriteLine("DEBUG: " + AppDomain.CurrentDomain.BaseDirectory);
+            string randomFileName = Guid.NewGuid().ToString().Replace("-", "");
+            string pathnew =
+                @"C:\Users\Rubbertjuh\SynologyDrive\School\Semester-2\Individueel\VisualStudio\TransactionImporter\Files-Integration-Tests\" +
+                randomFileName + ".csv";
+            using (FileStream fs = File.Create(pathnew))
+            {
+                Byte[] info = new UTF8Encoding(true).GetBytes("This is some text in the file.");
+                fs.Write(info, 0, info.Length);
+            }
 
             // Act
-            string returnpath = importerExcel.ConvertFileIfNeeded(path);
-            Console.WriteLine("Return path: " + returnpath);
+            string returnpath = importerExcel.ConvertFileIfNeeded(pathnew);
 
             // Assert
-            Assert.AreNotEqual(returnpath, path);
+            Assert.AreNotEqual(returnpath, pathnew);
+            File.Delete(pathnew);
         }
     }
 }
