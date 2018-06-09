@@ -63,6 +63,11 @@ namespace TransactionImporter.BLL
                     return tempFilePath;
                 }
             }
+            else
+            {
+                throw new FileNotFoundException("File in specified path can not be found, try a different path.");
+            }
+
             Console.WriteLine("Conversion was not possible, file is not CSV extension or is already XLSX");
             return path;
         }

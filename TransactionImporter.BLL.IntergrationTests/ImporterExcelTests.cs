@@ -1,19 +1,17 @@
-﻿using TransactionImporter.BLL;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Reflection;
 using System.Text;
-using Microsoft.Office.Interop.Excel;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TransactionImpoter.Domain;
 
-namespace TransactionImporter.BLL.IntergrationTests
+namespace TransactionImporter.BLL.Tests
 {
     [TestClass]
     public class ImporterExcelTests
     {
         ImporterExcel importerExcel = new ImporterExcel();
+
         [TestMethod]
         public void ConvertFileIfNeeded_ConversionNotNeeded_ReturnsSameFile()
         {
@@ -40,7 +38,6 @@ namespace TransactionImporter.BLL.IntergrationTests
         [TestMethod]
         public void ConvertFileIfNeeded_ConversionNeeded_ReturnsSameFile()
         {
-
             // Arrange
             string randomFileName = Guid.NewGuid().ToString().Replace("-", "");
             string pathnew =
@@ -61,6 +58,38 @@ namespace TransactionImporter.BLL.IntergrationTests
         }
 
         [TestMethod]
+        [ExpectedException(typeof(FileNotFoundException))]
+        public void ConvertFileIfNeeded_WrongPath_ReturnsException()
+        {
+            // Arrange
+            string pathnew =
+                @"C:\Users\Rubbertjuhiles-Integration-Tests\" + ".csv";
+            // Act
+            importerExcel.ConvertFileIfNeeded(pathnew);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(FileNotFoundException))]
+        public void ConvertFileIfNeeded_WrongPathCheckMessage_ReturnsExceptionWithMessage()
+        {
+            // Assert
+            string pathnew =
+                @"C:\Users\Rubbertjuhiles-Integration-Tests\" + ".csv";
+            try
+            {
+                // Act
+                importerExcel.ConvertFileIfNeeded(pathnew);
+            }
+            catch (Exception e)
+            {
+                Assert.AreEqual("File in specified path can not be found, try a different path.", e.Message);
+                throw;
+            }
+
+            // Arrange
+        }
+
+        [TestMethod]
         public void RetrieveData_CreateObjects_RetrunsBiggerCountInLists()
         {
             List<Transaction> transListPre = importerExcel.GetTransactions();
@@ -69,6 +98,7 @@ namespace TransactionImporter.BLL.IntergrationTests
             {
                 Assert.Fail("Customer or Transaction list is not 0 initially, but should be.");
             }
+
             string path =
                 @"C:\Users\Rubbertjuh\SynologyDrive\School\Semester-2\Individueel\VisualStudio\TransactionImporter\Files-Integration-Tests\integration.xlsx";
             importerExcel.UploadFile(path);
@@ -78,11 +108,11 @@ namespace TransactionImporter.BLL.IntergrationTests
             bool hasTransCustomerListCountIncreased = false;
             if (transList.Count > 0 && customerList.Count > 0)
             {
-                hasTransCustomerListCountIncreased = true;;
+                hasTransCustomerListCountIncreased = true;
+                ;
             }
-                Assert.IsTrue(hasTransCustomerListCountIncreased);
-                
 
+            Assert.IsTrue(hasTransCustomerListCountIncreased);
         }
     }
 }

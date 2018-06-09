@@ -17,7 +17,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TransactionImporter.BLL.Int
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TransactionImporter.WebUI", "TransactionImporter.WebUI\TransactionImporter.WebUI.csproj", "{D4DE9569-1FFC-4506-9147-C83540E62C45}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TransactionImporter.BLL.IntergrationTests", "TransactionImporter.BLL.IntergrationTests\TransactionImporter.BLL.IntergrationTests.csproj", "{49928C08-BABA-42B7-B820-ADDD0B0C8A65}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TransactionImporter.BLL.Tests", "TransactionImporter.BLL.IntergrationTests\TransactionImporter.BLL.Tests.csproj", "{49928C08-BABA-42B7-B820-ADDD0B0C8A65}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

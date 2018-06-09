@@ -18,9 +18,12 @@ namespace TransactionImporter.BLL
         public static string randomFileName { get; private set; }
 
 
-        public ExporterLogic() {}
+        public ExporterLogic()
+        {
+        }
 
-        public void DownloadTransactions(List<CustomerInfo> customerList,List<Transaction> transactionList, string path)
+        public void DownloadTransactions(List<CustomerInfo> customerList, List<Transaction> transactionList,
+            string path)
         {
             Application xlApp = new Application();
             randomFileName = Guid.NewGuid().ToString().Replace("-", "");
