@@ -30,24 +30,4 @@
             }
         </p>
     </div>
-    <div class="col-md-6">
-        <h4>Total Transactions Per Country:</h4>
-        <p>
-            @{
-                foreach (var item in Model)
-                {
-                    <tr>
-                        <td>
-                            <b> @Html.DisplayFor(modelItem => item.Country):</b>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <i>@Html.DisplayFor(modelItem => item.TransactionsCountry)</i><br />
-                        </td>
-                    </tr>
-                }
-            }
-        </p>
-    </div>
 </div>

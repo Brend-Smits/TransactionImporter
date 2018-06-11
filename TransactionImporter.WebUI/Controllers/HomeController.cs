@@ -22,7 +22,7 @@ namespace TransactionImporter.WebUI.Controllers
                 HomeModels model = new HomeModels(item.Key, item.Value);
                 models.Add(model);
             }
-            return View();
+            return View(models);
         }
 
     }

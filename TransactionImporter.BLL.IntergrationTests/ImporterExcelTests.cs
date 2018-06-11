@@ -105,12 +105,7 @@ namespace TransactionImporter.BLL.Tests
             importerExcel.RetrieveData();
             List<Transaction> transList = importerExcel.GetTransactions();
             List<CustomerInfo> customerList = importerExcel.GetCustomerInfo();
-            bool hasTransCustomerListCountIncreased = false;
-            if (transList.Count > 0 && customerList.Count > 0)
-            {
-                hasTransCustomerListCountIncreased = true;
-                ;
-            }
+            bool hasTransCustomerListCountIncreased = transList.Count > 0 && customerList.Count > 0;
 
             Assert.IsTrue(hasTransCustomerListCountIncreased);
         }
