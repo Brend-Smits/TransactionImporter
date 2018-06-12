@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2036
+VisualStudioVersion = 15.0.26430.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TransactionImporter.Domain", "TransactionImpoter.Domain\TransactionImporter.Domain.csproj", "{E58E1A50-B7F9-4DEE-A662-3EC36AB5113A}"
 EndProject
@@ -18,6 +18,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TransactionImporter.WebUI", "TransactionImporter.WebUI\TransactionImporter.WebUI.csproj", "{D4DE9569-1FFC-4506-9147-C83540E62C45}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TransactionImporter.BLL.Tests", "TransactionImporter.BLL.IntergrationTests\TransactionImporter.BLL.Tests.csproj", "{49928C08-BABA-42B7-B820-ADDD0B0C8A65}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TransactionImporter.WebUI.Themed", "TransactionImporter.WebUi.Themed\TransactionImporter.WebUI.Themed.csproj", "{A520B863-A9ED-4CFF-ACD9-EC3ADE58B8AD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +59,10 @@ Global
 		{49928C08-BABA-42B7-B820-ADDD0B0C8A65}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{49928C08-BABA-42B7-B820-ADDD0B0C8A65}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{49928C08-BABA-42B7-B820-ADDD0B0C8A65}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A520B863-A9ED-4CFF-ACD9-EC3ADE58B8AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A520B863-A9ED-4CFF-ACD9-EC3ADE58B8AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A520B863-A9ED-4CFF-ACD9-EC3ADE58B8AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A520B863-A9ED-4CFF-ACD9-EC3ADE58B8AD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
