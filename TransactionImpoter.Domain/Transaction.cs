@@ -6,7 +6,7 @@ namespace TransactionImpoter.Domain
     public class Transaction
     {
         public string TransactionId { get; private set; }
-        public double Amount { get; private set; }
+        public double Price { get; private set; }
         public string Gateway { get; private set; }
         public string Status { get; private set; }
         public DateTime Date { get; private set; }
@@ -19,10 +19,10 @@ namespace TransactionImpoter.Domain
         public List<Product> Products = new List<Product>();
 
 
-        public Transaction(string transactionId, string gateway, double amount, string status, string country, string ip, string username, string uuid)
+        public Transaction(string transactionId, string gateway, double price, string status, string country, string ip, string username, string uuid)
         {
             TransactionId = transactionId;
-            Amount = amount;
+            Price = price;
             Gateway = gateway;
             Status = status;
             Country = country;
@@ -40,7 +40,7 @@ namespace TransactionImpoter.Domain
             List<string> result = new List<string>
             {
                 TransactionId,
-                Amount.ToString(),
+                Price.ToString(),
                 Gateway,
                 Status,
                 Country,

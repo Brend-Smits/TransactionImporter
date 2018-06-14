@@ -17,7 +17,7 @@ namespace TransactionImporter.DAL
                 using (SqlConnection connection = Database.GetConnectionString())
                 {
                     string query =
-                        "SELECT TransactionUpload.TransactionId, TransactionUpload.UploadId, [Transaction].Amount, [Transaction].Country, [Transaction].CustomerInfoUUID, [Transaction].Date, [Transaction].Discount, [Transaction].Gateway, [Transaction].IP, [Transaction].Status, [Transaction].Username FROM [TransactionUpload] INNER JOIN [Transaction] ON [Transaction].TransactionId = TransactionUpload.TransactionId WHERE UploadId = @UploadId";
+                        "SELECT TransactionUpload.TransactionId, TransactionUpload.UploadId, [Transaction].Price, [Transaction].Country, [Transaction].CustomerInfoUUID, [Transaction].Date, [Transaction].Discount, [Transaction].Gateway, [Transaction].IP, [Transaction].Status, [Transaction].Username FROM [TransactionUpload] INNER JOIN [Transaction] ON [Transaction].TransactionId = TransactionUpload.TransactionId WHERE UploadId = @UploadId";
 
                     connection.Open();
                     SqlCommand selectTransactions = new SqlCommand(query, connection);
@@ -67,7 +67,7 @@ namespace TransactionImporter.DAL
                     string query =
                         "SELECT TransactionUpload.TransactionId, " +
                         "TransactionUpload.UploadId, " +
-                        "[Transaction].Amount, " +
+                        "[Transaction].Price, " +
                         "[Transaction].Country, " +
                         "[Transaction].CustomerInfoUUID, " +
                         "[Transaction].Date, " +

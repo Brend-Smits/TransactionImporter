@@ -17,7 +17,6 @@ namespace TransactionImporter.BLL
         private string filePath;
         private Workbook xlWorkbook;
         private Worksheet xlWorksheet;
-        private Workbook wb;
 
         public string UploadFile(string path)
         {
@@ -40,10 +39,16 @@ namespace TransactionImporter.BLL
 
         public string ChangeFileExtension(string path, string extReplaceMe, string extReplaceWith)
         {
+            Application xlApp = new Application();
+            xlWorkbook = xlApp.Workbooks.Open(path);
             string tempFilePath = Regex.Replace(path, extReplaceMe, extReplaceWith, RegexOptions.IgnoreCase);
-            wb.SaveAs(tempFilePath, XlFileFormat.xlOpenXMLWorkbook, Type.Missing, Type.Missing, Type.Missing,
+            xlWorkbook.SaveAs(tempFilePath, XlFileFormat.xlOpenXMLWorkbook, Type.Missing, Type.Missing, Type.Missing,
                 Type.Missing, XlSaveAsAccessMode.xlExclusive, Type.Missing, Type.Missing, Type.Missing,
                 Type.Missing, Type.Missing);
+            xlWorkbook.Close(0, Type.Missing, Type.Missing);
+            xlWorkbook = null;
+            xlApp.Quit();
+            xlApp = null;
             return tempFilePath;
         }
 
@@ -53,13 +58,9 @@ namespace TransactionImporter.BLL
             {
                 if (Path.GetExtension(path) == ".CSV" || Path.GetExtension(path) == ".csv")
                 {
-                    Application xlApp = new Application();
-                    wb = xlApp.Workbooks.Open(path);
                     string tempFilePath = ChangeFileExtension(path, ".CSV", ".xlsx");
                     Console.WriteLine("Extension was" + path + " and is now: " + tempFilePath);
                     File.Delete(path);
-                    wb.Close(0);
-                    xlApp.Quit();
                     return tempFilePath;
                 }
             }

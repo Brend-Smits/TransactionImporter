@@ -53,7 +53,7 @@ namespace TransactionImporter.BLL
             List<string> headers = new List<string>
             {
                 "Transaction ID",
-                "Amount",
+                "Price",
                 "Gateway",
                 "Status",
                 "Country",

@@ -54,7 +54,7 @@ namespace TransactionImporter.DAL
                     string query =
                         "SELECT TransactionUpload.TransactionId, " +
                         "TransactionUpload.UploadId, " +
-                        "[Transaction].Amount, " +
+                        "[Transaction].Price, " +
                         "[Transaction].Country, " +
                         "[Transaction].CustomerInfoUUID, " +
                         "[Transaction].Date, " +

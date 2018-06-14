@@ -20,7 +20,7 @@ namespace TransactionImporter.DAL
                     Transaction trans = new Transaction(
                         (dataRow["TransactionId"].ToString() != "") ? dataRow["TransactionId"].ToString() : "-",
                         (dataRow["Gateway"].ToString() != "") ? dataRow["Gateway"].ToString() : "-",
-                        Convert.ToDouble((dataRow["Amount"] != DBNull.Value) ? dataRow["Amount"] : 0),
+                        Convert.ToDouble((dataRow["Price"] != DBNull.Value) ? dataRow["Price"] : 0),
                         (dataRow["Status"].ToString() != "") ? dataRow["Status"].ToString() : "-",
                         (dataRow["Country"].ToString() != "") ? dataRow["Country"].ToString() : "-",
                         (dataRow["Ip"].ToString() != "") ? dataRow["Ip"].ToString() : "-",
