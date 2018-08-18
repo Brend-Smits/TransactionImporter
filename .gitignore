@@ -264,3 +264,6 @@ __pycache__/
 *.xlsx
 *.csv
 *.pubxml
+
+#Credentials SQL
+ConnectionBuilder.cs
