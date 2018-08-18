@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using TransactionImporter.BLL.Interfaces;
@@ -28,6 +29,7 @@ namespace TransactionImporter.BLL
                 xlWorkbook = xlApp.Workbooks.Open(filePath, 0, true, 5, "", "", true,
                     XlPlatform.xlWindows, "\t", false, false, 0, true, 1, 0);
                 xlWorksheet = xlWorkbook.Worksheets.Item[1] as Worksheet;
+                CleanUpExcelProcesses();
                 return filePath;
             }
             catch (Exception exception)
@@ -173,12 +175,14 @@ namespace TransactionImporter.BLL
             return filePath;
         }
 
-        public void ExitExcelProcesses()
+        public void CleanUpExcelProcesses()
         {
+
+
             Process[] excelProcesses = Process.GetProcessesByName("Excel");
             foreach (var process in excelProcesses)
             {
-                process.Close();
+                process.Kill();
             }
         }
     }
