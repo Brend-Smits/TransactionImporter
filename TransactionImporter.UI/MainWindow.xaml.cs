@@ -33,6 +33,7 @@ namespace TransactionImporter.UI
             {
                 string filePath = fileDialog.FileName;
                 fileDialog.OpenFile();
+                fileDialog.Dispose();
                 string newPath = importerLogic.UploadFile(filePath);
                 uploadDetailLogic.UploadDetails(uploadDetailLogic.GetUploadDetails(newPath), newPath);
             }
