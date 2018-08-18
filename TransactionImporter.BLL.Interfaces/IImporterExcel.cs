@@ -10,7 +10,6 @@ namespace TransactionImporter.BLL.Interfaces
         void RetrieveData();
         List<Transaction> GetTransactions();
         List<CustomerInfo> GetCustomerInfo();
-        string GetPath();
 
     }
 }

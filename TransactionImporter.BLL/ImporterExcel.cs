@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Windows.Forms;
 using TransactionImporter.BLL.Interfaces;
 using TransactionImpoter.Domain;
@@ -18,6 +20,7 @@ namespace TransactionImporter.BLL
         private string filePath;
         private Workbook xlWorkbook;
         private Worksheet xlWorksheet;
+        private Application xlAppMaster;
 
         public string UploadFile(string path)
         {
@@ -25,10 +28,14 @@ namespace TransactionImporter.BLL
             {
                 Application xlApp = new Application();
                 filePath = ConvertFileIfNeeded(xlApp, path);
-                xlWorkbook = xlApp.Workbooks.Open(filePath, 0, true, 5, "", "", true,
+                xlAppMaster = new Application();
+                Workbooks xlWorkbook2 = xlAppMaster.Workbooks;
+                xlWorkbook = xlWorkbook2.Open(filePath, 0, true, 5, "", "", true,
                     XlPlatform.xlWindows, "\t", false, false, 0, true, 1, 0);
                 xlWorksheet = xlWorkbook.Worksheets.Item[1] as Worksheet;
-                File.Delete(path);
+                xlWorkbook.Close(0);
+                xlAppMaster.Quit();
+                CleanUpExcelProcesses(xlAppMaster);
                 return filePath;
             }
             catch (Exception exception)
@@ -39,6 +46,39 @@ namespace TransactionImporter.BLL
             return path;
         }
 
+        public static void GC()
+        {
+            System.GC.Collect();
+            System.GC.WaitForPendingFinalizers();
+        }
+
+        public string ConvertFileIfNeeded(Application xlApp, string path)
+        {
+            try
+            {
+                if (File.Exists(path))
+                {
+                    if (Path.GetExtension(path) == ".CSV" || Path.GetExtension(path) == ".csv")
+                    {
+                        string tempFilePath = ChangeFileExtension(xlApp, path, ".CSV", ".xlsx");
+                        Console.WriteLine("Extension was" + path + " and is now: " + tempFilePath);
+                        return tempFilePath;
+                    }
+                }
+                else
+                {
+                    throw new FileNotFoundException("File in specified path can not be found, try a different path.");
+                }
+
+                Console.WriteLine("Conversion was not possible, file is not CSV extension or is already XLSX");
+                return path;
+            }
+            finally
+            {
+                xlApp = null;
+            }
+        }
+
         public string ChangeFileExtension(Application xlApp, string path, string extReplaceMe, string extReplaceWith)
         {
             xlWorkbook = xlApp.Workbooks.Open(path);
@@ -46,30 +86,10 @@ namespace TransactionImporter.BLL
             xlWorkbook.SaveAs(tempFilePath, XlFileFormat.xlOpenXMLWorkbook, Type.Missing, Type.Missing, Type.Missing,
                 Type.Missing, XlSaveAsAccessMode.xlExclusive, Type.Missing, Type.Missing, Type.Missing,
                 Type.Missing, Type.Missing);
-            xlWorkbook.Close(0);
+            xlWorkbook.Close(1);
+            CleanUpExcelProcesses(xlApp);
+
             return tempFilePath;
-        }
-
-        public string ConvertFileIfNeeded(Application xlApp, string path)
-        {
-            if (File.Exists(path))
-            {
-                if (Path.GetExtension(path) == ".CSV" || Path.GetExtension(path) == ".csv")
-                {
-                    string tempFilePath = ChangeFileExtension(xlApp, path, ".CSV", ".xlsx");
-                    Console.WriteLine("Extension was" + path + " and is now: " + tempFilePath);
-                    File.Delete(path);
-                    xlApp.Quit();
-                    return tempFilePath;
-                }
-            }
-            else
-            {
-                throw new FileNotFoundException("File in specified path can not be found, try a different path.");
-            }
-
-            Console.WriteLine("Conversion was not possible, file is not CSV extension or is already XLSX");
-            return path;
         }
 
         public void RetrieveData()
@@ -175,13 +195,29 @@ namespace TransactionImporter.BLL
             return filePath;
         }
 
-        public void ExitExcelProcesses()
+        public void CleanUpExcelProcesses(Application xlApp)
         {
+            if (xlApp != null)
+            {
+                int excelProcessId = -1;
+                GetWindowThreadProcessId(new IntPtr(xlApp.Hwnd), ref excelProcessId);
+
+                Process ExcelProc = Process.GetProcessById(excelProcessId);
+                if (ExcelProc != null)
+                {
+                    ExcelProc.Kill();
+                }
+            }
+
             Process[] excelProcesses = Process.GetProcessesByName("Excel");
             foreach (var process in excelProcesses)
             {
-                process.Close();
+                process.Kill();
             }
         }
+
+
+        [DllImport("user32.dll", SetLastError = true)]
+        private static extern int GetWindowThreadProcessId(IntPtr hwnd, ref int lpdwProcessId);
     }
 }
