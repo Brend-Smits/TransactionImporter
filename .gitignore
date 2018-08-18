@@ -265,5 +265,5 @@ __pycache__/
 *.csv
 *.pubxml
 
-#Credentials SQL
-ConnectionBuilder.cs
+#Credentials
+*/ConnectionBuilder.cs
