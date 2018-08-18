@@ -18,7 +18,7 @@ namespace TransactionImporter.WebUI.Controllers
         private IStatusfilter statusFilter = FilterStatusFilter.CreateStatusFilter();
         private IGatewayFilter gatewayFilter = FilterGatewayFactory.CreateGatewayFilter();
         private IUserLogic userLogic = UserFactory.CreateLogic();
-        string serverPath = "C:\\Users\\Rubbertjuh\\Desktop\\TransImporter-Exports\\";
+        string serverPath = "C:\\Users\\Brend\\Desktop\\Transaction-Exports";
 
 
         // GET: Download

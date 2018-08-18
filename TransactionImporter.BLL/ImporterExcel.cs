@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
@@ -23,10 +24,11 @@ namespace TransactionImporter.BLL
             try
             {
                 Application xlApp = new Application();
-                filePath = ConvertFileIfNeeded(path);
+                filePath = ConvertFileIfNeeded(xlApp, path);
                 xlWorkbook = xlApp.Workbooks.Open(filePath, 0, true, 5, "", "", true,
                     XlPlatform.xlWindows, "\t", false, false, 0, true, 1, 0);
                 xlWorksheet = xlWorkbook.Worksheets.Item[1] as Worksheet;
+                File.Delete(path);
                 return filePath;
             }
             catch (Exception exception)
@@ -37,30 +39,27 @@ namespace TransactionImporter.BLL
             return path;
         }
 
-        public string ChangeFileExtension(string path, string extReplaceMe, string extReplaceWith)
+        public string ChangeFileExtension(Application xlApp, string path, string extReplaceMe, string extReplaceWith)
         {
-            Application xlApp = new Application();
             xlWorkbook = xlApp.Workbooks.Open(path);
             string tempFilePath = Regex.Replace(path, extReplaceMe, extReplaceWith, RegexOptions.IgnoreCase);
             xlWorkbook.SaveAs(tempFilePath, XlFileFormat.xlOpenXMLWorkbook, Type.Missing, Type.Missing, Type.Missing,
                 Type.Missing, XlSaveAsAccessMode.xlExclusive, Type.Missing, Type.Missing, Type.Missing,
                 Type.Missing, Type.Missing);
-            xlWorkbook.Close(0, Type.Missing, Type.Missing);
-            xlWorkbook = null;
-            xlApp.Quit();
-            xlApp = null;
+            xlWorkbook.Close(0);
             return tempFilePath;
         }
 
-        public string ConvertFileIfNeeded(string path)
+        public string ConvertFileIfNeeded(Application xlApp, string path)
         {
             if (File.Exists(path))
             {
                 if (Path.GetExtension(path) == ".CSV" || Path.GetExtension(path) == ".csv")
                 {
-                    string tempFilePath = ChangeFileExtension(path, ".CSV", ".xlsx");
+                    string tempFilePath = ChangeFileExtension(xlApp, path, ".CSV", ".xlsx");
                     Console.WriteLine("Extension was" + path + " and is now: " + tempFilePath);
                     File.Delete(path);
+                    xlApp.Quit();
                     return tempFilePath;
                 }
             }
@@ -174,6 +173,15 @@ namespace TransactionImporter.BLL
         public string GetPath()
         {
             return filePath;
+        }
+
+        public void ExitExcelProcesses()
+        {
+            Process[] excelProcesses = Process.GetProcessesByName("Excel");
+            foreach (var process in excelProcesses)
+            {
+                process.Close();
+            }
         }
     }
 }
