@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Windows.Forms;
 using TransactionImporter.BLL.Interfaces;
 using TransactionImpoter.Domain;
@@ -71,7 +72,8 @@ namespace TransactionImporter.BLL
         {
             if (filePath != null)
             {
-                ReadExcelAndFillList();
+                DefineThreads();
+//                ReadExcelAndFillList();
             }
             else
             {
@@ -79,13 +81,74 @@ namespace TransactionImporter.BLL
             }
         }
 
-        private void ReadExcelAndFillList()
+        private void DefineThreads()
         {
             Range usedRange = xlWorksheet.UsedRange;
-            for (int row = 2; row <= usedRange.Rows.Count; row++)
+            int maxRowCount = usedRange.Rows.Count;
+            int rowsLeft = maxRowCount;
+            int maxThreadRowCount = 0;
+            //We want to keep the retrieve data time below 30 seconds.
+            int maxThreadCount = (int) Math.Ceiling(maxRowCount / 60.00);
+            Console.WriteLine("Max thread count should be: " + maxThreadCount);
+            for (int i = 0; i < maxThreadCount; i++)
             {
-                customers.Add(CreateCustomerInfoObject(usedRange, row));
-                transactions.Add(CreateTransactionObject(usedRange, row));
+                Thread.Sleep(1000);
+                if (rowsLeft == maxRowCount)
+                {
+                    maxThreadRowCount = maxRowCount;
+                }
+                else
+                {
+                    maxThreadRowCount -= 60;
+                }
+                if (rowsLeft > 60)
+                {
+                    rowsLeft -= 60;
+                    Thread dataThread = new Thread(delegate()
+                    {
+                        ReadExcelAndFillList(rowsLeft--, maxThreadRowCount);
+                    });
+                    dataThread.Name = "TI-Data-Retriever";
+                    dataThread.Start();
+                    if (dataThread.IsAlive)
+                    {
+                        Console.WriteLine("Starting new thread! - Case 1 - Name: " + dataThread.Name);              
+                    }
+                } else if (rowsLeft >= 2 && rowsLeft < 60)
+                {
+                    Thread dataThread = new Thread(delegate()
+                    {
+                        ReadExcelAndFillList(2, rowsLeft);
+                    });
+                    dataThread.Name = "TI-Data-Retriever";
+                    dataThread.Start();
+                    if (dataThread.IsAlive)
+                    {
+                        Console.WriteLine("Started new thread - Case 2 - Name: " + dataThread.Name);                      
+                    }
+                } else if (rowsLeft <= 2)
+                {
+                    Console.WriteLine("Reached end of file!");
+                }
+            }
+        }
+
+        private void ReadExcelAndFillList(int lowestRowNumber, int highestRowNumber)
+        {
+            try
+            {
+                Range usedRange = xlWorksheet.UsedRange;
+                for (int row = highestRowNumber; row >= lowestRowNumber; row--)
+                {
+                    Console.WriteLine(DateTime.Now + " Doing Row: " + row);
+                    customers.Add(CreateCustomerInfoObject(usedRange, row));
+                    transactions.Add(CreateTransactionObject(usedRange, row));
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
             }
         }
 

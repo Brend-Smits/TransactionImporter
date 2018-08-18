@@ -64,7 +64,7 @@ namespace TransactionImporter.DAL
                         insertTransaction.Parameters.AddWithValue("TransactionId", item.TransactionId);
                         insertTransaction.Parameters.AddWithValue("CustomerInfoUUID", item.Uuid);
                         insertTransaction.Parameters.AddWithValue("Gateway", item.Gateway);
-                        insertTransaction.Parameters.AddWithValue("Amount", item.Amount);
+                        insertTransaction.Parameters.AddWithValue("Price", item.Amount);
                         insertTransaction.Parameters.AddWithValue("Status", item.Status);
                         insertTransaction.Parameters.AddWithValue("Country", item.Country);
                         insertTransaction.Parameters.AddWithValue("Ip", item.Ip);

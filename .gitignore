@@ -263,3 +263,6 @@ __pycache__/
 #Excel and CSV
 *.xlsx
 *.csv
+
+#Credentials
+*/ConnectionBuilder.cs
