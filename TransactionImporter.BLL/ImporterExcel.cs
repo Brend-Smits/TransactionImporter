@@ -28,7 +28,6 @@ namespace TransactionImporter.BLL
                 xlWorkbook = xlApp.Workbooks.Open(filePath, 0, true, 5, "", "", true,
                     XlPlatform.xlWindows, "\t", false, false, 0, true, 1, 0);
                 xlWorksheet = xlWorkbook.Worksheets.Item[1] as Worksheet;
-                File.Delete(path);
                 return filePath;
             }
             catch (Exception exception)
@@ -58,7 +57,6 @@ namespace TransactionImporter.BLL
                 {
                     string tempFilePath = ChangeFileExtension(xlApp, path, ".CSV", ".xlsx");
                     Console.WriteLine("Extension was" + path + " and is now: " + tempFilePath);
-                    File.Delete(path);
                     xlApp.Quit();
                     return tempFilePath;
                 }
