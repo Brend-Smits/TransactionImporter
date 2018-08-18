@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Windows;
 using System.Windows.Forms;
 using TransactionImporter.BLL;
@@ -33,6 +34,7 @@ namespace TransactionImporter.UI
             {
                 string filePath = fileDialog.FileName;
                 fileDialog.OpenFile();
+                fileDialog.Dispose();
                 string newPath = importerLogic.UploadFile(filePath);
                 uploadDetailLogic.UploadDetails(uploadDetailLogic.GetUploadDetails(newPath), newPath);
             }

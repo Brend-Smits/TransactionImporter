@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Windows.Forms;
 using TransactionImporter.BLL.Interfaces;
 using TransactionImpoter.Domain;
@@ -40,17 +41,6 @@ namespace TransactionImporter.BLL
             return path;
         }
 
-        public string ChangeFileExtension(Application xlApp, string path, string extReplaceMe, string extReplaceWith)
-        {
-            xlWorkbook = xlApp.Workbooks.Open(path);
-            string tempFilePath = Regex.Replace(path, extReplaceMe, extReplaceWith, RegexOptions.IgnoreCase);
-            xlWorkbook.SaveAs(tempFilePath, XlFileFormat.xlOpenXMLWorkbook, Type.Missing, Type.Missing, Type.Missing,
-                Type.Missing, XlSaveAsAccessMode.xlExclusive, Type.Missing, Type.Missing, Type.Missing,
-                Type.Missing, Type.Missing);
-            xlWorkbook.Close(0);
-            return tempFilePath;
-        }
-
         public string ConvertFileIfNeeded(Application xlApp, string path)
         {
             if (File.Exists(path))
@@ -70,6 +60,17 @@ namespace TransactionImporter.BLL
 
             Console.WriteLine("Conversion was not possible, file is not CSV extension or is already XLSX");
             return path;
+        }
+
+        public string ChangeFileExtension(Application xlApp, string path, string extReplaceMe, string extReplaceWith)
+        {
+            xlWorkbook = xlApp.Workbooks.Open(path);
+            string tempFilePath = Regex.Replace(path, extReplaceMe, extReplaceWith, RegexOptions.IgnoreCase);
+            xlWorkbook.SaveAs(tempFilePath, XlFileFormat.xlOpenXMLWorkbook, Type.Missing, Type.Missing, Type.Missing,
+                Type.Missing, XlSaveAsAccessMode.xlExclusive, Type.Missing, Type.Missing, Type.Missing,
+                Type.Missing, Type.Missing);
+            xlWorkbook.Close(0);
+            return tempFilePath;
         }
 
         public void RetrieveData()
@@ -177,8 +178,6 @@ namespace TransactionImporter.BLL
 
         public void CleanUpExcelProcesses()
         {
-
-
             Process[] excelProcesses = Process.GetProcessesByName("Excel");
             foreach (var process in excelProcesses)
             {
