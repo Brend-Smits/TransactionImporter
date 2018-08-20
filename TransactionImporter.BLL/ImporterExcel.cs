@@ -64,6 +64,7 @@ namespace TransactionImporter.BLL
                     return tempFilePath;
                 }
             }
+
             Console.WriteLine("Conversion was not possible, file is not CSV extension or is already XLSX");
             return path;
         }
@@ -101,32 +102,29 @@ namespace TransactionImporter.BLL
                 {
                     maxThreadRowCount -= 60;
                 }
+
                 if (rowsLeft > 60)
                 {
                     rowsLeft -= 60;
-                    Thread dataThread = new Thread(delegate()
-                    {
-                        ReadExcelAndFillList(rowsLeft--, maxThreadRowCount);
-                    });
+                    Thread dataThread = new Thread(delegate() { ReadExcelAndFillList(rowsLeft--, maxThreadRowCount); });
                     dataThread.Name = "TI-Data-Retriever";
                     dataThread.Start();
                     if (dataThread.IsAlive)
                     {
-                        Console.WriteLine("Starting new thread! - Case 1 - Name: " + dataThread.Name);              
+                        Console.WriteLine("Starting new thread! - Case 1 - Name: " + dataThread.Name);
                     }
-                } else if (rowsLeft >= 2 && rowsLeft < 60)
+                }
+                else if (rowsLeft >= 2 && rowsLeft < 60)
                 {
-                    Thread dataThread = new Thread(delegate()
-                    {
-                        ReadExcelAndFillList(2, rowsLeft);
-                    });
+                    Thread dataThread = new Thread(delegate() { ReadExcelAndFillList(2, rowsLeft); });
                     dataThread.Name = "TI-Data-Retriever";
                     dataThread.Start();
                     if (dataThread.IsAlive)
                     {
-                        Console.WriteLine("Started new thread - Case 2 - Name: " + dataThread.Name);                      
+                        Console.WriteLine("Started new thread - Case 2 - Name: " + dataThread.Name);
                     }
-                } else if (rowsLeft <= 2)
+                }
+                else if (rowsLeft <= 2)
                 {
                     Console.WriteLine("Reached end of file!");
                 }
