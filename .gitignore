@@ -263,3 +263,4 @@ __pycache__/
 #Excel and CSV
 *.xlsx
 *.csv
+/TransactionImporter.DAL/ConnectionBuilder.cs
